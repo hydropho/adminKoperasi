@@ -30,16 +30,42 @@ class Auth extends CI_Controller {
 
         $user = $this->db->get_where('user', ['username' => $username])->row_array();
 
+        // CEK AKUN
         if ($user){
-            if (password_verify($password, $user['password'])){
-                if ($user['aktif'] == 1){
-                    $data = [
-                        'username' => $user['username'],
-                        'level' => $user['level']
-                    ];
 
-                    $this->session->set_userdata($data);
-                    redirect('user');
+            // CEK PASSWORD
+            if (password_verify($password, $user['password'])){
+
+                // CEK ADMIN
+                if ($user['level'] == 1){
+
+                    // CEK STATUS
+                    if ($user['aktif'] == 2){
+                        $data = [
+                            'username' => $user['username'],
+                            'level' => $user['level']
+                        ];
+    
+                        $this->session->set_userdata($data);
+                        redirect('user');
+                    } else if ($user['aktif'] == 1) {
+                        $data = [
+                            'username' => $user['username'],
+                            'level' => $user['level']
+                        ];
+                        
+                        $this->session->set_userdata($data);
+                        redirect('daftar/hold');
+                    } else {
+                        $data = [
+                            'username' => $user['username'],
+                            'level' => $user['level']
+                        ];
+                        
+                        $this->session->set_userdata($data);
+                        redirect('daftar');
+                    }
+
                 } else {
                     $data = [
                         'username' => $user['username'],
@@ -47,7 +73,7 @@ class Auth extends CI_Controller {
                     ];
                     
                     $this->session->set_userdata($data);
-                    redirect('daftar');
+                    redirect('admin');
                 }
             } else {
                     $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Login gagal! </strong>Password salah.</div>');

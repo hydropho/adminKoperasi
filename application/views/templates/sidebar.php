@@ -24,75 +24,71 @@
 						</div>
 					</li>
 
-                    <li><a href="widget-basic.html" class="ai-icon" aria-expanded="false">
-							<i class="flaticon-025-dashboard"></i>
-							<span class="nav-text">Dashboard</span>
+					<?php
+						$level = $this->session->userdata('level');
+						$queryMenu = "SELECT `user_menu`.`id`, `menu`, `icon`
+									FROM `user_menu` JOIN `user_access_menu`
+									ON `user_menu`.`id` = `user_access_menu`.`menu_id`
+									WHERE `user_access_menu`.`role_id` = $level
+									ORDER BY `user_access_menu`.`menu_id` ASC";
+
+						$menu = $this->db->query($queryMenu)->result_array();
+					?>
+
+					<?php foreach($menu as $m) :
+					
+					if ($m['menu'] == 'Dashboard') :?>
+						<li>
+							<?php if ($level == 2) : ?>
+							<a href="admin" class="ai-icon" aria-expanded="false">
+							<?php else : ?>
+							<a href="user" class="ai-icon" aria-expanded="false">
+							<?php endif; ?>
+								<i class="<?= $m['icon']?>"></i>
+								<span class="nav-text"><?= $m['menu']?></span>
+							</a>
+						</li>
+						
+					<?php elseif ($m['menu'] == 'Simulasi Pinjaman') : ?>
+						<li>
+							<a href="simulasi" class="ai-icon" aria-expanded="false">
+								<i class="<?= $m['icon']?>"></i>
+								<span class="nav-text"><?= $m['menu']?></span>
+							</a>
+						</li>
+					
+					<?php else : ?>
+					<li>
+						<a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+							<i class="<?= $m['icon']?>"></i>
+							<span class="nav-text"><?= $m['menu']?></span>
 						</a>
+						<ul aria-expanded="false">
+							<ul aria-expanded="false">
+					<?php
+						$menuId = $m['id'];
+						$querySubMenu = "SELECT * FROM `user_sub_menu`
+										WHERE `menu_id` = $menuId
+										ORDER BY `menu_id`		
+						";
+
+						$subMenu = $this->db->query($querySubMenu)->result_array();
+						foreach ($subMenu as $sm) :?>
+
+						
+									<li><a href="email-compose.html"><?= $sm['title']?></a></li>
+									<?php endforeach; ?>
+								</ul>
+							</li>
+						</ul>
 					</li>
-
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-086-star"></i>
-							<span class="nav-text">Laporan</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="ui-accordion.html">Bukti Bayar</a></li>
-                            <li><a href="ui-alert.html">Cetak Laporan</a></li>
-                        </ul>
-                    </li>
-
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-						<i class="flaticon-050-info"></i>
-							<span class="nav-text">User</span>
-						</a>
-                        <ul aria-expanded="false">
-                                <ul aria-expanded="false">
-                                    <li><a href="email-compose.html">Pengurus</a></li>
-                                    <li><a href="email-inbox.html">Anggota</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-041-graph"></i>
-							<span class="nav-text">Simpanan</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="chart-flot.html">Data Simpanan</a></li>
-                            <li><a href="chart-morris.html">Jenis Simpanan</a></li>
-                        </ul>
-                    </li>
-
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-086-star"></i>
-							<span class="nav-text">Pinjaman</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="ui-accordion.html">Tambah Pinjaman Baru</a></li>
-                            <li><a href="ui-alert.html">Data Pinjaman</a></li>
-                            <li><a href="ui-badge.html">Tagihan Pinjaman</a></li>
-                        </ul>
-                    </li>
-
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-045-heart"></i>
-							<span class="nav-text">SHU</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="uc-select2.html">Pembagian SHU</a></li>
-                        </ul>
-                    </li>
-
-                    <li><a href="widget-basic.html" class="ai-icon" aria-expanded="false">
-							<i class="flaticon-013-checkmark"></i>
-							<span class="nav-text">Simulasi Pinjaman</span>
-						</a>
-					</li>
+					<?php endif;?>
+					<?php endforeach; ?>
 
                 </ul>
 				<div class="copyright">
-					<p><strong>Kotree Admin Dashboard</strong> © 2022 All Rights Reserved</p>
-					<p class="fs-12">Made with <span class="heart"></span> by Kelompok 3</p>
+					<p><strong><?= $corp_name.' '.$status.' '.$sub_title?></strong> © 2022 All Rights Reserved</p>
+					<p class="fs-12">Made with <span class="heart"></span> <?= $kelompok?></p>
 				</div>
 			</div>
         </div>

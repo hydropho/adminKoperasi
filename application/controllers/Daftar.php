@@ -64,6 +64,17 @@ class Daftar extends CI_Controller {
             $this->db->where('username', $data['username']);
             $this->db->update('userdata', $data);
             
+            $user = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+            $data = [
+                'username' => $user['username'],
+                'password' => $user['password'],
+                'nama_lengkap' => $user['nama_lengkap'],
+                'level' => $user['level'],
+                'aktif' => '1'
+            ];
+            $this->db->where('username', $data['username']);
+            $this->db->update('user', $data);
+            
             $this->session->set_flashdata('alert_message', '<div class="alert alert-success alert-dismissible fade show"><strong>Berhasil melengkapi data! </strong>Admin akan memverifikasi akun anda.</div>');
             redirect('daftar/hold');
         }
