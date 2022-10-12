@@ -33,7 +33,7 @@ class Pengguna extends CI_Controller {
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
 
-        $queryUserdata = "SELECT `user`.`level`, `userdata`.*
+        $queryUserdata = "SELECT `level`, `aktif`, `userdata`.*
                             FROM `user` JOIN `userdata`
                             ON `user`.`username` = `userdata`.`username`";
         $data['queryUserdata'] = $this->db->query($queryUserdata)->result_array();
@@ -114,12 +114,54 @@ class Pengguna extends CI_Controller {
         }
     }
 
-    public function hapus ($username){
+    public function hapus($username){
         $user = $this->db->get_where('user', ['username' => $username])->row_array();
         $this->db->delete('user', ['username' => $username]);
         $this->db->delete('userdata', ['username' => $username]);
 
         $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Berhasil! </strong>Data dihapus.</div>');
+        
+        if ($user['level'] == 2) {
+            redirect('pengguna');
+        } else {
+            redirect('pengguna/anggota');
+        }
+    }
+    
+    public function aktif($username){
+        $user = $this->db->get_where('user', ['username' => $username])->row_array();
+        $data = [
+            'username'      => $user['username'],
+            'password'      => $user['password'],
+            'nama_lengkap'  => $user['nama_lengkap'],
+            'level'         => $user['level'],
+            'aktif'         => '2'
+        ];
+        $this->db->where('username', $username);
+        $this->db->update('user', $data);
+    
+        $this->session->set_flashdata('alert_message', '<div class="alert alert-success alert-dismissible fade show"><strong>Selamat! </strong>Anda berhasil mengaktifkan user.</div>');
+        
+        if ($user['level'] == 2) {
+            redirect('pengguna');
+        } else {
+            redirect('pengguna/anggota');
+        }
+    }
+    
+    public function nonaktif($username){
+        $user = $this->db->get_where('user', ['username' => $username])->row_array();
+        $data = [
+            'username'      => $user['username'],
+            'password'      => $user['password'],
+            'nama_lengkap'  => $user['nama_lengkap'],
+            'level'         => $user['level'],
+            'aktif'         => '1'
+        ];
+        $this->db->where('username', $username);
+        $this->db->update('user', $data);
+    
+        $this->session->set_flashdata('alert_message', '<div class="alert alert-success alert-dismissible fade show"><strong>Selamat! </strong>Anda berhasil menonaktifkan user.</div>');
         
         if ($user['level'] == 2) {
             redirect('pengguna');
