@@ -57,9 +57,23 @@
 							</a>
 						</li>
 					
-					<?php else : ?>
+					<?php elseif ($m['menu'] == 'SHU') : ?>
+						<li>
+							<a href="<?= base_url('shu')?>" class="ai-icon" aria-expanded="false">
+								<i class="<?= $m['icon']?>"></i>
+								<span class="nav-text"><?= $m['menu']?></span>
+							</a>
+						</li>
+					
+					<?php else : 
+						if ($title == $m['menu']) :
+					?>
+					<li class="mm-active">
+						<a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="true">
+						<?php else : ?>
 					<li>
 						<a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+						<?php endif; ?>
 							<i class="<?= $m['icon']?>"></i>
 							<span class="nav-text"><?= $m['menu']?></span>
 						</a>
