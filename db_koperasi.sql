@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2022 at 03:49 AM
+-- Generation Time: Oct 12, 2022 at 04:27 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -187,9 +187,8 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`) VALUES
 (6, 3, 'Tagihan Pinjaman', 'pinjaman/tagihan'),
 (7, 4, 'Data Simpanan', 'simpanan/data'),
 (8, 4, 'Jenis Simpanan', 'simpanan/jenis'),
-(9, 5, 'SHU', 'shu'),
-(10, 6, 'Laporan', 'laporan'),
-(11, 6, 'Bukti Bayar', 'laporan/bukti');
+(9, 6, 'Laporan', 'laporan'),
+(10, 6, 'Bukti Bayar', 'laporan/bukti');
 
 --
 -- Indexes for dumped tables
