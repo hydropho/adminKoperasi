@@ -37,9 +37,14 @@
                                         </thead>
                                         <tbody>
                                         <?php 
-                                            $userdata = $this->db->get('userdata')->result_array();
+                                            $level = $this->session->userdata('level');
+                                            $queryUserdata = "SELECT `user`.`level`, `userdata`.*
+                                                        FROM `user` JOIN `userdata`
+                                                        ON `user`.`username` = `userdata`.`username`";
+                                            $userdata = $this->db->query($queryUserdata)->result_array();
 
                                             foreach ($userdata as $ud) :
+                                                if ($ud['level'] == 1) : 
                                         ?>
                                             <tr>
                                                 
@@ -58,7 +63,8 @@
 													</div>												
 												</td>												
                                             </tr>
-                                        <?php endforeach; ?>
+                                        <?php endif;
+                                            endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
