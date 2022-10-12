@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2022 at 05:40 PM
+-- Generation Time: Oct 12, 2022 at 03:49 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -76,7 +76,8 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`username`, `password`, `nama_lengkap`, `level`, `aktif`) VALUES
 ('admin', '$2y$10$Dv.ntxdlWFkwI3rANQ.JX.c25wtCAtCRNp8VfQsAyHHyVfq.cHfFK', 'Aswin Khairu Adnan', 2, 1),
 ('ghani', '$2y$10$K0Y85mZh7bEGzPANFeBqDOQmj7b1EYn5/oZxk/QiUa2VCTJKY7JTi', 'Fatha Ghani', 1, 2),
-('adam', '$2y$10$2jEU8NStfBNU55FktJXImO0t5tnzFeTK1UajmzGzKIxofVOcGoyK2', 'Adam Musyafa', 1, 1);
+('adam', '$2y$10$2jEU8NStfBNU55FktJXImO0t5tnzFeTK1UajmzGzKIxofVOcGoyK2', 'Adam Musyafa', 1, 1),
+('bagas', '$2y$10$ef7ha4E4erGaR.6C7Q3Pgun9IosijWSMdyJWmn5PS63JVScNutYFK', 'Bagas', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -100,9 +101,10 @@ CREATE TABLE `userdata` (
 --
 
 INSERT INTO `userdata` (`username`, `nama_lengkap`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `no_hp`, `profil`) VALUES
-('admin', 'Aswin Khairu Adnan', 'Bogor', '2004-05-16', 'Laki - Laki', 'JL. BENGKALIS NO.411 RT.11/07CILUAR', '083147797580', 'default.jpg'),
+('admin', 'Aswin Khairu Adnan', 'Bogor', '2004-05-16', 'Laki - Laki', 'Bogor', '083147797580', 'default.jpg'),
 ('ghani', 'Fatha Ghani', 'Bogor', '2004-09-24', 'Laki - Laki', 'Bogor', '081212121212', 'default.jpg'),
-('adam', 'Adam Musyafa', 'Tangerang', '2004-06-28', 'Laki - Laki', 'Tangerang', '081223232323', 'default.jpg');
+('adam', 'Adam Musyafa', 'Tangerang', '2004-06-28', 'Laki - Laki', 'Tangerang', '081223232323', 'default.jpg'),
+('bagas', 'Bagas', 'tangerang', '2022-10-12', 'Perempuan', 'Tangerang', '088888888888', 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -178,16 +180,16 @@ CREATE TABLE `user_sub_menu` (
 
 INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`) VALUES
 (1, 1, 'Dashboard', 'admin'),
-(2, 2, 'Pengurus', 'user'),
-(3, 2, 'Anggota', ''),
-(4, 3, 'Tambah Pinjaman Baru', ''),
-(5, 3, 'Data Pinjaman', ''),
-(6, 3, 'Tagihan Pinjaman', ''),
-(7, 4, 'Data Simpanan', ''),
-(8, 4, 'Jenis Simpanan', ''),
-(9, 5, 'SHU', ''),
-(10, 6, 'Bukti Bayar', ''),
-(11, 6, 'Laporan', '');
+(2, 2, 'Pengurus', 'pengguna'),
+(3, 2, 'Anggota', 'pengguna/anggota'),
+(4, 3, 'Tambah Pinjaman Baru', 'pinjaman/baru'),
+(5, 3, 'Data Pinjaman', 'pinjaman/data'),
+(6, 3, 'Tagihan Pinjaman', 'pinjaman/tagihan'),
+(7, 4, 'Data Simpanan', 'simpanan/data'),
+(8, 4, 'Jenis Simpanan', 'simpanan/jenis'),
+(9, 5, 'SHU', 'shu'),
+(10, 6, 'Laporan', 'laporan'),
+(11, 6, 'Bukti Bayar', 'laporan/bukti');
 
 --
 -- Indexes for dumped tables
