@@ -19,7 +19,7 @@
                             <div class="col-xl-6 col-lg-12">
                             	<div class="card-body">
                                 <div class="basic-form">
-                                    <form action="<?= base_url('daftar/register')?>" method="POST">
+                                    <form action="<?= base_url('pengguna/edit')?>" method="POST">
                                         <?= $this->session->flashdata('alert_message')?>
 										<div class="mb-3 row">
                                             <label class="col-sm-3 col-form-label">Username</label>
@@ -65,9 +65,13 @@
 											<div class="col-sm-9">
 
 												<select class="default-select form-control wide" name="jenis_kelamin" id="jenis_kelamin" value="<?= $userdata['jenis_kelamin'];?>">
-                                                    <option data-display="Pilih">Pilih</option>
-													<option value="Laki - Laki">Laki - Laki</option>
+                                                <?php if ($userdata['jenis_kelamin'] == 'Laki - Laki') :?>
+                                                    <option data-display="<?= $userdata['jenis_kelamin']?>">Laki - Laki</option>
 													<option value="Perempuan">Perempuan</option>
+                                                <?php else : ?>
+                                                    <option data-display="<?= $userdata['jenis_kelamin']?>">Perempuan</option>
+													<option value="Laki - Laki">Laki - Laki</option>
+                                                <?php endif; ?>
 												</select>
                                                 <?php if (form_error('jenis_kelamin')) : ?>
                                                     <?= form_error('jenis_kelamin', '<div class="invalid-feedback-active">', '</div>')?>
@@ -77,11 +81,7 @@
 										<div class="mb-3 row">
 											<label class="col-sm-3 col-form-label">Alamat</label>
 											<div class="col-sm-9">
-                                                <?php if (set_value('alamat')) : ?>
 											        <input type="text" class="form-control" placeholder="Alamat" name="alamat" id="alamat" value="<?= $userdata['alamat'];?>">
-                                                <?php else :?>
-                                                    <input type="text" class="form-control" placeholder="Alamat" name="alamat" id="alamat">
-                                                <?php endif; ?>
 
                                                 <?php if (form_error('alamat')) : ?>
                                                     <?= form_error('alamat', '<div class="invalid-feedback-active">', '</div>')?>
@@ -91,17 +91,18 @@
 										<div class="mb-3 row">
 											<label class="col-sm-3 col-form-label">No HP</label>
 											<div class="col-sm-9">
-                                                <?php if (set_value('no_hp')) : ?>
 												    <input type="number" class="form-control" placeholder="No HP" name="no_hp" id="no_hp" value="<?= $userdata['no_hp'];?>">
-                                                <?php else :?>
-                                                    <input type="number" class="form-control" placeholder="No HP" name="no_hp" id="no_hp">
-                                                <?php endif; ?>
                                                 
                                                 <?php if (form_error('no_hp')) : ?>
                                                     <?= form_error('no_hp', '<div class="invalid-feedback-active">', '</div>')?>
                                                 <?php endif; ?>
 											</div>
 										</div>
+                                        <div class="mb-3 row">
+                                            <div class="col-sm-10">
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

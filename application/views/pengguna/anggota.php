@@ -20,6 +20,7 @@
                                 <h4 class="card-title"><?= $sub_title;?></h4>
                             </div>
                             <div class="card-body">
+                            <?= $this->session->flashdata('alert_message')?>
                                 <div class="table-responsive">
                                     <table id="example3" class="display" style="min-width: 845px">
                                         <thead>
@@ -37,13 +38,8 @@
                                         </thead>
                                         <tbody>
                                         <?php 
-                                            $level = $this->session->userdata('level');
-                                            $queryUserdata = "SELECT `user`.`level`, `userdata`.*
-                                                        FROM `user` JOIN `userdata`
-                                                        ON `user`.`username` = `userdata`.`username`";
-                                            $userdata = $this->db->query($queryUserdata)->result_array();
 
-                                            foreach ($userdata as $ud) :
+                                            foreach ($queryUserdata as $ud) :
                                                 if ($ud['level'] == 1) : 
                                         ?>
                                             <tr>
@@ -58,8 +54,8 @@
                                                 <td><?= $ud['no_hp']?></td>
                                                 <td>
 													<div class="d-flex">
-														<a href="<?= base_url('pengguna/edit_form'); ?>" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
-														<a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+														<a href="<?= base_url('pengguna/edit_form/'.$ud['username']); ?>" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+														<a href="<?= base_url('pengguna/hapus/'.$ud['username']); ?>" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
 													</div>												
 												</td>												
                                             </tr>
