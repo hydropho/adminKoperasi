@@ -127,7 +127,6 @@ class App_Model extends CI_Model
 			header('location:' . base_url() . 'index.php/login');
 		}
 	}
-
-	
+}
 /* End of file app_model.php */
 /* Location: ./application/models/app_model.php */
