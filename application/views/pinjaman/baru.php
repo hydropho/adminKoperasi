@@ -18,34 +18,46 @@
                     </div>
                     <div class="card-body">
                         <div class="basic-form">
-                            <form>
+                            <form action="<?= base_url('pinjaman/tambah') ?>" method="POST">
+                                <?= $this->session->flashdata('alert_message') ?>
                                 <div class="row">
                                     <div class="mb-3">
                                         <label class="form-label">Tanggal</label>
-
-                                        <input type="date" class="form-control" placeholder="1234 Main St" value="<?= $tanggal->format('Y-m-d') ?>" readonly>
+                                        <input type="date" class="form-control" value="<?= $tanggal->format('Y-m-d') ?>"
+                                            readonly name="tgl_pinjaman">
                                     </div>
-                                    <div class="row">
-                                        <div class="mb-3">
-                                            <label class="form-label">Username</label>
-                                            <input type="text" class="form-control" value="<?= $user['username'] ?>" readonly>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Jumlah</label>
-                                            <input type="text" class="form-control" placeholder="Rp">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Bunga</label>
-                                            <input type="text" class="form-control" placeholder="%">
-                                        </div>
+                                    <input type="text" class="form-control" value="<?= $user['username'] ?>" readonly
+                                        name="username" hidden>
+                                    <div class="mb-3">
+                                        <label class="form-label">Jumlah</label>
+                                        <?php if (set_value('pinjaman_pokok')) : ?>
+                                        <input type="number" class="form-control" placeholder="Rp" name="pinjaman_pokok"
+                                            value="<?= set_value('pinjaman_pokok') ?>">
+                                        <?php else : ?>
+                                        <input type="number" class="form-control" placeholder="Rp"
+                                            name="pinjaman_pokok">
+                                        <?php endif; ?>
+                                        <?php if (form_error('pinjaman_pokok')) : ?>
+                                        <?= form_error('pinjaman_pokok', '<div class="invalid-feedback-active">', '</div>') ?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Bunga (%)</label>
+                                        <input type="number" class="form-control" placeholder="%" name="bunga" value="1"
+                                            readonly>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Jangka Waktu</label>
-                                        <input type="text" class="form-control" placeholder="Bulan">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Perbulan</label>
-                                        <input type="text" class="form-control" placeholder="Rp">
+                                        <?php if (set_value('jangka_waktu')) : ?>
+                                        <input type="number" class="form-control" placeholder="Bulan"
+                                            name="jangka_waktu" value="<?= set_value('jangka_waktu') ?>">
+                                        <?php else : ?>
+                                        <input type="number" class="form-control" placeholder="Bulan"
+                                            name="jangka_waktu">
+                                        <?php endif; ?>
+                                        <?php if (form_error('jangka_waktu')) : ?>
+                                        <?= form_error('jangka_waktu', '<div class="invalid-feedback-active">', '</div>') ?>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="toolbar toolbar-bottom" role="toolbar" style="text-align: right;">
                                         <button type="submit" class="btn btn-danger">Kembali</button>
