@@ -20,6 +20,7 @@
                                 <h4 class="card-title"><?= $sub_title;?></h4>
                             </div>
                             <div class="card-body">
+                            <?= $this->session->flashdata('alert_message')?>
                                 <div class="table-responsive">
                                     <table id="example3" class="display" style="min-width: 845px">
                                         <thead>
@@ -32,14 +33,15 @@
                                                 <th>Jenis kelamin</th>
                                                 <th>Alamat</th>
                                                 <th>No HP</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         <?php 
-                                            $userdata = $this->db->get('userdata')->result_array();
 
-                                            foreach ($userdata as $ud) :
+                                            foreach ($queryUserdata as $ud) :
+                                                if ($ud['level'] == 1) : 
                                         ?>
                                             <tr>
                                                 
@@ -52,16 +54,48 @@
                                                 <td><a href="javascript:void(0);"><?= $ud['alamat']?></a></td>
                                                 <td><?= $ud['no_hp']?></td>
                                                 <td>
+                                                <?php if ($ud['aktif'] == 2) : ?>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modal<?= $ud['username']?>"><span class="badge light badge-success">Aktif</span></a>
+                                                <?php elseif ($ud['aktif'] == 1) : ?>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modal<?= $ud['username']?>"><span class="badge light badge-warning">Pending</span></a>
+                                                <?php else :?>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modal<?= $ud['username']?>"><span class="badge light badge-danger">Belum Aktif</span></a>
+                                                <?php endif;?>
+                                                </td>
+                                                <td>
 													<div class="d-flex">
-														<a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
-														<a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+														<a href="<?= base_url('pengguna/edit_form/'.$ud['username']); ?>" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+														<a href="<?= base_url('pengguna/hapus/'.$ud['username']); ?>" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
 													</div>												
 												</td>												
                                             </tr>
-                                        <?php endforeach; ?>
+                                            <div class="bootstrap-modal">
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="modal<?= $ud['username']?>">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Ubah Status</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">Ubah status untuk mengaktifkan user yang sedang mendaftar.</div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-sm btn-danger light" data-bs-dismiss="modal">Close</button>
+                                                            <?php if ($ud['aktif'] == 2) : ?>
+                                                            <a href="<?= base_url('pengguna/nonaktif/').$ud['username']; ?>"><button type="button" class="btn btn-sm btn-primary">Nonaktifkan</button></a>
+                                                            <?php elseif ($user['aktif'] == 1) : ?>
+                                                            <a href="<?= base_url('pengguna/aktif/').$ud['username']; ?>" ><button type="button" class="btn btn-sm btn-primary">Aktifkan</button></a>
+                                                            <?php endif ;?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php endif;
+                                            endforeach; ?>
                                         </tbody>
                                     </table>
-                                </div>
                             </div>
                         </div>
                     </div>
