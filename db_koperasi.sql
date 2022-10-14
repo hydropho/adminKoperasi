@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2022 at 07:20 AM
+-- Generation Time: Oct 14, 2022 at 07:30 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -61,10 +61,8 @@ CREATE TABLE `pinjaman` (
 
 INSERT INTO `pinjaman` (`no_pinjaman`, `username`, `pinjaman_pokok`, `bunga`, `tgl_pinjaman`, `jangka_waktu`, `tgl_selesai`, `angsuran`, `keterangan`) VALUES
 (1001, 'admin', 1000000, 1, '2022-10-13', 12, '2023-10-13', 93333, 1),
-(1002, 'admin', 1000000, 1, '2022-10-13', 10, '2023-08-13', 110000, 1),
-(1003, 'admin', 1000000, 1, '2022-10-13', 12, '2023-10-13', 93333, 1),
-(1004, 'admin', 1000000, 1, '2022-10-13', 10, '2023-08-13', 110000, 1),
-(1005, 'admin', 1000000, 1, '2022-10-13', 10, '2023-08-13', 110000, 1);
+(1002, 'ghani', 100000, 1, '2022-10-13', 3, '2023-01-13', 34333, 1),
+(1003, 'ghani', 1000000, 1, '2022-10-14', 10, '2023-08-14', 110000, 2);
 
 -- --------------------------------------------------------
 
@@ -87,8 +85,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`username`, `password`, `nama_lengkap`, `level`, `aktif`) VALUES
 ('admin', '$2y$10$Dv.ntxdlWFkwI3rANQ.JX.c25wtCAtCRNp8VfQsAyHHyVfq.cHfFK', 'Aswin Khairu Adnan', 2, 1),
 ('ghani', '$2y$10$K0Y85mZh7bEGzPANFeBqDOQmj7b1EYn5/oZxk/QiUa2VCTJKY7JTi', 'Fatha Ghani', 1, 2),
-('adam', '$2y$10$ZmADe7TS.0JK61UwHQiqeuKZxDGPdDLhWqPic1UHm/A0Qxqtd9CFy', 'adam', 1, 2),
-('b', '$2y$10$UDHDb35e33yrzHMAvvnozeqph1eEIrc915pVswbKso1ZdTj95HnD2', 'b', 1, 1);
+('adam', '$2y$10$ZmADe7TS.0JK61UwHQiqeuKZxDGPdDLhWqPic1UHm/A0Qxqtd9CFy', 'adam', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -114,8 +111,7 @@ CREATE TABLE `userdata` (
 INSERT INTO `userdata` (`username`, `nama_lengkap`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `no_hp`, `profil`) VALUES
 ('admin', 'Aswin Khairu Adnan', 'Bogor', '2004-05-16', 'Laki - Laki', 'Bogor', '083147797580', 'default.jpg'),
 ('ghani', 'Fatha Ghani', 'Bogor', '2004-09-24', 'Laki - Laki', 'Bogor', '081212121212', 'default.jpg'),
-('adam', 'adam', 'Tangerang', '2022-10-12', 'Laki - Laki', 'Tangerang', '07123123', 'default.jpg'),
-('b', 'b', '', '0000-00-00', '', '', '', '');
+('adam', 'adam', 'Tangerang', '2022-10-12', 'Laki - Laki', 'Tangerang', '07123123', 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -237,7 +233,7 @@ ALTER TABLE `user_sub_menu`
 -- AUTO_INCREMENT for table `pinjaman`
 --
 ALTER TABLE `pinjaman`
-  MODIFY `no_pinjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1006;
+  MODIFY `no_pinjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1004;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
