@@ -119,4 +119,26 @@ class Pinjaman extends CI_Controller
             redirect('pinjaman/data');
         }
     }
+
+    public function setuju($no_pinjaman)
+    {
+        $user = $this->db->get_where('pinjaman', ['no_pinjaman' => $no_pinjaman])->row_array();
+
+        $data = [
+            'no_pinjaman' => $user['no_pinjaman'],
+            'username' => $user['username'],
+            'pinjaman_pokok' => $user['pinjaman_pokok'],
+            'bunga' => $user['bunga'],
+            'tgl_pinjaman' => $user['tgl_pinjaman'],
+            'jangka_waktu' => $user['jangka_waktu'],
+            'tgl_selesai' => $user['tgl_selesai'],
+            'angsuran' => $user['angsuran'],
+            'keterangan' => 2
+        ];
+        $this->db->where('no_pinjaman', $no_pinjaman);
+        $this->db->update('pinjaman', $data);
+
+        $this->session->set_flashdata('alert_message', '<div class="alert alert-success alert-dismissible fade show"><strong>Selamat! </strong>Anda berhasil menyetujui pinjaman anggota.</div>');
+        redirect('pinjaman/data');
+    }
 }

@@ -29,25 +29,27 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $datapinjaman = $this->db->get('pinjaman')->result_array();
+                                    $dataSimpanan = $this->db->get('simpanan')->result_array();
 
                                     foreach ($datapinjaman as $dp) :
                                     ?>
-                                        <tr>
-                                            <td>01</td>
-                                            <td>Tiger Nixon</td>
-                                            <td>#54605</td>
-                                            <td>Library</td>
-                                            <td>Cash</td>
-                                            <td><span class="badge light badge-success">Paid</span></td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
-                                                    <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                                </div>
-                                            </td>
+                                    <tr>
+                                        <td>01</td>
+                                        <td>Tiger Nixon</td>
+                                        <td>#54605</td>
+                                        <td>Library</td>
+                                        <td>Cash</td>
+                                        <td><span class="badge light badge-success">Paid</span></td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
+                                                        class="fas fa-pencil-alt"></i></a>
+                                                <a href="#" class="btn btn-danger shadow btn-xs sharp"><i
+                                                        class="fa fa-trash"></i></a>
+                                            </div>
+                                        </td>
 
-                                        </tr>
+                                    </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>

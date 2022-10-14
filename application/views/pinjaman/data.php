@@ -19,6 +19,9 @@
                             <table id="example4" class="display" style="min-width: 845px">
                                 <thead>
                                     <tr>
+                                        <?php if ($user['level'] == 2) : ?>
+                                        <th>Status</th>
+                                        <?php endif; ?>
                                         <th>No Pinjaman</th>
                                         <th>Username</th>
                                         <th>Pinjaman Pokok</th>
@@ -27,17 +30,37 @@
                                         <th>Tanggal Pinjaman</th>
                                         <th>Tanggal Selesai</th>
                                         <th>Angsuran</th>
-                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $datapinjaman = $this->db->get('pinjaman')->result_array();
+                                    if ($user['level'] == 2) {
+                                        $datapinjaman = $this->db->get('pinjaman')->result_array();
+                                    } else {
+                                        $datapinjaman = $this->db->get_where('pinjaman', ['username' => $user['username']])->result_array();
+                                    }
 
                                     foreach ($datapinjaman as $dp) :
                                     ?>
                                     <tr>
-                                        <td><?= $dp['no_pinjaman'] ?></td>
+                                        <?php if ($user['level'] == 2) : ?>
+                                        <td>
+                                            <?php if ($dp['keterangan'] == 2) : ?>
+                                            <a href="javascript:void(0);" data-bs-toggle="modal"
+                                                data-bs-target="#modal<?= $dp['no_pinjaman'] ?>"><span
+                                                    class="badge light badge-success">Disetujui</span></a>
+                                            <?php elseif ($dp['keterangan'] == 1) : ?>
+                                            <a href="javascript:void(0);" data-bs-toggle="modal"
+                                                data-bs-target="#modal<?= $dp['no_pinjaman'] ?>"><span
+                                                    class="badge light badge-warning">Pending</span></a>
+                                            <?php else : ?>
+                                            <a href="javascript:void(0);" data-bs-toggle="modal"
+                                                data-bs-target="#modal<?= $dp['no_pinjaman'] ?>"><span
+                                                    class="badge light badge-danger">Ditolak</span></a>
+                                            <?php endif; ?>
+                                        </td>
+                                        <?php endif; ?>
+                                        <td>PJ-<?= $dp['no_pinjaman'] ?></td>
                                         <td><?= $dp['username'] ?></td>
                                         <td><?= $dp['pinjaman_pokok'] ?></td>
                                         <td><?= $dp['bunga'] ?></td>
@@ -45,25 +68,10 @@
                                         <td><?= $dp['tgl_pinjaman'] ?></td>
                                         <td><?= $dp['tgl_selesai'] ?></td>
                                         <td><?= $dp['angsuran'] ?></td>
-                                        <td>
-                                            <?php if ($dp['keterangan'] == 2) : ?>
-                                            <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                data-bs-target="#modal<?= $dp['username'] ?>"><span
-                                                    class="badge light badge-success">Disetujui</span></a>
-                                            <?php elseif ($dp['keterangan'] == 1) : ?>
-                                            <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                data-bs-target="#modal<?= $dp['username'] ?>"><span
-                                                    class="badge light badge-warning">Pending</span></a>
-                                            <?php else : ?>
-                                            <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                data-bs-target="#modal<?= $dp['username'] ?>"><span
-                                                    class="badge light badge-danger">Ditolak</span></a>
-                                            <?php endif; ?>
-                                        </td>
                                     </tr>
                                     <div class="bootstrap-modal">
                                         <!-- Modal -->
-                                        <div class="modal fade" id="modal<?= $dp['username'] ?>">
+                                        <div class="modal fade" id="modal<?= $dp['no_pinjaman'] ?>">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -74,11 +82,12 @@
                                                     <div class="modal-body">Konfirmasi apakah pinjaman anggota diterima
                                                         atau ditolak.</div>
                                                     <div class="modal-footer">
-                                                        <a href="<?= base_url('pinjaman/tolak/') . $dp['username']; ?>"><button
+                                                        <a
+                                                            href="<?= base_url('pinjaman/tolak/') . $dp['no_pinjaman']; ?>"><button
                                                                 type="button"
                                                                 class="btn btn-sm btn-danger light">Tolak</button></a>
                                                         <a
-                                                            href="<?= base_url('pinjaman/setuju/') . $dp['username']; ?>"><button
+                                                            href="<?= base_url('pinjaman/setuju/') . $dp['no_pinjaman']; ?>"><button
                                                                 type="button"
                                                                 class="btn btn-sm btn-primary">Setuju</button></a>
                                                     </div>
