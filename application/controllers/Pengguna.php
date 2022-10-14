@@ -47,6 +47,24 @@ class Pengguna extends CI_Controller
         $this->load->view('pengguna/anggota', $data);
         $this->load->view('templates/footer');
     }
+
+    public function profile()
+    {
+        $data['title'] = 'User';
+        $data['sub_title'] = 'Edit Profil';
+        $data['status'] = 'Admin';
+        $data['corp_name'] = 'Kotree';
+        $data['kelompok'] = 'Kelompok 3';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/navbar', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('pengguna/profile', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function edit_form($username)
     {
         $data['title'] = 'User';

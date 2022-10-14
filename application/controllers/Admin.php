@@ -17,6 +17,9 @@ class Admin extends CI_Controller
         $data['kelompok'] = 'Kelompok 3';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
+        $data['total_anggota'] = $this->db->get_where('user', ['aktif' => 1])->num_rows();
+        $data['anggota_pending'] = $this->db->get_where('user', ['aktif' => 0])->num_rows();
+        $data['total_pinjaman'] = $this->db->get('pinjaman')->num_rows();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);

@@ -33,6 +33,7 @@
 <script src="<?= base_url(); ?>assets/vendor/global/global.min.js"></script>
 <script src="<?= base_url(); ?>assets/vendor/chart.js/Chart.bundle.min.js"></script>
 <script src="<?= base_url(); ?>assets/vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendor/lightgallery/js/lightgallery-all.min.js"></script>
 
 <!-- Datatable -->
 <script src="<?= base_url(); ?>assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
