@@ -63,6 +63,36 @@ function terms_changed(termsCheckBox) {
     }
 }
 </script>
+
+<script>
+document.getElementById('simulasi_form').addEventListener('submit', computeResult);
+
+
+function computeResult(e) {
+
+    const formatIDR = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR'
+    });
+    const pokokPinjaman = document.getElementById('pokokPinjaman').value;
+    const jangkaWaktu = document.getElementById('jangkaWaktu').value;
+    const bunga = document.getElementById('bunga').value;
+
+    document.getElementById('outPinjamanPokok').innerHTML = formatIDR.format(pokokPinjaman);
+    document.getElementById('outJangkaWaktu').innerHTML = jangkaWaktu + ' Bulan';
+    document.getElementById('outBunga').innerHTML = bunga + '%';
+
+    const angsuranPokok = pokokPinjaman / jangkaWaktu;
+    const angsuranBunga = (pokokPinjaman / jangkaWaktu) * ((bunga * jangkaWaktu) / 100);
+    const totalAngsuran = angsuranPokok + angsuranBunga;
+
+    document.getElementById('outAngsuranPokok').innerHTML = formatIDR.format(angsuranPokok);
+    document.getElementById('outAngsuranBunga').innerHTML = formatIDR.format(angsuranBunga);
+    document.getElementById('outTotalAngsuran').innerHTML = formatIDR.format(totalAngsuran);
+
+    e.preventDefault();
+}
+</script>
 </body>
 
 </html>
