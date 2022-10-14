@@ -19,11 +19,10 @@
                                 <thead>
                                     <tr>
                                         <th>No Simpanan</th>
-                                        <th>Tanggal</th>
+                                        <th>Tanggal Masuk</th>
                                         <th>Username</th>
-                                        <th>Jenis</th>
-                                        <th>Jumlah</th>
-                                        <th>Status</th>
+                                        <th>Simpanan Pokok</th>
+                                        <th>Simpanan Wajib</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -31,7 +30,7 @@
                                     <?php
                                     $dataSimpanan = $this->db->get('simpanan')->result_array();
 
-                                    foreach ($datapinjaman as $dp) :
+                                    foreach ($dataSimpanan as $dp) :
                                     ?>
                                     <tr>
                                         <td>01</td>
