@@ -30,21 +30,36 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $datapinjaman = $this->db->get('pinjaman')->result_array();
-
-                                    foreach ($datapinjaman as $dp) :
+                                    $no = 1;
+                                    $users = $this->db->get('user')->result_array();
+                                    foreach ($users as $user) :
+                                        $username = $user['username'];
+                                        $query = " SELECT `username`, (SELECT SUM(`pinjaman_pokok`) FROM `pinjaman` WHERE `username` = '$username') AS pinjaman,
+                                                    (SELECT SUM(`simpanan`) FROM `simpanan`  WHERE `username` = '$username') AS simpanan
+                                                    FROM `user` WHERE `username` = '$username'
+                                        ";
+                                        $total = $this->db->query($query)->row_array();
                                     ?>
-                                        <tr>
-                                            <td>01</td>
-                                            <td>Tiger Nixon</td>
-                                            <td>1.000.000</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
+                                    <tr>
+                                        <td><?= $no++ ?></td>
+                                        <td><?= $user['username'] ?></td>
+                                        <?php if ($total['simpanan'] == NULL) : ?>
+                                        <td>-</td>
+                                        <?php else : ?>
+                                        <td><?= "Rp. " . number_format($total['simpanan'], 2, ',', '.'); ?></td>
+                                        <?php endif; ?>
+
+                                        <?php if ($total['pinjaman'] == NULL) : ?>
+                                        <td>-</td>
+                                        <?php else : ?>
+                                        <td><?= "Rp. " . number_format($total['pinjaman'], 2, ',', '.'); ?></td>
+                                        <?php endif; ?>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
 
 
-                                        </tr>
+                                    </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>

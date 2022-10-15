@@ -195,4 +195,52 @@ class Pengguna extends CI_Controller
             redirect('pengguna/anggota');
         }
     }
+
+    public function edit_profile()
+    {
+        $this->form_validation->set_rules('nama_lengkap', 'Name', 'required|trim', [
+            'required' => 'Nama harus diisi!'
+        ]);
+        $this->form_validation->set_rules('tempat_lahir', 'Tempat_lahir', 'required|trim', [
+            'required' => 'Tempat lahir harus diisi!'
+        ]);
+        $this->form_validation->set_rules('tanggal_lahir', 'Tanggal_lahir', 'required', [
+            'required' => 'Tanggal lahir harus diisi!'
+        ]);
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim', [
+            'required' => 'Alamat harus diisi!'
+        ]);
+        $this->form_validation->set_rules('no_hp', 'No_hp', 'required|trim', [
+            'required' => 'No HP harus diisi!'
+        ]);
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'User';
+            $data['sub_title'] = 'Edit Profil';
+            $data['corp_name'] = 'Kotree';
+            $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/navbar', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('pengguna/edit_form', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = [
+                'username' => htmlspecialchars($this->input->post('username', true)),
+                'nama_lengkap' => htmlspecialchars($this->input->post('nama_lengkap', true)),
+                'tempat_lahir' => htmlspecialchars($this->input->post('tempat_lahir', true)),
+                'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+                'jenis_kelamin' => htmlspecialchars($this->input->post('jenis_kelamin', true)),
+                'alamat' => htmlspecialchars($this->input->post('alamat', true)),
+                'no_hp' => htmlspecialchars($this->input->post('no_hp', true)),
+                'profil' => 'default.jpg'
+            ];
+            $this->db->where('username', $data['username']);
+            $this->db->update('userdata', $data);
+            $this->session->set_flashdata('alert_message', '<div class="alert alert-success alert-dismissible fade show"><strong>Selamat! </strong>Anda berhasil merubah data.</div>');
+            redirect('pengguna/profile');
+        }
+    }
 }

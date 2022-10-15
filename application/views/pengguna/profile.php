@@ -67,7 +67,7 @@
                     <div class="col-xl-12 col-lg-12">
                         <div class="card-body">
                             <div class="basic-form">
-                                <form action="<?= base_url('pengguna/profile') ?>" method="POST">
+                                <form action="<?= base_url('pengguna/edit_profile') ?>" method="POST">
                                     <?= $this->session->flashdata('alert_message') ?>
                                     <div class="mb-3 row">
                                         <label class="col-sm-3 col-form-label">Username</label>
