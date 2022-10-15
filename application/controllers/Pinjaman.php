@@ -45,7 +45,10 @@ class Pinjaman extends CI_Controller
 
     public function tambah()
     {
-        $tgl_selesai = date('Y-m-d', strtotime('+' . $this->input->post('jangka_waktu') . 'months', $this->input->post('tgl_sekarang')));
+        $tanggal = $this->input->post('tgl_pinjaman');
+        $jangka_waktu = '+' . $this->input->post('jangka_waktu') . ' months';
+        $tgl_selesai = date('Y-m-d', strtotime($tanggal . $jangka_waktu));
+
         $angsuran = $this->input->post('pinjaman_pokok') / $this->input->post('jangka_waktu') + ($this->input->post('pinjaman_pokok') * ($this->input->post('bunga') / 100));
         $data = [
             'username' => htmlspecialchars($this->input->post('username', true)),
