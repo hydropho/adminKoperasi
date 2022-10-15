@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2022 at 09:48 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Oct 14, 2022 at 10:23 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.4.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -63,6 +63,20 @@ INSERT INTO `pinjaman` (`no_pinjaman`, `username`, `pinjaman_pokok`, `bunga`, `t
 (1001, 'admin', 1000000, 1, '2022-10-13', 12, '2023-10-13', 93333, 1),
 (1002, 'ghani', 100000, 1, '2022-10-13', 3, '2023-01-13', 34333, 1),
 (1003, 'ghani', 1000000, 1, '2022-10-14', 10, '2023-08-14', 110000, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `simpanan`
+--
+
+CREATE TABLE `simpanan` (
+  `no_simpanan` int(11) NOT NULL,
+  `tanggal_masuk` date NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `simpanan_pokok` int(10) NOT NULL,
+  `simpanan_wajib` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -210,6 +224,12 @@ ALTER TABLE `pinjaman`
   ADD PRIMARY KEY (`no_pinjaman`);
 
 --
+-- Indexes for table `simpanan`
+--
+ALTER TABLE `simpanan`
+  ADD PRIMARY KEY (`no_simpanan`);
+
+--
 -- Indexes for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
@@ -236,6 +256,12 @@ ALTER TABLE `user_sub_menu`
 --
 ALTER TABLE `pinjaman`
   MODIFY `no_pinjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1004;
+
+--
+-- AUTO_INCREMENT for table `simpanan`
+--
+ALTER TABLE `simpanan`
+  MODIFY `no_simpanan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
