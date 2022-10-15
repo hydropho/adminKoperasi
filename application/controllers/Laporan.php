@@ -1,8 +1,10 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Laporan extends CI_Controller {
+class Laporan extends CI_Controller
+{
 
-    public function index() {
+    public function index()
+    {
         $data['title'] = 'Laporan';
         $data['sub_title'] = 'Laporan';
         $data['status'] = 'User';
@@ -18,7 +20,8 @@ class Laporan extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
-    public function bukti() {
+    public function bukti()
+    {
         $data['title'] = 'Laporan';
         $data['sub_title'] = 'Bukti Bayar';
         $data['status'] = 'User';
@@ -26,6 +29,7 @@ class Laporan extends CI_Controller {
         $data['kelompok'] = 'Kelompok 3';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
+        $data['tanggal'] = new DateTime();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);
