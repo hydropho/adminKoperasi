@@ -36,19 +36,19 @@
             </li>
 
             <?php
-			$level = $this->session->userdata('level');
-			$queryMenu = "SELECT `user_menu`.`id`, `menu`, `icon`
+            $level = $this->session->userdata('level');
+            $queryMenu = "SELECT `user_menu`.`id`, `menu`, `icon`
 									FROM `user_menu` JOIN `user_access_menu`
 									ON `user_menu`.`id` = `user_access_menu`.`menu_id`
 									WHERE `user_access_menu`.`role_id` = $level
 									ORDER BY `user_access_menu`.`menu_id` ASC";
 
-			$menu = $this->db->query($queryMenu)->result_array();
-			?>
+            $menu = $this->db->query($queryMenu)->result_array();
+            ?>
 
             <?php foreach ($menu as $m) :
 
-				if ($m['menu'] == 'Dashboard') : ?>
+                if ($m['menu'] == 'Dashboard') : ?>
             <li>
                 <?php if ($level == 2) : ?>
                 <a href="<?= base_url('admin') ?>" class="ai-icon" aria-expanded="false">
@@ -75,10 +75,17 @@
                     <span class="nav-text"><?= $m['menu'] ?></span>
                 </a>
             </li>
+            <?php elseif ($m['id'] == '5') : ?>
+            <li>
+                <a href="<?= base_url('simpanan/user') ?>" class="ai-icon" aria-expanded="false">
+                    <i class="<?= $m['icon'] ?>"></i>
+                    <span class="nav-text"><?= $m['menu'] ?></span>
+                </a>
+            </li>
 
             <?php else :
-					if ($title == $m['menu']) :
-					?>
+                    if ($title == $m['menu']) :
+                    ?>
             <li class="mm-active">
                 <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="true">
                     <?php else : ?>
@@ -91,14 +98,14 @@
                 <ul aria-expanded="false">
                     <ul aria-expanded="false">
                         <?php
-									$menuId = $m['id'];
-									$querySubMenu = "SELECT * FROM `user_sub_menu`
+                                    $menuId = $m['id'];
+                                    $querySubMenu = "SELECT * FROM `user_sub_menu`
 										WHERE `menu_id` = $menuId
 										ORDER BY `menu_id`		
 						";
 
-									$subMenu = $this->db->query($querySubMenu)->result_array();
-									foreach ($subMenu as $sm) : ?>
+                                    $subMenu = $this->db->query($querySubMenu)->result_array();
+                                    foreach ($subMenu as $sm) : ?>
 
 
                         <li><a href="<?= base_url($sm['url']) ?>"><?= $sm['title'] ?></a></li>

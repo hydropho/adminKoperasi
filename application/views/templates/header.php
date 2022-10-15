@@ -24,6 +24,7 @@
     <link href="<?= base_url('assets/css/style.css') ?>" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('assets/vendor/nouislider/nouislider.min.css') ?>">
     <link href="<?= base_url('assets/vendor/lightgallery/css/lightgallery.min.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/vendor/owl-carousel/owl.carousel.css') ?>" rel="stylesheet">
 
 </head>
 

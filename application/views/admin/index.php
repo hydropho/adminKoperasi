@@ -40,7 +40,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <h2 class="text-white invoice-num"><?= $total_pinjaman ?></h2>
+                                <h2 class="text-white invoice-num"><?= $total_simpanan ?></h2>
                                 <span class="text-white fs-18">Total Penyimpan</span>
                             </div>
                         </div>

@@ -12,6 +12,10 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title"><?= $sub_title ?></h4>
+                        <div class="d-flex col-sm- justify-content-center align-items-center">
+                            <button class="btn btn-primary btn-block btn-rounded" data-bs-toggle="modal"
+                                data-bs-target="#basicModal">Tambah Pinjaman</button>
+                        </div>
                     </div>
                     <div class="card-body">
                         <?= $this->session->flashdata('alert_message') ?>
@@ -19,10 +23,10 @@
                             <table id="example4" class="display" style="min-width: 845px">
                                 <thead>
                                     <tr>
+                                        <th>No Pinjaman</th>
                                         <?php if ($user['level'] == 2) : ?>
                                         <th>Status</th>
                                         <?php endif; ?>
-                                        <th>No Pinjaman</th>
                                         <th>Username</th>
                                         <th>Pinjaman Pokok</th>
                                         <th>Bunga</th>
@@ -43,6 +47,7 @@
                                     foreach ($datapinjaman as $dp) :
                                     ?>
                                     <tr>
+                                        <td>PJ-<?= $dp['no_pinjaman'] ?></td>
                                         <?php if ($user['level'] == 2) : ?>
                                         <td>
                                             <?php if ($dp['keterangan'] == 2) : ?>
@@ -60,14 +65,13 @@
                                             <?php endif; ?>
                                         </td>
                                         <?php endif; ?>
-                                        <td>PJ-<?= $dp['no_pinjaman'] ?></td>
                                         <td><?= $dp['username'] ?></td>
-                                        <td><?= $dp['pinjaman_pokok'] ?></td>
-                                        <td><?= $dp['bunga'] ?></td>
-                                        <td><?= $dp['jangka_waktu'] ?></td>
+                                        <td><?= "Rp. " . number_format($dp['pinjaman_pokok'], 2, ',', '.') ?></td>
+                                        <td><?= $dp['bunga'] . '%' ?></td>
+                                        <td><?= $dp['jangka_waktu'] . ' Bulan' ?></td>
                                         <td><?= $dp['tgl_pinjaman'] ?></td>
                                         <td><?= $dp['tgl_selesai'] ?></td>
-                                        <td><?= $dp['angsuran'] ?></td>
+                                        <td><?= "Rp. " . number_format($dp['angsuran'], 2, ',', '.') ?></td>
                                     </tr>
                                     <div class="bootstrap-modal">
                                         <!-- Modal -->
@@ -98,6 +102,51 @@
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="basicModal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Tambah Pinjaman</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="<?= base_url('pinjaman/tambah') ?>" method="POST">
+                                        <div class="mb-3">
+                                            <label class="form-label">Tanggal</label>
+                                            <input type="date" class="form-control"
+                                                value="<?= $tanggal->format('Y-m-d') ?>" readonly name="tgl_pinjaman">
+                                        </div>
+                                        <input type="text" class="form-control" value="<?= $user['username'] ?>"
+                                            readonly name="username" hidden>
+                                        <div class="mb-3">
+                                            <label class="form-label">Jumlah</label>
+                                            <input type="number" class="form-control" placeholder="Rp"
+                                                name="pinjaman_pokok" required
+                                                oninvalid="this.setCustomValidity('Jumlah harus di isi!')"
+                                                oninput="this.setCustomValidity('')">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Bunga (%)</label>
+                                            <input type="number" class="form-control" placeholder="%" name="bunga"
+                                                value="1" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Jangka Waktu</label>
+                                            <input type="number" class="form-control" placeholder="Bulan"
+                                                name="jangka_waktu" required
+                                                oninvalid="this.setCustomValidity('Jangka Waktu harus diisi!')"
+                                                oninput="this.setCustomValidity('')">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger light"
+                                                data-bs-dismiss="modal">Tutup</button>
+                                            <button type="submit" class="btn btn-primary">Tambah Pinjaman</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

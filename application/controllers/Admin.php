@@ -20,6 +20,7 @@ class Admin extends CI_Controller
         $data['total_anggota'] = $this->db->get_where('user', ['aktif' => 1])->num_rows();
         $data['anggota_pending'] = $this->db->get_where('user', ['aktif' => 0])->num_rows();
         $data['total_pinjaman'] = $this->db->get('pinjaman')->num_rows();
+        $data['total_simpanan'] = $this->db->get('simpanan')->num_rows();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);

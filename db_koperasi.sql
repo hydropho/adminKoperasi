@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2022 at 10:23 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.4.15
+-- Generation Time: Oct 15, 2022 at 09:19 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `angsuran` (
   `no_pinjaman` varchar(7) NOT NULL DEFAULT '',
-  `tgl_bukti` date NOT NULL,
+  `jatuh_tempo` date NOT NULL,
   `bayar` int(10) NOT NULL,
   `sisa` int(10) NOT NULL,
   `denda` int(10) NOT NULL,
@@ -62,7 +62,8 @@ CREATE TABLE `pinjaman` (
 INSERT INTO `pinjaman` (`no_pinjaman`, `username`, `pinjaman_pokok`, `bunga`, `tgl_pinjaman`, `jangka_waktu`, `tgl_selesai`, `angsuran`, `keterangan`) VALUES
 (1001, 'admin', 1000000, 1, '2022-10-13', 12, '2023-10-13', 93333, 1),
 (1002, 'ghani', 100000, 1, '2022-10-13', 3, '2023-01-13', 34333, 1),
-(1003, 'ghani', 1000000, 1, '2022-10-14', 10, '2023-08-14', 110000, 2);
+(1003, 'ghani', 1000000, 1, '2022-10-14', 10, '2023-08-14', 110000, 2),
+(1004, 'admin', 1000000, 1, '2022-10-15', 12, '2023-10-15', 93333, 1);
 
 -- --------------------------------------------------------
 
@@ -72,11 +73,18 @@ INSERT INTO `pinjaman` (`no_pinjaman`, `username`, `pinjaman_pokok`, `bunga`, `t
 
 CREATE TABLE `simpanan` (
   `no_simpanan` int(11) NOT NULL,
-  `tanggal_masuk` date NOT NULL,
   `username` varchar(50) NOT NULL,
-  `simpanan_pokok` int(10) NOT NULL,
-  `simpanan_wajib` int(10) NOT NULL
+  `tgl_simpanan` date NOT NULL,
+  `simpanan` int(11) DEFAULT NULL,
+  `jenis_simpanan` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `simpanan`
+--
+
+INSERT INTO `simpanan` (`no_simpanan`, `username`, `tgl_simpanan`, `simpanan`, `jenis_simpanan`) VALUES
+(1002, 'admin', '2022-10-15', 1000000, 'Simpanan Pokok');
 
 -- --------------------------------------------------------
 
@@ -151,13 +159,13 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (3, 1, 1),
 (4, 2, 3),
 (5, 2, 4),
-(6, 2, 5),
-(7, 2, 6),
-(8, 2, 7),
+(6, 2, 6),
+(7, 2, 7),
+(8, 2, 8),
 (9, 1, 3),
-(10, 1, 4),
-(11, 1, 5),
-(12, 1, 7);
+(10, 1, 5),
+(11, 1, 6),
+(12, 1, 8);
 
 -- --------------------------------------------------------
 
@@ -180,9 +188,10 @@ INSERT INTO `user_menu` (`id`, `menu`, `icon`) VALUES
 (2, 'User', 'flaticon-381-user-9'),
 (3, 'Pinjaman', 'flaticon-381-add-3'),
 (4, 'Simpanan', 'flaticon-381-add-1'),
-(5, 'SHU', 'flaticon-045-heart'),
-(6, 'Laporan', 'flaticon-072-printer'),
-(7, 'Simulasi Pinjaman', 'flaticon-381-calculator-1');
+(5, 'Simpanan', 'flaticon-381-add-1'),
+(6, 'SHU', 'flaticon-045-heart'),
+(7, 'Laporan', 'flaticon-072-printer'),
+(8, 'Simulasi Pinjaman', 'flaticon-381-calculator-1');
 
 -- --------------------------------------------------------
 
@@ -205,13 +214,11 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`) VALUES
 (1, 1, 'Dashboard', 'admin'),
 (2, 2, 'Pengurus', 'pengguna'),
 (3, 2, 'Anggota', 'pengguna/anggota'),
-(4, 3, 'Tambah Pinjaman Baru', 'pinjaman/baru'),
-(5, 3, 'Data Pinjaman', 'pinjaman/data'),
-(6, 3, 'Tagihan Pinjaman', 'pinjaman/tagihan'),
-(7, 4, 'Data Simpanan', 'simpanan/data'),
-(8, 4, 'Jenis Simpanan', 'simpanan/jenis'),
-(9, 6, 'Laporan', 'laporan'),
-(10, 6, 'Bukti Bayar', 'laporan/bukti');
+(4, 3, 'Data Pinjaman', 'pinjaman'),
+(5, 3, 'Tagihan Pinjaman', 'pinjaman/tagihan'),
+(6, 4, 'Data Simpanan', 'simpanan'),
+(7, 7, 'Laporan', 'laporan'),
+(8, 7, 'Bukti Bayar', 'laporan/bukti');
 
 --
 -- Indexes for dumped tables
@@ -255,25 +262,25 @@ ALTER TABLE `user_sub_menu`
 -- AUTO_INCREMENT for table `pinjaman`
 --
 ALTER TABLE `pinjaman`
-  MODIFY `no_pinjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1004;
+  MODIFY `no_pinjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1005;
 
 --
 -- AUTO_INCREMENT for table `simpanan`
 --
 ALTER TABLE `simpanan`
-  MODIFY `no_simpanan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_simpanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1003;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `user_sub_menu`

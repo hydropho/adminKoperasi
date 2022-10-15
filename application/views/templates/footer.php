@@ -39,6 +39,10 @@
 <script src="<?= base_url(); ?>assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
 <script src="<?= base_url(); ?>assets/js/plugins-init/datatables.init.js"></script>
 
+<!-- Card -->
+<script src="<?= base_url(); ?>assets/vendor/owl-carousel/owl.carousel.js"></script>
+<script src="<?= base_url(); ?>assets/js/dashboard/cards-center.js"></script>
+
 <!-- Apex Chart -->
 <script src="<?= base_url(); ?>assets/vendor/apexchart/apexchart.js"></script>
 <script src="<?= base_url(); ?>assets/vendor/nouislider/nouislider.min.js"></script>
@@ -93,6 +97,54 @@ function computeResult(e) {
 
     e.preventDefault();
 }
+</script>
+
+<script>
+function cardsCenter() {
+
+    /*  testimonial one function by = owl.carousel.js */
+
+
+
+    jQuery('.card-slider').owlCarousel({
+        loop: true,
+        margin: 0,
+        nav: true,
+        center: true,
+        animateOut: 'fadeOut',
+        animateIn: 'fadeIn',
+        slideSpeed: 3000,
+        paginationSpeed: 3000,
+        dots: false,
+        navText: ['', ''],
+        responsive: {
+            0: {
+                items: 1
+            },
+            576: {
+                items: 1
+            },
+            800: {
+                items: 2
+            },
+            991: {
+                items: 2
+            },
+            1200: {
+                items: 2
+            },
+            1600: {
+                items: 3
+            }
+        }
+    })
+}
+
+jQuery(window).on('load', function() {
+    setTimeout(function() {
+        cardsCenter();
+    }, 1000);
+});
 </script>
 </body>
 

@@ -19,7 +19,7 @@
                                 <thead>
                                     <tr>
                                         <th>No Pinjaman</th>
-                                        <th>Tanggal Bukti</th>
+                                        <th>Jatuh Tempo</th>
                                         <th>Bayar</th>
                                         <th>Sisa Bayar</th>
                                         <th>Denda</th>
@@ -32,19 +32,19 @@
 
                                 foreach ($angsuran as $dt) :
                                 ?>
-                                    <tbody>
-                                        <tr>
-                                            <td><?= $dt['no_pinjaman'] ?></td>
-                                            <td><?= $dt['tgl_bukti'] ?></td>
-                                            <td><?= $dt['bayar'] ?></td>
-                                            <td><?= $dt['sisa'] ?></td>
-                                            <td><?= $dt['denda'] ?></td>
-                                            <td><?= $dt['jumlah'] ?></td>
-                                            <td><span class="badge light badge-success">Paid</span></td>
+                                <tbody>
+                                    <tr>
+                                        <td><?= $dt['no_pinjaman'] ?></td>
+                                        <td><?= $dt['tgl_bukti'] ?></td>
+                                        <td><?= $dt['bayar'] ?></td>
+                                        <td><?= $dt['sisa'] ?></td>
+                                        <td><?= $dt['denda'] ?></td>
+                                        <td><?= $dt['jumlah'] ?></td>
+                                        <td><span class="badge light badge-success">Paid</span></td>
 
-                                        </tr>
+                                    </tr>
                                     <?php endforeach ?>
-                                    </tbody>
+                                </tbody>
                             </table>
                         </div>
                     </div>
