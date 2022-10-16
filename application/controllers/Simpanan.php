@@ -58,6 +58,6 @@ class Simpanan extends CI_Controller
         $this->db->delete('simpanan', ['no_simpanan' => $no_simpanan]);
 
         $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Berhasil! </strong>Data dihapus.</div>');
-        redirect('simpanan/data');
+        redirect('simpanan');
     }
 }
