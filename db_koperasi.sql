@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2022 at 09:19 AM
+-- Generation Time: Oct 16, 2022 at 02:34 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -28,14 +28,55 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `angsuran` (
-  `no_pinjaman` varchar(7) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL,
+  `no_pinjaman` varchar(7) NOT NULL,
+  `angsuran` int(3) NOT NULL,
   `jatuh_tempo` date NOT NULL,
+  `tgl_bayar` date DEFAULT NULL,
   `bayar` int(10) NOT NULL,
   `sisa` int(10) NOT NULL,
-  `denda` int(10) NOT NULL,
+  `denda` int(10) DEFAULT NULL,
   `jumlah` int(10) NOT NULL,
   `status` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `angsuran`
+--
+
+INSERT INTO `angsuran` (`id`, `no_pinjaman`, `angsuran`, `jatuh_tempo`, `tgl_bayar`, `bayar`, `sisa`, `denda`, `jumlah`, `status`) VALUES
+(33, '1010', 1, '2022-11-16', '0000-00-00', 110000, 990000, 0, 0, '2'),
+(34, '1010', 2, '2022-12-16', '0000-00-00', 110000, 880000, 0, 0, '1'),
+(35, '1010', 3, '2023-01-16', NULL, 110000, 770000, 0, 0, '0'),
+(36, '1010', 4, '2023-02-16', NULL, 110000, 660000, 0, 0, '0'),
+(37, '1010', 5, '2023-03-16', NULL, 110000, 550000, 0, 0, '0'),
+(38, '1010', 6, '2023-04-16', NULL, 110000, 440000, 0, 0, '0'),
+(39, '1010', 7, '2023-05-16', NULL, 110000, 330000, 0, 0, '0'),
+(40, '1010', 8, '2023-06-16', NULL, 110000, 220000, 0, 0, '0'),
+(41, '1010', 9, '2023-07-16', NULL, 110000, 110000, 0, 0, '0'),
+(42, '1010', 10, '2023-08-16', NULL, 110000, 0, 0, 0, '0'),
+(43, '1011', 1, '2022-11-16', NULL, 110000, 990000, 0, 110000, '0'),
+(44, '1011', 2, '2022-12-16', NULL, 110000, 880000, 0, 110000, '0'),
+(45, '1011', 3, '2023-01-16', NULL, 110000, 770000, 0, 110000, '0'),
+(46, '1011', 4, '2023-02-16', NULL, 110000, 660000, 0, 110000, '0'),
+(47, '1011', 5, '2023-03-16', NULL, 110000, 550000, 0, 110000, '0'),
+(48, '1011', 6, '2023-04-16', NULL, 110000, 440000, 0, 110000, '0'),
+(49, '1011', 7, '2023-05-16', NULL, 110000, 330000, 0, 110000, '0'),
+(50, '1011', 8, '2023-06-16', NULL, 110000, 220000, 0, 110000, '0'),
+(51, '1011', 9, '2023-07-16', NULL, 110000, 110000, 0, 110000, '0'),
+(52, '1011', 10, '2023-08-16', NULL, 110000, 0, 0, 110000, '0'),
+(53, '1012', 1, '2022-11-16', NULL, 186667, 2053337, 0, 186667, '0'),
+(54, '1012', 2, '2022-12-16', NULL, 186667, 1866670, 0, 186667, '0'),
+(55, '1012', 3, '2023-01-16', NULL, 186667, 1680003, 0, 186667, '0'),
+(56, '1012', 4, '2023-02-16', NULL, 186667, 1493336, 0, 186667, '0'),
+(57, '1012', 5, '2023-03-16', NULL, 186667, 1306669, 0, 186667, '0'),
+(58, '1012', 6, '2023-04-16', NULL, 186667, 1120002, 0, 186667, '0'),
+(59, '1012', 7, '2023-05-16', NULL, 186667, 933335, 0, 186667, '0'),
+(60, '1012', 8, '2023-06-16', NULL, 186667, 746668, 0, 186667, '0'),
+(61, '1012', 9, '2023-07-16', NULL, 186667, 560001, 0, 186667, '0'),
+(62, '1012', 10, '2023-08-16', NULL, 186667, 373334, 0, 186667, '0'),
+(63, '1012', 11, '2023-09-16', NULL, 186667, 186667, 0, 186667, '0'),
+(64, '1012', 12, '2023-10-16', NULL, 186667, 0, 0, 186667, '0');
 
 -- --------------------------------------------------------
 
@@ -63,7 +104,12 @@ INSERT INTO `pinjaman` (`no_pinjaman`, `username`, `pinjaman_pokok`, `bunga`, `t
 (1001, 'admin', 1000000, 1, '2022-10-13', 12, '2023-10-13', 93333, 1),
 (1002, 'ghani', 100000, 1, '2022-10-13', 3, '2023-01-13', 34333, 1),
 (1003, 'ghani', 1000000, 1, '2022-10-14', 10, '2023-08-14', 110000, 2),
-(1004, 'admin', 1000000, 1, '2022-10-15', 12, '2023-10-15', 93333, 1);
+(1004, 'admin', 1000000, 1, '2022-10-15', 12, '2023-10-15', 93333, 1),
+(1005, 'admin', 1000000, 1, '2022-10-15', 12, '2023-10-15', 93333, 1),
+(1006, 'admin', 1000000, 1, '2022-10-15', 12, '2023-10-15', 93333, 1),
+(1010, 'admin', 1000000, 1, '2022-10-16', 10, '2023-08-16', 110000, 1),
+(1011, 'ghani', 1000000, 1, '2022-10-16', 10, '2023-08-16', 110000, 1),
+(1012, 'ghani', 2000000, 1, '2022-10-16', 12, '2023-10-16', 186667, 1);
 
 -- --------------------------------------------------------
 
@@ -76,15 +122,18 @@ CREATE TABLE `simpanan` (
   `username` varchar(50) NOT NULL,
   `tgl_simpanan` date NOT NULL,
   `simpanan` int(11) DEFAULT NULL,
-  `jenis_simpanan` varchar(20) DEFAULT NULL
+  `jenis_simpanan` varchar(20) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `simpanan`
 --
 
-INSERT INTO `simpanan` (`no_simpanan`, `username`, `tgl_simpanan`, `simpanan`, `jenis_simpanan`) VALUES
-(1002, 'admin', '2022-10-15', 1000000, 'Simpanan Pokok');
+INSERT INTO `simpanan` (`no_simpanan`, `username`, `tgl_simpanan`, `simpanan`, `jenis_simpanan`, `status`) VALUES
+(1001, 'ghani', '2022-10-16', 1000000, 'Simpanan Wajib', 1),
+(1002, 'ghani', '2022-10-16', 2000000, 'Simpanan Sukarela', 1),
+(1003, 'ghani', '2022-10-16', 2000000, 'Simpanan Pokok', 1);
 
 -- --------------------------------------------------------
 
@@ -105,10 +154,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`username`, `password`, `nama_lengkap`, `level`, `aktif`) VALUES
-('admin', '$2y$10$Dv.ntxdlWFkwI3rANQ.JX.c25wtCAtCRNp8VfQsAyHHyVfq.cHfFK', 'Aswin Khairu Adnan', 2, 1),
+('admin', '$2y$10$Dv.ntxdlWFkwI3rANQ.JX.c25wtCAtCRNp8VfQsAyHHyVfq.cHfFK', 'Aswin Khairu Adnan', 2, 2),
 ('ghani', '$2y$10$K0Y85mZh7bEGzPANFeBqDOQmj7b1EYn5/oZxk/QiUa2VCTJKY7JTi', 'Fatha Ghani', 1, 2),
 ('adam', '$2y$10$ZmADe7TS.0JK61UwHQiqeuKZxDGPdDLhWqPic1UHm/A0Qxqtd9CFy', 'adam', 1, 2),
-('ipuly', '$2y$10$kPbbPOs2E10VbhdXIHEM9enXAoNoCbGjhvPzWclYzjDr7qiCiVpRe', 'Ipuly', 1, 1);
+('ipuly', '$2y$10$kPbbPOs2E10VbhdXIHEM9enXAoNoCbGjhvPzWclYzjDr7qiCiVpRe', 'Ipuly', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -225,6 +274,12 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`) VALUES
 --
 
 --
+-- Indexes for table `angsuran`
+--
+ALTER TABLE `angsuran`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `pinjaman`
 --
 ALTER TABLE `pinjaman`
@@ -259,16 +314,22 @@ ALTER TABLE `user_sub_menu`
 --
 
 --
+-- AUTO_INCREMENT for table `angsuran`
+--
+ALTER TABLE `angsuran`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
+--
 -- AUTO_INCREMENT for table `pinjaman`
 --
 ALTER TABLE `pinjaman`
-  MODIFY `no_pinjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1005;
+  MODIFY `no_pinjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1013;
 
 --
 -- AUTO_INCREMENT for table `simpanan`
 --
 ALTER TABLE `simpanan`
-  MODIFY `no_simpanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1003;
+  MODIFY `no_simpanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1004;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
@@ -280,7 +341,7 @@ ALTER TABLE `user_access_menu`
 -- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user_sub_menu`

@@ -13,7 +13,7 @@
                     <div class="card-header">
                         <h4 class="card-title"><?= $sub_title ?></h4>
                         <div class="d-flex col-sm- justify-content-center align-items-center">
-                            <button class="btn btn-primary btn-block btn-rounded" data-bs-toggle="modal"
+                            <button class="btn btn-primary btn-rounded btn-md mx-3" data-bs-toggle="modal"
                                 data-bs-target="#basicModal">Bayar</button>
                         </div>
                     </div>
@@ -52,8 +52,8 @@
                                         <td><?= 'PJ-' . $dt['no_pinjaman'] ?></td>
                                         <td><?= $dt['angsuran'] ?></td>
                                         <td><?= $dt['jatuh_tempo'] ?></td>
-                                        <td><?= $dt['bayar'] ?></td>
-                                        <td><?= $dt['sisa'] ?></td>
+                                        <td><?= 'Rp. ' . number_format($dt['bayar'], 2, ',', '.') ?></td>
+                                        <td><?= 'Rp. ' . number_format($dt['sisa'], 2, ',', '.') ?></td>
                                         <?php if ($user['level'] == 1) : ?>
                                         <td>
                                             <?php if ($dt['status'] == 0) : ?>

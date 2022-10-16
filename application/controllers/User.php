@@ -12,6 +12,14 @@ class User extends CI_Controller
         $data['kelompok'] = 'Kelompok 3';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
+        $data['jumlah_pinjaman'] = $this->db->get_where('pinjaman', ['username' => $this->session->userdata('username')])->num_rows();
+        $data['jumlah_simpanan'] = $this->db->get_where('simpanan', ['username' => $this->session->userdata('username')])->num_rows();
+
+        $username = $this->session->userdata('username');
+        $query = "SELECT * FROM simpanan WHERE username = '$username' ORDER BY tgl_simpanan DESC LIMIT 5";
+        $data['transaksi_simpanan'] = $this->db->query($query)->result_array();
+        $query = "SELECT * FROM pinjaman WHERE username = '$username' ORDER BY tgl_pinjaman DESC LIMIT 5";
+        $data['transaksi_pinjaman'] = $this->db->query($query)->result_array();
 
         $username = $this->session->userdata('username');
         $query = " SELECT `username`, (SELECT SUM(`pinjaman_pokok`) FROM `pinjaman` WHERE `username` = '$username') AS pinjaman,

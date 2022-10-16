@@ -17,10 +17,14 @@ class Admin extends CI_Controller
         $data['kelompok'] = 'Kelompok 3';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
-        $data['total_anggota'] = $this->db->get_where('user', ['aktif' => 1])->num_rows();
-        $data['anggota_pending'] = $this->db->get_where('user', ['aktif' => 0])->num_rows();
+        $data['total_anggota'] = $this->db->get_where('user', ['aktif' => 2])->num_rows();
+        $data['anggota_pending'] = $this->db->get_where('user', ['aktif' => 1])->num_rows();
+        $query = "SELECT * FROM pinjaman ORDER BY tgl_pinjaman DESC LIMIT 5";
+        $data['transaksi_pinjaman'] = $this->db->query($query)->result_array();
         $data['total_peminjam'] = $this->db->get('pinjaman')->num_rows();
         $data['total_penyimpan'] = $this->db->get('simpanan')->num_rows();
+        $query = "SELECT * FROM simpanan ORDER BY tgl_simpanan DESC LIMIT 5";
+        $data['transaksi_simpanan'] = $this->db->query($query)->result_array();
 
         $query = " SELECT `username`, (SELECT SUM(`pinjaman_pokok`) FROM `pinjaman`) AS pinjaman,
                                                     (SELECT SUM(`simpanan`) FROM `simpanan`) AS simpanan

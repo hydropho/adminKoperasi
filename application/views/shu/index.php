@@ -34,8 +34,8 @@
                                     $users = $this->db->get('user')->result_array();
                                     foreach ($users as $user) :
                                         $username = $user['username'];
-                                        $query = " SELECT `username`, (SELECT SUM(`pinjaman_pokok`) FROM `pinjaman` WHERE `username` = '$username') AS pinjaman,
-                                                    (SELECT SUM(`simpanan`) FROM `simpanan`  WHERE `username` = '$username') AS simpanan
+                                        $query = " SELECT `username`, (SELECT SUM(`pinjaman_pokok`) FROM `pinjaman` WHERE `username` = '$username' AND keterangan = '2') AS pinjaman,
+                                                    (SELECT SUM(`simpanan`) FROM `simpanan`  WHERE `username` = '$username' AND status = '2') AS simpanan
                                                     FROM `user` WHERE `username` = '$username'
                                         ";
                                         $total = $this->db->query($query)->row_array();

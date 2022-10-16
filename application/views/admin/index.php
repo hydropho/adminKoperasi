@@ -5,7 +5,7 @@
     <!-- row -->
     <div class="container-fluid">
         <div class="row invoice-card-row">
-            <a href="<?= base_url('pinjaman/data') ?>" class="col-xl-3 col-xxl-3 col-sm-6">
+            <a href="<?= base_url('pinjaman') ?>" class="col-xl-3 col-xxl-3 col-sm-6">
                 <div>
                     <div class="card bg-warning invoice-card">
                         <div class="card-body d-flex">
@@ -28,7 +28,7 @@
                 </div>
             </a>
 
-            <a href="" class="col-xl-3 col-xxl-3 col-sm-6">
+            <a href="<?= base_url('simpanan') ?>" class="col-xl-3 col-xxl-3 col-sm-6">
                 <div>
                     <div class="card bg-success invoice-card">
                         <div class="card-body d-flex">
@@ -48,7 +48,7 @@
                 </div>
             </a>
 
-            <a href="" class="col-xl-3 col-xxl-3 col-sm-6">
+            <a href="<?= base_url('pengguna/anggota') ?>" class="col-xl-3 col-xxl-3 col-sm-6">
                 <div>
                     <div class="card bg-info invoice-card">
                         <div class="card-body d-flex">
@@ -120,13 +120,13 @@
                                 <div class="row  mt-xl-0 mt-4">
                                     <div class="col-md-6">
                                         <h4 class="card-title">Statistik Dana</h4>
-                                        <span>Jumlah danamu</span>
+                                        <span>Jumlah Dana Koperasi</span>
                                         <ul class="card-list mt-4">
-                                            <li><span class="bg-success circle"></span>Dana
-                                                Pinjaman<span><?= $pinjaman . '%' ?></span>
+                                            <li><span class="bg-success circle"></span>Pinjaman
+                                                Anggota<span><?= $pinjaman . '%' ?></span>
                                             </li>
-                                            <li><span class="bg-blue circle"></span>Dana
-                                                Simpanan<span><?= $simpanan . '%' ?></span></li>
+                                            <li><span class="bg-blue circle"></span>Simpanan
+                                                Anggota<span><?= $simpanan . '%' ?></span></li>
                                         </ul>
                                     </div>
                                     <div class="col-md-6">
@@ -144,7 +144,7 @@
                     <div class="card-header d-block d-sm-flex border-0">
                         <div class="me-3">
                             <h4 class="card-title mb-2">Aktivitas Koperasi</h4>
-                            <span class="fs-12">Lorem ipsum dolor sit amet, consectetur</span>
+                            <span class="fs-12">Menampilkan 5 aktivitas terbaru anggota koperasi.</span>
                         </div>
                         <div class="card-tabs mt-3 mt-sm-0">
                             <ul class="nav nav-tabs" role="tablist">
@@ -163,10 +163,12 @@
                             <div class="table-responsive">
                                 <table class="table table-responsive-md card-table transactions-table">
                                     <tbody>
+                                        <?php foreach ($transaksi_simpanan as $ts) : ?>
                                         <tr>
                                             <td>
                                                 <svg class="bgl-success tr-icon" width="63" height="63"
-                                                    viewbox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    viewbox="0 0 63 63" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg   ">
                                                     <g>
                                                         <path
                                                             d="M35.2219 42.9875C34.8938 42.3094 35.1836 41.4891 35.8617 41.1609C37.7484 40.2531 39.3453 38.8422 40.4828 37.0758C41.6477 35.2656 42.2656 33.1656 42.2656 31C42.2656 24.7875 37.2125 19.7344 31 19.7344C24.7875 19.7344 19.7344 24.7875 19.7344 31C19.7344 33.1656 20.3523 35.2656 21.5117 37.0813C22.6437 38.8477 24.2461 40.2586 26.1328 41.1664C26.8109 41.4945 27.1008 42.3094 26.7727 42.993C26.4445 43.6711 25.6297 43.9609 24.9461 43.6328C22.6 42.5063 20.6148 40.7563 19.2094 38.5578C17.7656 36.3047 17 33.6906 17 31C17 27.2594 18.4547 23.743 21.1016 21.1016C23.743 18.4547 27.2594 17 31 17C34.7406 17 38.257 18.4547 40.8984 21.1016C43.5453 23.7484 45 27.2594 45 31C45 33.6906 44.2344 36.3047 42.7852 38.5578C41.3742 40.7508 39.3891 42.5063 37.0484 43.6328C36.3648 43.9555 35.55 43.6711 35.2219 42.9875Z"
@@ -179,18 +181,31 @@
                                             </td>
                                             <td>
                                                 <h6 class="fs-16 font-w600 mb-0"><a href="javascript:void(0);"
-                                                        class="text-black">XYZ Store ID</a></h6>
-                                                <span class="fs-14">Cashback</span>
+                                                        class="text-black">Simpanan</a></h6>
+                                                <span class="fs-14"><?= $ts['jenis_simpanan'] ?></span>
                                             </td>
                                             <td>
-                                                <h6 class="fs-16 text-black font-w600 mb-0">June 4, 2020</h6>
-                                                <span class="fs-14">05:34:45 AM</span>
+                                                <h6 class="fs-16 text-black font-w600 mb-0">
+                                                    <?= date('d F Y', strtotime($ts['tgl_simpanan'])) ?>
+                                                </h6>
+                                                <span class="fs-14">SP-<?= $ts['no_simpanan'] ?></span>
                                             </td>
-                                            <td><span class="fs-16 text-black font-w600">+$5,553</span></td>
                                             <td><span
-                                                    class="text-success fs-16 font-w500 text-end d-block">Completed</span>
+                                                    class="fs-16 text-black font-w600"><?= 'Rp. ' . number_format($ts['simpanan'], 2, ',', '.'); ?></span>
+                                            </td>
+                                            <td>
+                                                <?php if ($ts['status'] == 2) : ?>
+                                                <span
+                                                    class="text-success fs-16 font-w500 text-end d-block">Dikonfirmasi</span>
+                                                <?php elseif ($ts['status'] == 1) : ?>
+                                                <span class="text-light fs-16 font-w500 text-end d-block">Pending</span>
+                                                <?php else : ?>
+                                                <span
+                                                    class="text-danger fs-16 font-w500 text-end d-block">Ditolak</span>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -199,6 +214,7 @@
                             <div class="table-responsive">
                                 <table class="table table-responsive-md card-table transactions-table">
                                     <tbody>
+                                        <?php foreach ($transaksi_pinjaman as $tp) : ?>
                                         <tr>
                                             <td>
                                                 <svg class="bgl-danger tr-icon" width="63" height="63"
@@ -215,17 +231,30 @@
                                             </td>
                                             <td>
                                                 <h6 class="fs-16 font-w600 mb-0"><a href="javascript:void(0);"
-                                                        class="text-black">Chef Renata</a></h6>
-                                                <span class="fs-14">Transfer</span>
+                                                        class="text-black">Pinjaman</a></h6>
+                                                <span class="fs-14"><?= $tp['jangka_waktu'] . ' Bulan' ?></span>
                                             </td>
                                             <td>
-                                                <h6 class="fs-16 text-black font-w600 mb-0">June 5, 2020</h6>
-                                                <span class="fs-14">05:34:45 AM</span>
+                                                <h6 class="fs-16 text-black font-w600 mb-0">
+                                                    <?= date('d F Y', strtotime($tp['tgl_pinjaman'])) ?></h6>
+                                                <span class="fs-14">PJ-<?= $tp['no_pinjaman'] ?></span>
                                             </td>
-                                            <td><span class="fs-16 text-black font-w600">-$167</span></td>
-                                            <td><span class="text-light fs-16 font-w500 text-end d-block">Pending</span>
+                                            <td><span
+                                                    class="fs-16 text-black font-w600"><?= 'Rp. ' . number_format($tp['pinjaman_pokok'], 2, ',', '.'); ?></span>
+                                            </td>
+                                            <td>
+                                                <?php if ($tp['keterangan'] == 2) : ?>
+                                                <span
+                                                    class="text-success fs-16 font-w500 text-end d-block">Dikonfirmasi</span>
+                                                <?php elseif ($tp['keterangan'] == 1) : ?>
+                                                <span class="text-light fs-16 font-w500 text-end d-block">Pending</span>
+                                                <?php else : ?>
+                                                <span
+                                                    class="text-danger fs-16 font-w500 text-end d-block">Ditolak</span>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>

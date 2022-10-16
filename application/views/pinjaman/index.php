@@ -24,9 +24,7 @@
                                 <thead>
                                     <tr>
                                         <th>No Pinjaman</th>
-                                        <?php if ($user['level'] == 2) : ?>
                                         <th>Status</th>
-                                        <?php endif; ?>
                                         <th>Username</th>
                                         <th>Pinjaman Pokok</th>
                                         <th>Bunga</th>
@@ -62,6 +60,16 @@
                                             <a href="javascript:void(0);" data-bs-toggle="modal"
                                                 data-bs-target="#modal<?= $dp['no_pinjaman'] ?>"><span
                                                     class="badge light badge-danger">Ditolak</span></a>
+                                            <?php endif; ?>
+                                        </td>
+                                        <?php else : ?>
+                                        <td>
+                                            <?php if ($dp['keterangan'] == 2) : ?>
+                                            <span class="badge light badge-success">Disetujui</span>
+                                            <?php elseif ($dp['keterangan'] == 1) : ?>
+                                            <span class="badge light badge-warning">Pending</span>
+                                            <?php else : ?>
+                                            <span class="badge light badge-danger">Ditolak</span>
                                             <?php endif; ?>
                                         </td>
                                         <?php endif; ?>

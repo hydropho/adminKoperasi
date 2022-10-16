@@ -12,10 +12,8 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title"><?= $sub_title ?></h4>
-                        <div class="d-flex col-sm- justify-content-center align-items-center">
-                            <button class="btn btn-primary btn-block btn-rounded" data-bs-toggle="modal"
-                                data-bs-target="#basicModal">Tambah Simpanan</button>
-                        </div>
+                        <button class="btn btn-primary btn-rounded btn-md mx-3" data-bs-toggle="modal"
+                            data-bs-target="#basicModal">+Tambah Simpanan</button>
                     </div>
                     <div class="card-body">
                         <?= $this->session->flashdata('alert_message') ?>
@@ -28,7 +26,7 @@
                                         <th>Tanggal Masuk</th>
                                         <th>Simpanan</th>
                                         <th>Jenis Simpanan</th>
-                                        <th>Aksi</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -44,14 +42,47 @@
                                         <td><?= "Rp. " . number_format($ds['simpanan'], 2, ',', '.'); ?></td>
                                         <td><?= $ds['jenis_simpanan'] ?></td>
                                         <td>
-                                            <div class="d-flex">
-                                                <a href="<?= base_url('simpanan/hapus/') . $ds['no_simpanan']; ?>"
-                                                    class="btn btn-danger shadow btn-xs sharp"><i
-                                                        class="fa fa-trash"></i></a>
-                                            </div>
+                                            <?php if ($ds['status'] == 2) : ?>
+                                            <a href="javascript:void(0);" data-bs-toggle="modal"
+                                                data-bs-target="#modal<?= $ds['no_simpanan'] ?>"><span
+                                                    class="badge light badge-success">Disetujui</span></a>
+                                            <?php elseif ($ds['status'] == 1) : ?>
+                                            <a href="javascript:void(0);" data-bs-toggle="modal"
+                                                data-bs-target="#modal<?= $ds['no_simpanan'] ?>"><span
+                                                    class="badge light badge-warning">Pending</span></a>
+                                            <?php else : ?>
+                                            <a href="javascript:void(0);" data-bs-toggle="modal"
+                                                data-bs-target="#modal<?= $ds['no_simpanan'] ?>"><span
+                                                    class="badge light badge-danger">Ditolak</span></a>
+                                            <?php endif; ?>
                                         </td>
-
                                     </tr>
+                                    <div class="bootstrap-modal">
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modal<?= $ds['no_simpanan'] ?>">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Konformasi Simpanan</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">Konfirmasi apakah impanan anggota diterima
+                                                        atau ditolak.</div>
+                                                    <div class="modal-footer">
+                                                        <a
+                                                            href="<?= base_url('simpanan/tolak/') . $ds['no_simpanan']; ?>"><button
+                                                                type="button"
+                                                                class="btn btn-sm btn-danger light">Tolak</button></a>
+                                                        <a
+                                                            href="<?= base_url('simpanan/setuju/') . $ds['no_simpanan']; ?>"><button
+                                                                type="button"
+                                                                class="btn btn-sm btn-primary">Setuju</button></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>

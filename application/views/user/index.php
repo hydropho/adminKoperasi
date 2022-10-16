@@ -5,7 +5,7 @@
     <!-- row -->
     <div class="container-fluid">
         <div class="row invoice-card-row">
-            <a href="" class="col-xl-3 col-xxl-3 col-sm-6">
+            <a href="<?= base_url('simpanan/user') ?>" class="col-xl-3 col-xxl-3 col-sm-6">
                 <div>
                     <div class="card bg-warning invoice-card">
                         <div class="card-body d-flex">
@@ -18,7 +18,7 @@
 
                             </div>
                             <div>
-                                <h2 class="text-white invoice-num">2478</h2>
+                                <h2 class="text-white invoice-num"><?= $jumlah_simpanan ?></h2>
                                 <span class="text-white fs-18">Simpananmu</span>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                 </div>
             </a>
 
-            <a href="" class="col-xl-3 col-xxl-3 col-sm-6">
+            <a href="<?= base_url('pinjaman') ?>" class="col-xl-3 col-xxl-3 col-sm-6">
                 <div>
                     <div class="card bg-success invoice-card">
                         <div class="card-body d-flex">
@@ -42,7 +42,7 @@
 
                             </div>
                             <div>
-                                <h2 class="text-white invoice-num">983</h2>
+                                <h2 class="text-white invoice-num"><?= $jumlah_pinjaman ?></h2>
                                 <span class="text-white fs-18">Pinjamanmu</span>
                             </div>
                         </div>
@@ -50,24 +50,25 @@
                 </div>
             </a>
 
-            <a href="" class="col-xl-3 col-xxl-3 col-sm-6">
+            <a href="javascript:void(0);" class="col-xl-3 col-xxl-3 col-sm-6">
                 <div>
                     <div class="card bg-info invoice-card">
                         <div class="card-body d-flex">
                             <div class="icon me-3">
                                 <svg width="35px" height="34px">
                                     <path fill-rule="evenodd" fill="rgb(255, 255, 255)"
-                                        d="M33.002,9.728 C31.612,6.787 29.411,4.316 26.638,2.583 C22.781,0.179 18.219,-0.584 13.784,0.438 C9.356,1.454 5.585,4.137 3.178,7.989 C0.764,11.840 -0.000,16.396 1.023,20.825 C2.048,25.247 4.734,29.013 8.584,31.417 C11.297,33.110 14.409,34.006 17.594,34.006 L17.800,34.006 C20.973,33.967 24.058,33.050 26.731,31.363 C27.509,30.872 27.735,29.849 27.243,29.072 C26.751,28.296 25.727,28.070 24.949,28.561 C22.801,29.922 20.314,30.660 17.761,30.693 C15.141,30.726 12.581,30.002 10.346,28.614 C7.241,26.675 5.080,23.647 4.262,20.088 C3.444,16.515 4.056,12.850 5.997,9.748 C10.001,3.353 18.473,1.401 24.876,5.399 C27.110,6.793 28.879,8.779 29.996,11.143 C31.087,13.447 31.513,16.004 31.227,18.527 C31.126,19.437 31.778,20.260 32.696,20.360 C33.607,20.459 34.432,19.809 34.531,18.892 C34.884,15.765 34.352,12.591 33.002,9.728 L33.002,9.728 Z">
+                                        d="M32.482,9.730 C31.092,6.789 28.892,4.319 26.120,2.586 C22.265,0.183 17.698,-0.580 13.271,0.442 C8.843,1.458 5.074,4.140 2.668,7.990 C0.255,11.840 -0.509,16.394 0.514,20.822 C1.538,25.244 4.224,29.008 8.072,31.411 C10.785,33.104 13.896,34.000 17.080,34.000 L17.286,34.000 C20.456,33.960 23.541,33.044 26.213,31.358 C26.991,30.866 27.217,29.844 26.725,29.067 C26.234,28.291 25.210,28.065 24.432,28.556 C22.285,29.917 19.799,30.654 17.246,30.687 C14.627,30.720 12.067,29.997 9.834,28.609 C6.730,26.671 4.569,23.644 3.752,20.085 C2.934,16.527 3.546,12.863 5.486,9.763 C9.488,3.370 17.957,1.418 24.359,5.414 C26.592,6.808 28.360,8.793 29.477,11.157 C30.568,13.460 30.993,16.016 30.707,18.539 C30.607,19.448 31.259,20.271 32.177,20.371 C33.087,20.470 33.911,19.820 34.011,18.904 C34.363,15.764 33.832,12.591 32.482,9.730 L32.482,9.730 Z">
                                     </path>
                                     <path fill-rule="evenodd" fill="rgb(255, 255, 255)"
-                                        d="M23.380,11.236 C22.728,10.585 21.678,10.585 21.026,11.236 L17.608,14.656 L14.190,11.243 C13.539,10.592 12.488,10.592 11.836,11.243 C11.184,11.893 11.184,12.942 11.836,13.593 L15.254,17.006 L11.836,20.420 C11.184,21.071 11.184,22.120 11.836,22.770 C12.162,23.096 12.588,23.255 13.014,23.255 C13.438,23.255 13.864,23.096 14.190,22.770 L17.608,19.357 L21.026,22.770 C21.352,23.096 21.777,23.255 22.203,23.255 C22.629,23.255 23.054,23.096 23.380,22.770 C24.031,22.120 24.031,21.071 23.380,20.420 L19.962,17.000 L23.380,13.587 C24.031,12.936 24.031,11.887 23.380,11.236 L23.380,11.236 Z">
+                                        d="M22.593,11.237 L14.575,19.244 L11.604,16.277 C10.952,15.626 9.902,15.626 9.250,16.277 C8.599,16.927 8.599,17.976 9.250,18.627 L13.399,22.770 C13.725,23.095 14.150,23.254 14.575,23.254 C15.001,23.254 15.427,23.095 15.753,22.770 L24.940,13.588 C25.592,12.937 25.592,11.888 24.940,11.237 C24.289,10.593 23.238,10.593 22.593,11.237 L22.593,11.237 Z">
                                     </path>
                                 </svg>
 
                             </div>
                             <div>
-                                <h2 class="text-white invoice-num">1256</h2>
-                                <span class="text-white fs-18">Total peminjam</span>
+                                <h2 class="text-white invoice-num">
+                                    <?= $jumlah_pinjaman + $jumlah_simpanan ?></h2>
+                                <span class="text-white fs-18">Total Transaksi</span>
                             </div>
                         </div>
                     </div>
@@ -145,7 +146,7 @@
                     <div class="card-header d-block d-sm-flex border-0">
                         <div class="me-3">
                             <h4 class="card-title mb-2">Aktivitasmu</h4>
-                            <span class="fs-12">Lorem ipsum dolor sit amet, consectetur</span>
+                            <span class="fs-12">Menampilkan 5 aktivitas terbarumu.</span>
                         </div>
                         <div class="card-tabs mt-3 mt-sm-0">
                             <ul class="nav nav-tabs" role="tablist">
@@ -164,10 +165,12 @@
                             <div class="table-responsive">
                                 <table class="table table-responsive-md card-table transactions-table">
                                     <tbody>
+                                        <?php foreach ($transaksi_simpanan as $ts) : ?>
                                         <tr>
                                             <td>
                                                 <svg class="bgl-success tr-icon" width="63" height="63"
-                                                    viewbox="0 0 63 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    viewbox="0 0 63 63" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg   ">
                                                     <g>
                                                         <path
                                                             d="M35.2219 42.9875C34.8938 42.3094 35.1836 41.4891 35.8617 41.1609C37.7484 40.2531 39.3453 38.8422 40.4828 37.0758C41.6477 35.2656 42.2656 33.1656 42.2656 31C42.2656 24.7875 37.2125 19.7344 31 19.7344C24.7875 19.7344 19.7344 24.7875 19.7344 31C19.7344 33.1656 20.3523 35.2656 21.5117 37.0813C22.6437 38.8477 24.2461 40.2586 26.1328 41.1664C26.8109 41.4945 27.1008 42.3094 26.7727 42.993C26.4445 43.6711 25.6297 43.9609 24.9461 43.6328C22.6 42.5063 20.6148 40.7563 19.2094 38.5578C17.7656 36.3047 17 33.6906 17 31C17 27.2594 18.4547 23.743 21.1016 21.1016C23.743 18.4547 27.2594 17 31 17C34.7406 17 38.257 18.4547 40.8984 21.1016C43.5453 23.7484 45 27.2594 45 31C45 33.6906 44.2344 36.3047 42.7852 38.5578C41.3742 40.7508 39.3891 42.5063 37.0484 43.6328C36.3648 43.9555 35.55 43.6711 35.2219 42.9875Z"
@@ -181,19 +184,30 @@
                                             <td>
                                                 <h6 class="fs-16 font-w600 mb-0"><a href="javascript:void(0);"
                                                         class="text-black">Simpanan</a></h6>
-                                                <span class="fs-14">Simpanan Pokok</span>
+                                                <span class="fs-14"><?= $ts['jenis_simpanan'] ?></span>
                                             </td>
                                             <td>
-                                                <h6 class="fs-16 text-black font-w600 mb-0">June 4, 2020</h6>
-                                                <span class="fs-14">SP-1001</span>
+                                                <h6 class="fs-16 text-black font-w600 mb-0">
+                                                    <?= date('d F Y', strtotime($ts['tgl_simpanan'])) ?>
+                                                </h6>
+                                                <span class="fs-14">SP-<?= $ts['no_simpanan'] ?></span>
                                             </td>
-                                            <td><span class="fs-16 text-black font-w600">Rp. 1.000.000,00</span></td>
                                             <td><span
-                                                    class="text-success fs-16 font-w500 text-end d-block">Completed</span>
+                                                    class="fs-16 text-black font-w600"><?= 'Rp. ' . number_format($ts['simpanan'], 2, ',', '.'); ?></span>
+                                            </td>
+                                            <td>
+                                                <?php if ($ts['status'] == 2) : ?>
+                                                <span
+                                                    class="text-success fs-16 font-w500 text-end d-block">Dikonfirmasi</span>
+                                                <?php elseif ($ts['status'] == 1) : ?>
+                                                <span class="text-light fs-16 font-w500 text-end d-block">Pending</span>
+                                                <?php else : ?>
+                                                <span
+                                                    class="text-danger fs-16 font-w500 text-end d-block">Ditolak</span>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
-
-
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -202,6 +216,7 @@
                             <div class="table-responsive">
                                 <table class="table table-responsive-md card-table transactions-table">
                                     <tbody>
+                                        <?php foreach ($transaksi_pinjaman as $tp) : ?>
                                         <tr>
                                             <td>
                                                 <svg class="bgl-danger tr-icon" width="63" height="63"
@@ -219,16 +234,29 @@
                                             <td>
                                                 <h6 class="fs-16 font-w600 mb-0"><a href="javascript:void(0);"
                                                         class="text-black">Pinjaman</a></h6>
-                                                <span class="fs-14">12 Bulan</span>
+                                                <span class="fs-14"><?= $tp['jangka_waktu'] . ' Bulan' ?></span>
                                             </td>
                                             <td>
-                                                <h6 class="fs-16 text-black font-w600 mb-0">June 5, 2020</h6>
-                                                <span class="fs-14">PJ-1001</span>
+                                                <h6 class="fs-16 text-black font-w600 mb-0">
+                                                    <?= date('d F Y', strtotime($tp['tgl_pinjaman'])) ?></h6>
+                                                <span class="fs-14">PJ-<?= $tp['no_pinjaman'] ?></span>
                                             </td>
-                                            <td><span class="fs-16 text-black font-w600">RP. 1.000.000,00</span></td>
-                                            <td><span class="text-light fs-16 font-w500 text-end d-block">Pending</span>
+                                            <td><span
+                                                    class="fs-16 text-black font-w600"><?= 'Rp. ' . number_format($tp['pinjaman_pokok'], 2, ',', '.'); ?></span>
+                                            </td>
+                                            <td>
+                                                <?php if ($tp['keterangan'] == 2) : ?>
+                                                <span
+                                                    class="text-success fs-16 font-w500 text-end d-block">Dikonfirmasi</span>
+                                                <?php elseif ($tp['keterangan'] == 1) : ?>
+                                                <span class="text-light fs-16 font-w500 text-end d-block">Pending</span>
+                                                <?php else : ?>
+                                                <span
+                                                    class="text-danger fs-16 font-w500 text-end d-block">Ditolak</span>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>

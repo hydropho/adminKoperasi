@@ -8,7 +8,13 @@
                         <div class="card-bx bg-orange">
                             <img class="pattern-img" src="<?= base_url('assets/images/pattern/pattern8.png') ?>" alt="">
                             <div class="card-info text-white">
-                                <h2 class="text-white card-balance mt-4">$824,571.93</h2>
+                                <h2 class="text-white card-balance mt-4">
+                                    <?php if ($simpanan_pokok['simpanan'] == null) {
+                                        echo "Rp. " . number_format(0, 2, ',', '.');
+                                    } else {
+                                        echo "Rp. " . number_format($simpanan_pokok['simpanan'], 2, ',', '.');
+                                    } ?>
+                                </h2>
                                 <p class="fs-24">Simpanan Pokok</p>
                             </div>
                         </div>
@@ -18,7 +24,12 @@
                         <div class="card-bx bg-blue">
                             <img class="pattern-img" src="<?= base_url('assets/images/pattern/pattern6.png') ?>" alt="">
                             <div class="card-info text-white">
-                                <h2 class="text-white card-balance mt-4">$824,571.93</h2>
+                                <h2 class="text-white card-balance mt-4">
+                                    <?php if ($simpanan_wajib['simpanan'] == null) {
+                                        echo "Rp. " . number_format(0, 2, ',', '.');
+                                    } else {
+                                        echo "Rp. " . number_format($simpanan_wajib['simpanan'], 2, ',', '.');
+                                    } ?></h2>
                                 <p class="fs-24">Simpanan Wajib</p>
                             </div>
                         </div>
@@ -29,7 +40,12 @@
                             <img class="pattern-img" src="<?= base_url('assets/images/pattern/pattern10.png') ?>"
                                 alt="">
                             <div class="card-info text-white">
-                                <h2 class="text-white card-balance mt-4">$824,571.93</h2>
+                                <h2 class="text-white card-balance mt-4">
+                                    <?php if ($simpanan_sukarela['simpanan'] == null) {
+                                        echo "Rp. " . number_format(0, 2, ',', '.');
+                                    } else {
+                                        echo "Rp. " . number_format($simpanan_sukarela['simpanan'], 2, ',', '.');
+                                    } ?></h2>
                                 <p class="fs-24">Simpanan Sukarela</p>
                             </div>
                         </div>
@@ -40,217 +56,108 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card">
-                            <div class="card-header d-sm-flex d-block border-0 pb-0">
+                            <div class="card-header">
                                 <div class="me-auto mb-sm-0 mb-4">
                                     <h4 class="fs-20 text-black">Riwayat Simpanan</h4>
                                     <span class="fs-12">Riwayat simpanan yang sudah masuk.</span>
                                 </div>
-                                <a href="javascript:void(0);" class="btn btn-primary btn-rounded btn-md mx-3">+Add New
-                                    Card</a>
-                                <select class="default-select dashboard-select">
-                                    <option data-display="newest">newest</option>
-                                    <option value="1">newest</option>
-                                    <option value="2">oldest</option>
-                                </select>
+                                <button type="submit" class="btn btn-primary btn-rounded btn-md mx-3"
+                                    data-bs-toggle="modal" data-bs-target="#basicModal">+Tambah
+                                    Simpanan</button>
                             </div>
-                            <div class="card-body pb-0">
-                                <div
-                                    class="d-flex mb-3 border-bottom justify-content-between flex-wrap align-items-center">
-                                    <div class="d-flex pb-3 align-items-center">
-                                        <img src="images/card/1.jpg" alt="" class="rounded me-3 card-list-img"
-                                            width="130">
-                                        <div class="me-3">
-                                            <p class="fs-14 mb-1">Card Type</p>
-                                            <span class="text-black font-w500">Primary</span>
-                                        </div>
-                                    </div>
-                                    <div class="me-3 pb-3">
-                                        <p class="fs-14 mb-1">Bank</p>
-                                        <span class="text-black font-w500">ABC Bank</span>
-                                    </div>
-                                    <div class="me-3 pb-3">
-                                        <p class="fs-14 mb-1">Card Number</p>
-                                        <span class="text-black font-w500">**** **** **** 2256</span>
-                                    </div>
-                                    <div class="me-3 pb-3">
-                                        <p class="fs-14 mb-1">Namein Card</p>
-                                        <span class="text-black font-w500">Franklin Jr.</span>
-                                    </div>
-                                    <a href="javascript:void(0);" class="fs-14 btn-link me-3 pb-3">See Number</a>
-                                    <div class="dropdown pb-3">
-                                        <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <svg width="24" height="24" viewbox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-                                                    stroke="#575757" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path
-                                                    d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-                                                    stroke="#575757" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path
-                                                    d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-                                                    stroke="#575757" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                            <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                        </div>
-                                    </div>
+                            <div class="card-body">
+                                <?= $this->session->flashdata('alert_message') ?>
+                                <div class="table-responsive">
+                                    <table id="example4" class="display" style="min-width: 845px">
+                                        <thead>
+                                            <tr>
+                                                <th>No Simpanan</th>
+                                                <th>Username</th>
+                                                <th>Tanggal Masuk</th>
+                                                <th>Simpanan</th>
+                                                <th>Jenis Simpanan</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $dataSimpanan = $this->db->get_where('simpanan', ['username' => $user['username']])->result_array();
+
+                                            foreach ($dataSimpanan as $ds) :
+                                            ?>
+                                            <tr>
+                                                <td>SM-<?= $ds['no_simpanan'] ?></td>
+                                                <td><?= $ds['username'] ?></td>
+                                                <td><?= $ds['tgl_simpanan'] ?></td>
+                                                <td><?= "Rp. " . number_format($ds['simpanan'], 2, ',', '.'); ?></td>
+                                                <td><?= $ds['jenis_simpanan'] ?></td>
+                                                <td>
+                                                    <?php if ($ds['status'] == 0) : ?>
+                                                    <span class="badge light badge-danger">Belum Lunas</span>
+                                                    <?php elseif ($ds['status'] == 1) : ?>
+                                                    <span class="badge light badge-warning">Pending</span>
+                                                    <?php else : ?>
+                                                    <span class="badge light badge-success">Lunas</span>
+                                                    <?php endif; ?>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div
-                                    class="d-flex mb-3 border-bottom justify-content-between flex-wrap align-items-center">
-                                    <div class="d-flex pb-3 align-items-center">
-                                        <img src="images/card/2.jpg" alt="" class="rounded me-3 card-list-img"
-                                            width="130">
-                                        <div class="me-3">
-                                            <p class="fs-14 mb-1">Card Type</p>
-                                            <span class="text-black font-w500">Secondary</span>
+                            </div>
+                            <div class="modal fade" id="basicModal">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Tambah Simpanan</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                            </button>
                                         </div>
-                                    </div>
-                                    <div class="me-3 pb-3">
-                                        <p class="fs-14 mb-1">Bank</p>
-                                        <span class="text-black font-w500">ABC Bank</span>
-                                    </div>
-                                    <div class="me-3 pb-3">
-                                        <p class="fs-14 mb-1">Card Number</p>
-                                        <span class="text-black font-w500">**** **** **** 2256</span>
-                                    </div>
-                                    <div class="me-3 pb-3">
-                                        <p class="fs-14 mb-1">Namein Card</p>
-                                        <span class="text-black font-w500">Franklin Jr.</span>
-                                    </div>
-                                    <a href="javascript:void(0);" class="fs-14 btn-link me-3 pb-3">See Number</a>
-                                    <div class="dropdown pb-3">
-                                        <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <svg width="24" height="24" viewbox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-                                                    stroke="#575757" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path
-                                                    d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-                                                    stroke="#575757" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path
-                                                    d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-                                                    stroke="#575757" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                            <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="d-flex mb-3 border-bottom justify-content-between flex-wrap align-items-center">
-                                    <div class="d-flex pb-3 align-items-center">
-                                        <img src="images/card/3.jpg" alt="" class="rounded me-3 card-list-img"
-                                            width="130">
-                                        <div class="me-3">
-                                            <p class="fs-14 mb-1">Card Type</p>
-                                            <span class="text-black font-w500">Primary</span>
-                                        </div>
-                                    </div>
-                                    <div class="me-3 pb-3">
-                                        <p class="fs-14 mb-1">Bank</p>
-                                        <span class="text-black font-w500">ABC Bank</span>
-                                    </div>
-                                    <div class="me-3 pb-3">
-                                        <p class="fs-14 mb-1">Card Number</p>
-                                        <span class="text-black font-w500">**** **** **** 2256</span>
-                                    </div>
-                                    <div class="me-3 pb-3">
-                                        <p class="fs-14 mb-1">Namein Card</p>
-                                        <span class="text-black font-w500">Franklin Jr.</span>
-                                    </div>
-                                    <a href="javascript:void(0);" class="fs-14 btn-link me-3 pb-3">See Number</a>
-                                    <div class="dropdown pb-3">
-                                        <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <svg width="24" height="24" viewbox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-                                                    stroke="#575757" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path
-                                                    d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-                                                    stroke="#575757" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path
-                                                    d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-                                                    stroke="#575757" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                            <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="d-flex mb-3 border-bottom justify-content-between flex-wrap align-items-center">
-                                    <div class="d-flex pb-3 align-items-center">
-                                        <img src="images/card/4.jpg" alt="" class="rounded me-3 card-list-img"
-                                            width="130">
-                                        <div class="me-3">
-                                            <p class="fs-14 mb-1">Card Type</p>
-                                            <span class="text-black font-w500">Primary</span>
-                                        </div>
-                                    </div>
-                                    <div class="me-3 pb-3">
-                                        <p class="fs-14 mb-1">Bank</p>
-                                        <span class="text-black font-w500">ABC Bank</span>
-                                    </div>
-                                    <div class="me-3 pb-3">
-                                        <p class="fs-14 mb-1">Card Number</p>
-                                        <span class="text-black font-w500">**** **** **** 2256</span>
-                                    </div>
-                                    <div class="me-3 pb-3">
-                                        <p class="fs-14 mb-1">Namein Card</p>
-                                        <span class="text-black font-w500">Franklin Jr.</span>
-                                    </div>
-                                    <a href="javascript:void(0);" class="fs-14 btn-link me-3 pb-3">See Number</a>
-                                    <div class="dropdown pb-3">
-                                        <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <svg width="24" height="24" viewbox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-                                                    stroke="#575757" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path
-                                                    d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-                                                    stroke="#575757" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path
-                                                    d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-                                                    stroke="#575757" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </svg>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                            <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                                        <div class="modal-body">
+                                            <form action="<?= base_url('simpanan/tambah_user') ?>" method="POST">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Tanggal</label>
+                                                    <input type="date" class="form-control"
+                                                        value="<?= $tanggal->format('Y-m-d') ?>" readonly
+                                                        name="tgl_simpanan">
+                                                </div>
+                                                <input type="text" class="form-control" value="<?= $user['username'] ?>"
+                                                    readonly name="username" hidden>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Simpanan</label>
+                                                    <input type="number" class="form-control" placeholder="Rp"
+                                                        name="simpanan" required
+                                                        oninvalid="this.setCustomValidity('Simpanan harus di isi!')"
+                                                        oninput="this.setCustomValidity('')">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Jenis Simpanan</label>
+                                                    <select class="default-select form-control wide mb-3"
+                                                        name="jenis_simpanan" required>
+                                                        <option>Simpanan Pokok</option>
+                                                        <option>Simpanan Wajib</option>
+                                                        <option>Simpanan Sukarela</option>
+                                                    </select>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger light"
+                                                        data-bs-dismiss="modal">Tutup</button>
+                                                    <button type="submit" class="btn btn-primary">Tambah
+                                                        Simpanan</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+</div>
+</div>
 </div>
