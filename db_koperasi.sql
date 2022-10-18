@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2022 at 02:34 PM
+-- Generation Time: Oct 18, 2022 at 04:14 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -76,7 +76,19 @@ INSERT INTO `angsuran` (`id`, `no_pinjaman`, `angsuran`, `jatuh_tempo`, `tgl_bay
 (61, '1012', 9, '2023-07-16', NULL, 186667, 560001, 0, 186667, '0'),
 (62, '1012', 10, '2023-08-16', NULL, 186667, 373334, 0, 186667, '0'),
 (63, '1012', 11, '2023-09-16', NULL, 186667, 186667, 0, 186667, '0'),
-(64, '1012', 12, '2023-10-16', NULL, 186667, 0, 0, 186667, '0');
+(64, '1012', 12, '2023-10-16', NULL, 186667, 0, 0, 186667, '0'),
+(65, '1013', 1, '2022-11-18', NULL, 93333, 1026663, 0, 93333, '0'),
+(66, '1013', 2, '2022-12-18', NULL, 93333, 933330, 0, 93333, '0'),
+(67, '1013', 3, '2023-01-18', NULL, 93333, 839997, 0, 93333, '0'),
+(68, '1013', 4, '2023-02-18', NULL, 93333, 746664, 0, 93333, '0'),
+(69, '1013', 5, '2023-03-18', NULL, 93333, 653331, 0, 93333, '0'),
+(70, '1013', 6, '2023-04-18', NULL, 93333, 559998, 0, 93333, '0'),
+(71, '1013', 7, '2023-05-18', NULL, 93333, 466665, 0, 93333, '0'),
+(72, '1013', 8, '2023-06-18', NULL, 93333, 373332, 0, 93333, '0'),
+(73, '1013', 9, '2023-07-18', NULL, 93333, 279999, 0, 93333, '0'),
+(74, '1013', 10, '2023-08-18', NULL, 93333, 186666, 0, 93333, '0'),
+(75, '1013', 11, '2023-09-18', NULL, 93333, 93333, 0, 93333, '0'),
+(76, '1013', 12, '2023-10-18', NULL, 93333, 0, 0, 93333, '0');
 
 -- --------------------------------------------------------
 
@@ -101,15 +113,16 @@ CREATE TABLE `pinjaman` (
 --
 
 INSERT INTO `pinjaman` (`no_pinjaman`, `username`, `pinjaman_pokok`, `bunga`, `tgl_pinjaman`, `jangka_waktu`, `tgl_selesai`, `angsuran`, `keterangan`) VALUES
-(1001, 'admin', 1000000, 1, '2022-10-13', 12, '2023-10-13', 93333, 1),
+(1001, 'admin', 1000000, 1, '2022-10-13', 12, '2023-10-13', 93333, 2),
 (1002, 'ghani', 100000, 1, '2022-10-13', 3, '2023-01-13', 34333, 1),
 (1003, 'ghani', 1000000, 1, '2022-10-14', 10, '2023-08-14', 110000, 2),
-(1004, 'admin', 1000000, 1, '2022-10-15', 12, '2023-10-15', 93333, 1),
+(1004, 'admin', 1000000, 1, '2022-10-15', 12, '2023-10-15', 93333, 2),
 (1005, 'admin', 1000000, 1, '2022-10-15', 12, '2023-10-15', 93333, 1),
 (1006, 'admin', 1000000, 1, '2022-10-15', 12, '2023-10-15', 93333, 1),
 (1010, 'admin', 1000000, 1, '2022-10-16', 10, '2023-08-16', 110000, 1),
 (1011, 'ghani', 1000000, 1, '2022-10-16', 10, '2023-08-16', 110000, 1),
-(1012, 'ghani', 2000000, 1, '2022-10-16', 12, '2023-10-16', 186667, 1);
+(1012, 'ghani', 2000000, 1, '2022-10-16', 12, '2023-10-16', 186667, 1),
+(1013, 'admin', 1000000, 1, '2022-10-18', 12, '2023-10-18', 93333, 1);
 
 -- --------------------------------------------------------
 
@@ -131,8 +144,8 @@ CREATE TABLE `simpanan` (
 --
 
 INSERT INTO `simpanan` (`no_simpanan`, `username`, `tgl_simpanan`, `simpanan`, `jenis_simpanan`, `status`) VALUES
-(1001, 'ghani', '2022-10-16', 1000000, 'Simpanan Wajib', 1),
-(1002, 'ghani', '2022-10-16', 2000000, 'Simpanan Sukarela', 1),
+(1001, 'ghani', '2022-10-16', 1000000, 'Simpanan Wajib', 2),
+(1002, 'ghani', '2022-10-16', 2000000, 'Simpanan Sukarela', 0),
 (1003, 'ghani', '2022-10-16', 2000000, 'Simpanan Pokok', 1);
 
 -- --------------------------------------------------------
@@ -214,7 +227,8 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (9, 1, 3),
 (10, 1, 5),
 (11, 1, 6),
-(12, 1, 8);
+(12, 1, 8),
+(14, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -317,13 +331,13 @@ ALTER TABLE `user_sub_menu`
 -- AUTO_INCREMENT for table `angsuran`
 --
 ALTER TABLE `angsuran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `pinjaman`
 --
 ALTER TABLE `pinjaman`
-  MODIFY `no_pinjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1013;
+  MODIFY `no_pinjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1014;
 
 --
 -- AUTO_INCREMENT for table `simpanan`
@@ -335,7 +349,7 @@ ALTER TABLE `simpanan`
 -- AUTO_INCREMENT for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `user_menu`
