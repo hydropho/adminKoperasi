@@ -10,8 +10,10 @@ class Simpanan extends CI_Controller
         $data['status'] = 'User';
         $data['corp_name'] = 'Kotree';
         $data['kelompok'] = 'Kelompok 3';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
+
+
+        $data['user'] = $this->app_models->getUserTable('user');
+        $data['userdata'] = $this->app_models->getUserTable('userdata');
         $data['tanggal'] = new DateTime();
 
         $this->load->view('templates/header', $data);
@@ -28,18 +30,17 @@ class Simpanan extends CI_Controller
         $data['status'] = 'User';
         $data['corp_name'] = 'Kotree';
         $data['kelompok'] = 'Kelompok 3';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
+
+
+        $data['user'] = $this->app_models->getUserTable('user');
+        $data['userdata'] = $this->app_models->getUserTable('userdata');
+
         $username = $this->session->userdata('username');
-        $query = "SELECT SUM(simpanan) AS simpanan FROM simpanan WHERE username = '$username' AND jenis_simpanan = 'Simpanan Pokok' AND status = '2' ";
-        $data['simpanan_pokok'] = $this->db->query($query)->row_array();
-
-        $query = "SELECT SUM(simpanan) AS simpanan FROM simpanan WHERE username = '$username' AND jenis_simpanan = 'Simpanan Wajib' AND status = '2'";
-        $data['simpanan_wajib'] = $this->db->query($query)->row_array();
-
-        $query = "SELECT SUM(simpanan) AS simpanan FROM simpanan WHERE username = '$username' AND jenis_simpanan = 'Simpanan Sukarela' AND status = '2'";
-        $data['simpanan_sukarela'] = $this->db->query($query)->row_array();
         $data['tanggal'] = new DateTime();
+
+        $data['simpanan_pokok'] = $this->app_models->getSimpananPokok($username);
+        $data['simpanan_wajib'] = $this->app_models->getSimpananWajib($username);
+        $data['simpanan_sukarela'] = $this->app_models->getSimpananSukarela($username);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);

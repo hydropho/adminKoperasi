@@ -1,19 +1,22 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Daftar extends CI_Controller {
+class Daftar extends CI_Controller
+{
     public function __construct()
     {
         parent::__construct();
         $this->load->library('form_validation');
     }
 
-    public function index() {
+    public function index()
+    {
+        // TITLE
         $data['title'] = 'Daftar';
         $data['sub_title'] = 'Form Pendaftaran';
         $data['corp_name'] = 'Kotree';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
-        
+        $data['user'] = $this->app_models->getUserTable('user');
+        $data['userdata'] = $this->app_models->getUserTable('userdata');
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar_daftar', $data);
         $this->load->view('templates/sidebar_daftar', $data);
@@ -21,7 +24,8 @@ class Daftar extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
-    public function register() {
+    public function register()
+    {
         $this->form_validation->set_rules('nama_lengkap', 'Name', 'required|trim', [
             'required' => 'Nama harus diisi!'
         ]);
@@ -38,13 +42,13 @@ class Daftar extends CI_Controller {
             'required' => 'No HP harus diisi!'
         ]);
 
-        if ($this->form_validation->run() == false){
+        if ($this->form_validation->run() == false) {
             $data['title'] = 'Daftar';
             $data['sub_title'] = 'Form Pendaftaran';
             $data['corp_name'] = 'Kotree';
             $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
             $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
-            
+
             $this->load->view('templates/header', $data);
             $this->load->view('templates/navbar_daftar', $data);
             $this->load->view('templates/sidebar_daftar', $data);
@@ -52,18 +56,18 @@ class Daftar extends CI_Controller {
             $this->load->view('templates/footer');
         } else {
             $data = [
-                'username' => htmlspecialchars( $this->input->post('username', true)),
-                'nama_lengkap' => htmlspecialchars( $this->input->post('nama_lengkap', true)),
-                'tempat_lahir' => htmlspecialchars( $this->input->post('tempat_lahir', true)),
+                'username' => htmlspecialchars($this->input->post('username', true)),
+                'nama_lengkap' => htmlspecialchars($this->input->post('nama_lengkap', true)),
+                'tempat_lahir' => htmlspecialchars($this->input->post('tempat_lahir', true)),
                 'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-                'jenis_kelamin' => htmlspecialchars( $this->input->post('jenis_kelamin', true)),
-                'alamat' => htmlspecialchars( $this->input->post('alamat', true)),
-                'no_hp' => htmlspecialchars( $this->input->post('no_hp', true)),
+                'jenis_kelamin' => htmlspecialchars($this->input->post('jenis_kelamin', true)),
+                'alamat' => htmlspecialchars($this->input->post('alamat', true)),
+                'no_hp' => htmlspecialchars($this->input->post('no_hp', true)),
                 'profil' => 'default.jpg'
             ];
             $this->db->where('username', $data['username']);
             $this->db->update('userdata', $data);
-            
+
             $user = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
             $data = [
                 'username' => $user['username'],
@@ -74,24 +78,24 @@ class Daftar extends CI_Controller {
             ];
             $this->db->where('username', $data['username']);
             $this->db->update('user', $data);
-            
+
             $this->session->set_flashdata('alert_message', '<div class="alert alert-success alert-dismissible fade show"><strong>Berhasil melengkapi data! </strong>Admin akan memverifikasi akun anda.</div>');
             redirect('daftar/hold');
         }
     }
 
-    public function hold() {
+    public function hold()
+    {
         $data['title'] = 'Daftar';
         $data['sub_title'] = 'Halaman Tunggu';
         $data['corp_name'] = 'Kotree';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
-        
+        $data['user'] = $this->app_models->getUserTable('user');
+        $data['userdata'] = $this->app_models->getUserTable('userdata');
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar_daftar', $data);
         $this->load->view('templates/sidebar_daftar', $data);
         $this->load->view('daftar/hold', $data);
         $this->load->view('templates/footer');
     }
-
 }

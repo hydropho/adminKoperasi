@@ -14,8 +14,8 @@ class Simulasi extends CI_Controller
         $data['status'] = 'User';
         $data['corp_name'] = 'Kotree';
         $data['kelompok'] = 'Kelompok 3';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
+        $data['user'] = $this->app_models->getUserTable('user');
+        $data['userdata'] = $this->app_models->getUserTable('userdata');
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);
