@@ -11,13 +11,15 @@ class Pengguna extends CI_Controller
 
     public function index()
     {
+        // TITLE
         $data['title'] = 'User';
         $data['sub_title'] = 'Pengurus';
         $data['status'] = 'Admin';
         $data['corp_name'] = 'Kotree';
         $data['kelompok'] = 'Kelompok 3';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['user'] = $this->app_models->getUserTable('user');
+        $data['userdata'] = $this->app_models->getUserTable('userdata');
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);
@@ -28,18 +30,16 @@ class Pengguna extends CI_Controller
 
     public function anggota()
     {
+        // TITLE
         $data['title'] = 'User';
         $data['sub_title'] = 'Anggota';
         $data['status'] = 'Admin';
         $data['corp_name'] = 'Kotree';
         $data['kelompok'] = 'Kelompok 3';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
 
-        $queryUserdata = "SELECT `level`, `aktif`, `userdata`.*
-                            FROM `user` JOIN `userdata`
-                            ON `user`.`username` = `userdata`.`username`";
-        $data['queryUserdata'] = $this->db->query($queryUserdata)->result_array();
+        $data['user'] = $this->app_models->getUserTable('user');
+        $data['userdata'] = $this->app_models->getUserTable('userdata');
+        $data['queryUserdata'] = $this->app_models->getAnggota();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);
@@ -55,8 +55,8 @@ class Pengguna extends CI_Controller
         $data['status'] = 'Admin';
         $data['corp_name'] = 'Kotree';
         $data['kelompok'] = 'Kelompok 3';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
+        $data['user'] = $this->app_models->getUserTable('user');
+        $data['userdata'] = $this->app_models->getUserTable('userdata');
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);
@@ -72,8 +72,8 @@ class Pengguna extends CI_Controller
         $data['status'] = 'Admin';
         $data['corp_name'] = 'Kotree';
         $data['kelompok'] = 'Kelompok 3';
-        $data['user'] = $this->db->get_where('user', ['username' => $username])->row_array();
-        $data['userdata'] = $this->db->get_where('userdata', ['username' => $username])->row_array();
+        $data['user'] = $this->app_models->getUserTable($username, 'user');
+        $data['userdata'] = $this->app_models->getUserTable($username, 'userdata');
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);
@@ -104,8 +104,8 @@ class Pengguna extends CI_Controller
             $data['title'] = 'User';
             $data['sub_title'] = 'Edit Profil';
             $data['corp_name'] = 'Kotree';
-            $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-            $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
+            $data['user'] = $this->app_models->getUserTable('user');
+            $data['userdata'] = $this->app_models->getUserTable('userdata');
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/navbar', $data);
@@ -139,9 +139,7 @@ class Pengguna extends CI_Controller
 
     public function hapus($username)
     {
-        $user = $this->db->get_where('user', ['username' => $username])->row_array();
-        $this->db->delete('user', ['username' => $username]);
-        $this->db->delete('userdata', ['username' => $username]);
+        $user = $this->app_model->deleteSelectedUser($username);
 
         $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Berhasil! </strong>Data dihapus.</div>');
 
@@ -154,7 +152,7 @@ class Pengguna extends CI_Controller
 
     public function aktif($username)
     {
-        $user = $this->db->get_where('user', ['username' => $username])->row_array();
+        $user = $this->db->getSelectedUserTable($username);
         $data = [
             'username'      => $user['username'],
             'password'      => $user['password'],
@@ -176,7 +174,7 @@ class Pengguna extends CI_Controller
 
     public function nonaktif($username)
     {
-        $user = $this->db->get_where('user', ['username' => $username])->row_array();
+        $user = $this->db->getSelectedUserTable($username);
         $data = [
             'username'      => $user['username'],
             'password'      => $user['password'],
@@ -218,8 +216,8 @@ class Pengguna extends CI_Controller
             $data['title'] = 'User';
             $data['sub_title'] = 'Edit Profil';
             $data['corp_name'] = 'Kotree';
-            $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-            $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
+            $data['user'] = $this->app_models->getUserTable('user');
+            $data['userdata'] = $this->app_models->getUserTable('userdata');
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/navbar', $data);

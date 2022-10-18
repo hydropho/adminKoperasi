@@ -5,29 +5,29 @@ class User extends CI_Controller
 
     public function index()
     {
+        // TITLE
         $data['title'] = 'Home';
         $data['sub_title'] = 'Dashboard';
         $data['status'] = 'User';
         $data['corp_name'] = 'Kotree';
         $data['kelompok'] = 'Kelompok 3';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['userdata'] = $this->db->get_where('userdata', ['username' => $this->session->userdata('username')])->row_array();
-        $data['jumlah_pinjaman'] = $this->db->get_where('pinjaman', ['username' => $this->session->userdata('username')])->num_rows();
-        $data['jumlah_simpanan'] = $this->db->get_where('simpanan', ['username' => $this->session->userdata('username')])->num_rows();
 
+        // QUERY
         $username = $this->session->userdata('username');
-        $query = "SELECT * FROM simpanan WHERE username = '$username' ORDER BY tgl_simpanan DESC LIMIT 5";
-        $data['transaksi_simpanan'] = $this->db->query($query)->result_array();
-        $query = "SELECT * FROM pinjaman WHERE username = '$username' ORDER BY tgl_pinjaman DESC LIMIT 5";
-        $data['transaksi_pinjaman'] = $this->db->query($query)->result_array();
 
-        $username = $this->session->userdata('username');
-        $query = " SELECT `username`, (SELECT SUM(`pinjaman_pokok`) FROM `pinjaman` WHERE `username` = '$username') AS pinjaman,
-                                                    (SELECT SUM(`simpanan`) FROM `simpanan`  WHERE `username` = '$username') AS simpanan
-                                                    FROM `user` WHERE `username` = '$username'
-                                        ";
-        $total = $this->db->query($query)->row_array();
+        $data['user'] = $this->app_models->getUserTable('user');
+        $data['userdata'] = $this->app_models->getUserTable('userdata');
+        $data['jumlah_pinjaman'] = $this->app_models->getWhereNumRow('pinjaman');
+        $data['jumlah_simpanan'] = $this->app_models->getWhereNumRow('simpanan');
+
+        $data['transaksi_simpanan'] = $this->app_models->getUserTransaksi('simpanan', $username);
+        $data['transaksi_pinjaman'] = $this->app_models->getUserTransaksi('pinjaman', $username);
+
+        $query = " SELECT `username`, (SELECT SUM(`pinjaman_pokok`) FROM `pinjaman` WHERE `username` = '$username') AS pinjaman, (SELECT SUM(`simpanan`) FROM `simpanan`  WHERE `username` = '$username') AS simpanan FROM `user` WHERE `username` = '$username' ";
+        $total = $this->app_models->getUserTotalSP($username);
         $persen = $total['simpanan'] + $total['pinjaman'];
+
+
         $data['total'] = $total['simpanan'] + $total['pinjaman'];
         $data['total_simpanan'] = $total['simpanan'];
         $data['total_pinjaman'] = $total['pinjaman'];
