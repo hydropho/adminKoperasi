@@ -46,24 +46,52 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="center">No Pinjaman</th>
-                                        <th>Username</th>
-                                        <th>Pembayaran Ke</th>
-                                        <th class="right">Pokok</th>
-                                        <th class="center">Denda</th>
-                                        <th class="right">Total</th>
+                                        <th class="center text-center">No Pinjaman</th>
+                                        <th class="text-center">Angsuran Ke</th>
+                                        <th class="right text-center">Tagihan</th>
+                                        <th class="right text-center">Jatuh Tempo</th>
+                                        <th class="center text-center">Denda</th>
+                                        <th class="right text-center">Total</th>
+                                        <th class="right text-center">Sisa Tagihan</th>
+                                        <th class="right text-center">Status</th>
+
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="center">1</td>
-                                        <td class="left strong">Origin License</td>
-                                        <td class="left">Extended License</td>
-                                        <td class="right">$999,00</td>
-                                        <td class="center">1</td>
-                                        <td class="right">$999,00</td>
-                                    </tr>
+                                    <?php
+                                    if ($user['level'] == 2) {
+                                        $angsuran = $this->db->get('angsuran')->result_array();
+                                    } else {
+                                        $pinjaman = $this->db->get_where('pinjaman', ['username' => $user['username']])->result_array();
+                                        foreach ($pinjaman as $pj) {
+                                            $angsuran = $this->db->get_where('angsuran', ['no_pinjaman' => $pj['no_pinjaman']])->result_array();
+                                        }
+                                    }
 
+                                    foreach ($angsuran as $dt) :
+                                        $no_pinjaman = $dt['no_pinjaman'];
+                                        $query = "SELECT * FROM angsuran WHERE STATUS = 0 AND no_pinjaman = $no_pinjaman  ORDER BY id ASC LIMIT 1";
+                                        $angsuran_ke = $this->db->query($query)->row_array();
+                                    ?>
+                                        <tr>
+                                            <td class="center text-center">PJ-<?= $dt['no_pinjaman']; ?></td>
+                                            <td class="left strong text-center"><?= $dt['angsuran'] ?></td>
+                                            <td class="left text-center"><?= 'Rp. ' . number_format($dt['bayar'], 2, ',', '.') ?></td>
+                                            <td class="right text-center"><?= $dt['jatuh_tempo'] ?></td>
+                                            <td class="center text-center">-</td>
+                                            <td class="right text-center">-</td>
+                                            <td class="right text-center"><?= 'Rp. ' . number_format($dt['sisa'], 2, ',', '.') ?></td>
+                                            <td class="right text-center"><?php if ($dt['status'] == 0) : ?>
+                                                    <span class="badge light badge-danger">Belum Lunas</span>
+                                                <?php elseif ($dt['status'] == 1) : ?>
+                                                    <span class="badge light badge-warning">Pending</span>
+                                                <?php else : ?>
+                                                    <span class="badge light badge-success">Lunas</span>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
