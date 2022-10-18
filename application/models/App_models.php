@@ -19,11 +19,8 @@ class App_Models extends CI_Model
 
 	public function deleteSelectedUser($username)
 	{
-		$user = $this->db->get_where('user', ['username' => $username])->row_array();
 		$this->db->delete('user', ['username' => $username]);
 		$this->db->delete('userdata', ['username' => $username]);
-
-		return $user;
 	}
 
 	public function getWhereNumRow($table)
@@ -91,14 +88,6 @@ class App_Models extends CI_Model
 		return $this->db->query($query)->result_array();
 	}
 
-	public function getAnggota()
-	{
-		$queryUserdata = "SELECT `level`, `aktif`, `userdata`.*
-                            FROM `user` JOIN `userdata`
-                            ON `user`.`username` = `userdata`.`username`";
-
-		return $this->db->query($queryUserdata)->result_array();
-	}
 
 	public function setSetuju($no_pinjaman)
 	{
@@ -174,6 +163,41 @@ class App_Models extends CI_Model
 			$this->db->insert('angsuran', $data);
 			$angsuran_ke++;
 		}
+	}
+
+	public function getPengurus()
+	{
+		$query = "SELECT `user`.`level`, `user`.`aktif`, `userdata`.*
+                  FROM `user` JOIN `userdata`
+                  ON `user`.`username` = `userdata`.`username`
+				  WHERE level = 2";
+		$userdata = $this->db->query($query)->result_array();
+
+		return $userdata;
+	}
+
+	public function getAnggota()
+	{
+		$query = "SELECT `level`, `aktif`, `userdata`.*
+							FROM `user` JOIN `userdata`
+							ON `user`.`username` = `userdata`.`username`
+							WHERE level = 1";
+
+		$userdata = $this->db->query($query)->result_array();
+
+		return $userdata;
+	}
+
+	public function setAktif($username)
+	{
+		$query = "UPDATE user SET aktif = 2 WHERE username = '$username'";
+		$this->db->query($query);
+	}
+
+	public function setNonaktif($username)
+	{
+		$query = "UPDATE user SET aktif = 1 WHERE username = '$username'";
+		$this->db->query($query);
 	}
 }
 /* End of file app_model.php */

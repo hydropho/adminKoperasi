@@ -12,39 +12,20 @@ class Pengguna extends CI_Controller
     public function index()
     {
         // TITLE
-        $data['title'] = 'User';
-        $data['sub_title'] = 'Pengurus';
+        $data['title'] = 'Pengguna';
+        $data['sub_title'] = 'Pengguna';
         $data['status'] = 'Admin';
         $data['corp_name'] = 'Kotree';
         $data['kelompok'] = 'Kelompok 3';
 
         $data['user'] = $this->app_models->getUserTable('user');
-        $data['userdata'] = $this->app_models->getUserTable('userdata');
+        $data['userdata'] = $this->app_models->getPengurus();
+        $data['userdataPengguna'] = $this->app_models->getAnggota();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('pengguna/pengurus', $data);
-        $this->load->view('templates/footer');
-    }
-
-    public function anggota()
-    {
-        // TITLE
-        $data['title'] = 'User';
-        $data['sub_title'] = 'Anggota';
-        $data['status'] = 'Admin';
-        $data['corp_name'] = 'Kotree';
-        $data['kelompok'] = 'Kelompok 3';
-
-        $data['user'] = $this->app_models->getUserTable('user');
-        $data['userdata'] = $this->app_models->getUserTable('userdata');
-        $data['queryUserdata'] = $this->app_models->getAnggota();
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/navbar', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('pengguna/anggota', $data);
+        $this->load->view('pengguna/index', $data);
         $this->load->view('templates/footer');
     }
 
@@ -72,8 +53,8 @@ class Pengguna extends CI_Controller
         $data['status'] = 'Admin';
         $data['corp_name'] = 'Kotree';
         $data['kelompok'] = 'Kelompok 3';
-        $data['user'] = $this->app_models->getUserTable($username, 'user');
-        $data['userdata'] = $this->app_models->getUserTable($username, 'userdata');
+        $data['user'] = $this->app_models->getUserTable('user', $username);
+        $data['userdata'] = $this->app_models->getUserTable('userdata', $username);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);
@@ -129,69 +110,32 @@ class Pengguna extends CI_Controller
             $user = $this->db->get_where('user', ['username' => $data['username']])->row_array();
 
             $this->session->set_flashdata('alert_message', '<div class="alert alert-success alert-dismissible fade show"><strong>Selamat! </strong>Anda berhasil merubah data.</div>');
-            if ($user['level'] == 2) {
-                redirect('pengguna');
-            } else {
-                redirect('pengguna/anggota');
-            }
+            redirect('pengguna');
         }
     }
 
     public function hapus($username)
     {
-        $user = $this->app_model->deleteSelectedUser($username);
+        $this->app_models->deleteSelectedUser($username);
 
         $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Berhasil! </strong>Data dihapus.</div>');
-
-        if ($user['level'] == 2) {
-            redirect('pengguna');
-        } else {
-            redirect('pengguna/anggota');
-        }
+        redirect('pengguna');
     }
 
     public function aktif($username)
     {
-        $user = $this->db->getSelectedUserTable($username);
-        $data = [
-            'username'      => $user['username'],
-            'password'      => $user['password'],
-            'nama_lengkap'  => $user['nama_lengkap'],
-            'level'         => $user['level'],
-            'aktif'         => '2'
-        ];
-        $this->db->where('username', $username);
-        $this->db->update('user', $data);
+        $this->app_models->setAktif($username);
 
         $this->session->set_flashdata('alert_message', '<div class="alert alert-success alert-dismissible fade show"><strong>Selamat! </strong>Anda berhasil mengaktifkan user.</div>');
-
-        if ($user['level'] == 2) {
-            redirect('pengguna');
-        } else {
-            redirect('pengguna/anggota');
-        }
+        redirect('pengguna');
     }
 
     public function nonaktif($username)
     {
-        $user = $this->db->getSelectedUserTable($username);
-        $data = [
-            'username'      => $user['username'],
-            'password'      => $user['password'],
-            'nama_lengkap'  => $user['nama_lengkap'],
-            'level'         => $user['level'],
-            'aktif'         => '1'
-        ];
-        $this->db->where('username', $username);
-        $this->db->update('user', $data);
+        $this->app_models->setNonaktif($username);
 
         $this->session->set_flashdata('alert_message', '<div class="alert alert-success alert-dismissible fade show"><strong>Selamat! </strong>Anda berhasil menonaktifkan user.</div>');
-
-        if ($user['level'] == 2) {
-            redirect('pengguna');
-        } else {
-            redirect('pengguna/anggota');
-        }
+        redirect('pengguna');
     }
 
     public function edit_profile()

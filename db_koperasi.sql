@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 18, 2022 at 04:14 AM
+-- Generation Time: Oct 18, 2022 at 10:07 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -248,7 +248,7 @@ CREATE TABLE `user_menu` (
 
 INSERT INTO `user_menu` (`id`, `menu`, `icon`) VALUES
 (1, 'Dashboard', 'flaticon-025-dashboard'),
-(2, 'User', 'flaticon-381-user-9'),
+(2, 'Pengguna', 'flaticon-381-user-9'),
 (3, 'Pinjaman', 'flaticon-381-add-3'),
 (4, 'Simpanan', 'flaticon-381-add-1'),
 (5, 'Simpanan', 'flaticon-381-add-1'),
@@ -275,13 +275,11 @@ CREATE TABLE `user_sub_menu` (
 
 INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`) VALUES
 (1, 1, 'Dashboard', 'admin'),
-(2, 2, 'Pengurus', 'pengguna'),
-(3, 2, 'Anggota', 'pengguna/anggota'),
-(4, 3, 'Data Pinjaman', 'pinjaman'),
-(5, 3, 'Tagihan Pinjaman', 'pinjaman/tagihan'),
-(6, 4, 'Data Simpanan', 'simpanan'),
-(7, 7, 'Laporan', 'laporan'),
-(8, 7, 'Bukti Bayar', 'laporan/bukti');
+(2, 3, 'Data Pinjaman', 'pinjaman'),
+(3, 3, 'Tagihan Pinjaman', 'pinjaman/tagihan'),
+(4, 4, 'Data Simpanan', 'simpanan'),
+(5, 7, 'Laporan', 'laporan'),
+(6, 7, 'Bukti Bayar', 'laporan/bukti');
 
 --
 -- Indexes for dumped tables

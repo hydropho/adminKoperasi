@@ -60,6 +60,15 @@
                     </a>
             </li>
 
+
+            <?php elseif ($m['menu'] == 'Pengguna') : ?>
+            <li>
+                <a href="<?= base_url('pengguna') ?>" class="ai-icon" aria-expanded="false">
+                    <i class="<?= $m['icon'] ?>"></i>
+                    <span class="nav-text"><?= $m['menu'] ?></span>
+                </a>
+            </li>
+
             <?php elseif ($m['menu'] == 'Simulasi Pinjaman') : ?>
             <li>
                 <a href="<?= base_url('simulasi') ?>" class="ai-icon" aria-expanded="false">
