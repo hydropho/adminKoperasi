@@ -42,7 +42,7 @@
                                     ?>
                                     <tr>
                                         <td><?= $no++ ?></td>
-                                        <td><?= $user['username'] ?></td>
+                                        <td class="text-center"><?= $user['username'] ?></td>
                                         <?php if ($total['simpanan'] == NULL) : ?>
                                         <td>-</td>
                                         <?php else : ?>
