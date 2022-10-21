@@ -37,9 +37,17 @@ class Laporan extends CI_Controller
         $data['jumlahSimpanan'] = $this->app_models->getJumlahSimpanan();
         $data['jumlahSimpananAktif'] = $this->app_models->getJumlahSimpananAktif();
 
+
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);
         $this->load->view('templates/sidebar', $data);
+
+        $this->load->view('laporan/laporan_pinjaman');
+        $this->load->view('laporan/laporan_simpanan_pokok');
+        $this->load->view('laporan/laporan_simpanan_wajib');
+        $this->load->view('laporan/laporan_simpanan_sukarela');
+
         $this->load->view('laporan/index', $data);
         $this->load->view('templates/footer');
     }
