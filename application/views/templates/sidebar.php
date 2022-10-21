@@ -6,7 +6,7 @@
         <ul class="metismenu" id="menu">
             <li class="dropdown header-profile">
                 <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-                    <img src="<?= base_url('assets/images/profile/default.jpg') ?>" width="20" alt="">
+                    <img src="<?= base_url('assets/images/profile/') . $userdata['profil'] ?>" width="20" alt="">
                     <div class="header-info ms-3">
                         <span class="font-w600 ">Hi, <b><?= $user['username'] ?></b></span>
                         <small class="text-end font-w400"><?= $user['nama_lengkap'] ?></small>
@@ -22,7 +22,7 @@
                         </svg>
                         <span class="ms-2">Profile </span>
                     </a>
-                    <a href="<?= base_url('auth/logout') ?>" class="dropdown-item ai-icon">
+                    <a href="<?= base_url('logout') ?>" class="dropdown-item ai-icon">
                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18"
                             height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
@@ -80,6 +80,13 @@
             <?php elseif ($m['menu'] == 'SHU') : ?>
             <li>
                 <a href="<?= base_url('shu') ?>" class="ai-icon" aria-expanded="false">
+                    <i class="<?= $m['icon'] ?>"></i>
+                    <span class="nav-text"><?= $m['menu'] ?></span>
+                </a>
+            </li>
+            <?php elseif ($m['menu'] == 'Laporan') : ?>
+            <li>
+                <a href="<?= base_url('laporan') ?>" class="ai-icon" aria-expanded="false">
                     <i class="<?= $m['icon'] ?>"></i>
                     <span class="nav-text"><?= $m['menu'] ?></span>
                 </a>

@@ -6,10 +6,22 @@ class Daftar extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+
+        if ($this->session->userdata('login') != 1) {
+            $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Maaf! </strong>Anda belum login.</div>');
+            redirect('auth');
+        } else {
+            if ($this->session->userdata('aktif') == 2) {
+                redirect('admin');
+            }
+        }
     }
 
     public function index()
     {
+        if ($this->session->userdata('aktif') == 1) {
+            redirect('daftar/hold');
+        }
         // TITLE
         $data['title'] = 'Daftar';
         $data['sub_title'] = 'Form Pendaftaran';

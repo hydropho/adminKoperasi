@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title"><?= $sub_title ?></h4>
-                        <div class="d-flex col-sm- justify-content-center align-items-center">
+                        <div class="d-flex">
                             <button class="btn btn-primary btn-block btn-rounded" data-bs-toggle="modal"
                                 data-bs-target="#basicModal">Tambah Pinjaman</button>
                         </div>

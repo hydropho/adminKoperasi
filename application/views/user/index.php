@@ -5,7 +5,7 @@
     <!-- row -->
     <div class="container-fluid">
         <div class="row invoice-card-row">
-            <a href="<?= base_url('simpanan/user') ?>" class="col-xl-3 col-xxl-3 col-sm-6">
+            <a href="<?= base_url('simpanan') ?>" class="col-xl-3 col-xxl-3 col-sm-6">
                 <div>
                     <div class="card bg-warning invoice-card">
                         <div class="card-body d-flex">
@@ -75,7 +75,7 @@
                 </div>
             </a>
 
-            <a href="" class="col-xl-3 col-xxl-3 col-sm-6">
+            <a href="javascript:void(0);" class="col-xl-3 col-xxl-3 col-sm-6">
                 <div>
                     <div class="card bg-secondary invoice-card">
                         <div class="card-body d-flex">

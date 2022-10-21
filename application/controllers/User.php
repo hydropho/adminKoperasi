@@ -2,6 +2,18 @@
 
 class User extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        if ($this->session->userdata('login') != 1) {
+            $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Maaf! </strong>Anda belum login.</div>');
+            redirect('auth');
+        } else {
+            if ($this->session->userdata('aktif') < 2) {
+                redirect('daftar');
+            }
+        }
+    }
 
     public function index()
     {
@@ -32,8 +44,13 @@ class User extends CI_Controller
         $data['total_simpanan'] = $total['simpanan'];
         $data['total_pinjaman'] = $total['pinjaman'];
         $data['total'] = $total['simpanan'] + $total['pinjaman'];
-        $data['simpanan'] = round(($total['simpanan'] / $persen) * 100);
-        $data['pinjaman'] = round(($total['pinjaman'] / $persen) * 100);
+        if ($persen != 0) {
+            $data['simpanan'] = round(($total['simpanan'] / $persen) * 100);
+            $data['pinjaman'] = round(($total['pinjaman'] / $persen) * 100);
+        } else {
+            $data['simpanan'] = 0;
+            $data['pinjaman'] = 0;
+        }
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/navbar', $data);

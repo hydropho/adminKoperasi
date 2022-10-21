@@ -6,6 +6,15 @@ class Pinjaman extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+
+        if ($this->session->userdata('login') != 1) {
+            $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Maaf! </strong>Anda belum login.</div>');
+            redirect('auth');
+        } else {
+            if ($this->session->userdata('aktif') < 0) {
+                redirect('user');
+            }
+        }
     }
 
     public function index()

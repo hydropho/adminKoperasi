@@ -2,9 +2,28 @@
 
 class Simpanan extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        if ($this->session->userdata('login') != 1) {
+            $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Maaf! </strong>Anda belum login.</div>');
+            redirect('auth');
+        } else {
+            if ($this->session->userdata('aktif') < 2) {
+                if ($this->session->userdata('level') < 2) {
+                    if ($this->session->userdata('level') < 2) {
+                        redirect('user');
+                    }
+                }
+            }
+        }
+    }
 
     public function index()
     {
+        if ($this->session->userdata('level') == 1) {
+            redirect('simpanan/user');
+        }
         $data['title'] = 'Simpanan';
         $data['sub_title'] = 'Data Simpanan';
         $data['status'] = 'User';

@@ -1,22 +1,28 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Auth extends CI_Controller {
+class Auth extends CI_Controller
+{
 
     public function __construct()
     {
         parent::__construct();
         $this->load->library('form_validation');
+
+        if ($this->session->userdata('login') > 0) {
+            redirect('admin');
+        }
     }
 
-    public function index(){
-        $this->form_validation->set_rules('username', 'Username', 'required|trim',[
+    public function index()
+    {
+        $this->form_validation->set_rules('username', 'Username', 'required|trim', [
             'required' => 'Username harus diisi!'
         ]);
-        $this->form_validation->set_rules('password', 'Password', 'required|trim',[
+        $this->form_validation->set_rules('password', 'Password', 'required|trim', [
             'required' => 'Password harus diisi!'
         ]);
-        
-        if ($this->form_validation->run() == false){
+
+        if ($this->form_validation->run() == false) {
             $data['title'] = 'Login - Kotree';
             $this->load->view('auth/page-login', $data);
         } else {
@@ -24,60 +30,67 @@ class Auth extends CI_Controller {
         }
     }
 
-    private function _login() {
+    private function _login()
+    {
         $username = $this->input->post('username');
         $password = $this->input->post('password');
 
         $user = $this->db->get_where('user', ['username' => $username])->row_array();
 
         // CEK AKUN
-        if ($user){
+        if ($user) {
 
             // CEK PASSWORD
-            if (password_verify($password, $user['password'])){
+            if (password_verify($password, $user['password'])) {
 
                 // CEK ADMIN
-                if ($user['level'] == 1){
+                if ($user['level'] == 1) {
 
                     // CEK STATUS
-                    if ($user['aktif'] == 2){
+                    if ($user['aktif'] == 2) {
                         $data = [
                             'username' => $user['username'],
-                            'level' => $user['level']
+                            'level' => $user['level'],
+                            'aktif' => 2,
+                            'login' => 1
                         ];
-    
+
                         $this->session->set_userdata($data);
                         redirect('user');
                     } else if ($user['aktif'] == 1) {
                         $data = [
                             'username' => $user['username'],
-                            'level' => $user['level']
+                            'level' => $user['level'],
+                            'aktif' => 1,
+                            'login' => 1
                         ];
-                        
+
                         $this->session->set_userdata($data);
                         redirect('daftar/hold');
                     } else {
                         $data = [
                             'username' => $user['username'],
-                            'level' => $user['level']
+                            'level' => $user['level'],
+                            'aktif' => 0,
+                            'login' => 1
                         ];
-                        
+
                         $this->session->set_userdata($data);
                         redirect('daftar');
                     }
-
                 } else {
                     $data = [
                         'username' => $user['username'],
-                        'level' => $user['level']
+                        'level' => $user['level'],
+                        'login' => 1
                     ];
-                    
+
                     $this->session->set_userdata($data);
                     redirect('admin');
                 }
             } else {
-                    $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Login gagal! </strong>Password salah.</div>');
-                    redirect('auth');
+                $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Login gagal! </strong>Password salah.</div>');
+                redirect('auth');
             }
         } else {
             $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Login gagal! </strong>Username tidak terdaftar.</div>');
@@ -85,7 +98,8 @@ class Auth extends CI_Controller {
         }
     }
 
-    public function register(){
+    public function register()
+    {
         $this->form_validation->set_rules('nama_lengkap', 'Name', 'required|trim', [
             'required' => 'Nama harus diisi!'
         ]);
@@ -100,20 +114,20 @@ class Auth extends CI_Controller {
         ]);
         $this->form_validation->set_rules('password2', 'Password2', 'matches[password1]');
 
-        if ($this->form_validation->run() == false){
+        if ($this->form_validation->run() == false) {
             $data['title'] = 'Register - Kotree';
             $this->load->view('auth/page-register', $data);
         } else {
             $data = [
-                'username' => htmlspecialchars( $this->input->post('username', true)),
-                'password' => password_hash( $this->input->post('password1'), PASSWORD_DEFAULT),
-                'nama_lengkap' => htmlspecialchars( $this->input->post('nama_lengkap', true))
+                'username' => htmlspecialchars($this->input->post('username', true)),
+                'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+                'nama_lengkap' => htmlspecialchars($this->input->post('nama_lengkap', true))
             ];
             $this->db->insert('user', $data);
 
             $data = [
-                'username' => htmlspecialchars( $this->input->post('username', true)),
-                'nama_lengkap' => htmlspecialchars( $this->input->post('nama_lengkap', true)),
+                'username' => htmlspecialchars($this->input->post('username', true)),
+                'nama_lengkap' => htmlspecialchars($this->input->post('nama_lengkap', true)),
                 'tempat_lahir' => '',
                 'tanggal_lahir' => '',
                 'jenis_kelamin' => '',
@@ -122,17 +136,19 @@ class Auth extends CI_Controller {
                 'profil' => ''
             ];
             $this->db->insert('userdata', $data);
-            
+
             $this->session->set_flashdata('alert_message', '<div class="alert alert-success alert-dismissible fade show"><strong>Berhasil mendaftar! </strong>Silahkan login.</div>');
             redirect('auth');
         }
     }
 
-    public function logout() {
+    public function logout()
+    {
         $this->session->unset_userdata('username');
         $this->session->unset_userdata('level');
+        $this->session->unset_userdata('login');
+        $this->session->unset_userdata('aktif');
         $this->session->set_flashdata('alert_message', '<div class="alert alert-success alert-dismissible fade show"><strong>Berhasil keluar! </strong>Selamat tinggal.</div>');
         redirect('auth');
     }
-
 }

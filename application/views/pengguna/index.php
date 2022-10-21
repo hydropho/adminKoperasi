@@ -17,7 +17,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title"><?= $sub_title; ?></h4>
+                        <h4 class="card-title">Pengurus</h4>
+                        <button class="btn btn-primary btn-rounded btn-md mx-3" data-bs-toggle="modal"
+                            data-bs-target="#basicModal">+Tambah Pengurus</button>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -38,7 +40,7 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    foreach ($userdata as $ud) :
+                                    foreach ($userdataPengurus as $ud) :
                                     ?>
                                     <tr>
 
@@ -214,6 +216,43 @@
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="basicModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Tambah Pengurus</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal">
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="<?= base_url('pengguna/tambah') ?>" method="POST">
+                                <div class="mb-3">
+                                    <label class="form-label">Nama Lengkap</label>
+                                    <input type="text" class="form-control" name="nama_lengkap" required
+                                        oninvalid="this.setCustomValidity('Nama Lengkap harus di isi!')"
+                                        oninput="this.setCustomValidity('')">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Username</label>
+                                    <input type="text" class="form-control" name="username" required
+                                        oninvalid="this.setCustomValidity('Username harus di isi!')"
+                                        oninput="this.setCustomValidity('')">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" class="form-control" name="password" required
+                                        oninvalid="this.setCustomValidity('Password harus di isi!')"
+                                        oninput="this.setCustomValidity('')">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger light"
+                                        data-bs-dismiss="modal">Tutup</button>
+                                    <button type="submit" class="btn btn-primary">Tambah</button>
+                            </form>
                         </div>
                     </div>
                 </div>
