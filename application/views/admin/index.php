@@ -20,7 +20,7 @@
                             <div>
                                 <h2 class="text-white invoice-num">
                                     <?= $total_peminjam ?></h2>
-                                <span class="text-white fs-18">Total Peminjam</span>
+                                <span class="text-white fs-18">Total Pinjaman</span>
 
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                             </div>
                             <div>
                                 <h2 class="text-white invoice-num"><?= $total_penyimpan ?></h2>
-                                <span class="text-white fs-18">Total Penyimpan</span>
+                                <span class="text-white fs-18">Total Simpanan</span>
                             </div>
                         </div>
                     </div>
