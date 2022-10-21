@@ -14,7 +14,7 @@
                         <h4 class="card-title"><?= $sub_title ?></h4>
                     </div>
                     <div class="card-body">
-                        <form action="laporan">
+                        <form action="<?= base_url('laporan'); ?>" method="POST">
 
                             <div class="row">
                                 <div class="mb-3 col-md-6">
