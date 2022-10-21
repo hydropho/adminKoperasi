@@ -100,8 +100,9 @@ class Auth extends CI_Controller
 
     public function register()
     {
-        $this->form_validation->set_rules('nama_lengkap', 'Name', 'required|trim', [
-            'required' => 'Nama harus diisi!'
+        $this->form_validation->set_rules('nama_lengkap', 'Name', 'required|trim|is_unique[user.nama_lengkap]', [
+            'required' => 'Nama harus diisi!',
+            'is_unique' => 'Nama lengkap telah digunakan'
         ]);
         $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]', [
             'required' => 'Username harus diisi!',

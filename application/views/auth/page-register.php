@@ -40,41 +40,36 @@
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Nama Lengkap</strong></label>
                                             <?php if (set_value('nama_lengkap')) : ?>
-                                            <input type="text" class="form-control" name="nama_lengkap"
-                                                id="nama_lengkap" value="<?= set_value('nama_lengkap') ?>">
+                                                <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" value="<?= set_value('nama_lengkap') ?>">
                                             <?php else : ?>
-                                            <input type="text" class="form-control" name="nama_lengkap"
-                                                id="nama_lengkap">
+                                                <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap">
                                             <?php endif; ?>
                                             <?php if (form_error('nama_lengkap')) : ?>
-                                            <?= form_error('nama_lengkap', '<div class="invalid-feedback-active">', '</div>') ?>
+                                                <?= form_error('nama_lengkap', '<div class="invalid-feedback-active">', '</div>') ?>
                                             <?php endif; ?>
                                         </div>
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Username</strong></label>
                                             <?php if (set_value('username')) : ?>
-                                            <input type="text" class="form-control" name="username" id="username"
-                                                value="<?= set_value('username') ?>">
+                                                <input type="text" class="form-control" name="username" id="username" value="<?= set_value('username') ?>">
                                             <?php else : ?>
-                                            <input type="text" class="form-control" name="username" id="username">
+                                                <input type="text" class="form-control" name="username" id="username">
                                             <?php endif; ?>
                                             <?php if (form_error('username')) : ?>
-                                            <?= form_error('username', '<div class="invalid-feedback-active">', '</div>') ?>
+                                                <?= form_error('username', '<div class="invalid-feedback-active">', '</div>') ?>
                                             <?php endif; ?>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <label class="mb-1"><strong>Password</strong></label>
-                                                <input type="password" class="form-control" name="password1"
-                                                    id="password1">
+                                                <input type="password" class="form-control" name="password1" id="password1">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="mb-1"><strong>Konfirmasi Password</strong></label>
-                                                <input type="password" class="form-control" name="password2"
-                                                    id="password2">
+                                                <input type="password" class="form-control" name="password2" id="password2">
                                             </div>
                                             <?php if (form_error('password1')) : ?>
-                                            <?= form_error('password1', '<div class="invalid-feedback-active">', '</div>') ?>
+                                                <?= form_error('password1', '<div class="invalid-feedback-active">', '</div>') ?>
                                             <?php endif; ?>
                                         </div>
                                         <div class="text-center mt-4">
