@@ -33,6 +33,14 @@
                             <tbody>
                                 <?php
                                 $no = 1;
+                                $sql = "SELECT SUM(`simpanan`) AS simpananshu FROM `simpanan` WHERE `jenis_simpanan` = 'Simpanan Pokok' OR jenis_simpanan = 'Simpanan Wajib'";
+                                $shusimpanan = $this->db->query($sql)->row_array();
+                                $shusimpanan = $shusimpanan['simpananshu'];
+
+
+                                $sql = "SELECT SUM(`pinjaman_pokok`) AS pinjamanshu FROM `pinjaman`";
+                                $shupinjaman = $this->db->query($sql)->row_array();
+                                $shupinjaman = $shupinjaman['pinjamanshu'];
                                 $users = $this->db->get('user')->result_array();
 
                                 foreach ($users as $user) :
@@ -40,7 +48,25 @@
                                     $query = " SELECT `username`, (SELECT SUM(`pinjaman_pokok`) FROM `pinjaman` WHERE `username` = '$username' AND keterangan = '2') AS pinjaman,
                                                     (SELECT SUM(`simpanan`) FROM `simpanan`  WHERE `username` = '$username' AND status = '2') AS simpanan
                                                     FROM `user` WHERE `username` = '$username'";
-                                    $total = $this->db->query($query)->row_array()
+                                    $total = $this->db->query($query)->row_array();
+
+                                    if ($total['simpanan'] == NULL) {
+                                        $shus = 0;
+                                    } else {
+                                        $shus = ($total['simpanan'] / $shusimpanan) * ((20 / 100) * 10000000);
+                                        $shus = floor($shus);
+                                    }
+
+                                    // (nilai pinjamannya / 20000000) * 25% * 10000000
+                                    if ($total['pinjaman'] == NULL) {
+                                        $shup = 0;
+                                    } else {
+
+                                        $shup = ($total['pinjaman'] / $shupinjaman) * ((25 / 100) * 10000000);
+                                        $shup = floor($shup);
+                                    }
+
+                                    $totalshu = $shus + $shup;
                                 ?>
                                     <tr>
                                         <td><?= $no++ ?></td>
@@ -56,9 +82,21 @@
                                         <?php else : ?>
                                             <td><?= "Rp. " . number_format($total['pinjaman'], 2, ',', '.'); ?></td>
                                         <?php endif; ?>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
+                                        <?php if ($shus == NULL) : ?>
+                                            <td>-</td>
+                                        <?php else : ?>
+                                            <td><?= "Rp. " . number_format($shus, 2, ',', '.'); ?></td>
+                                        <?php endif; ?>
+                                        <?php if ($shup == NULL) : ?>
+                                            <td>-</td>
+                                        <?php else : ?>
+                                            <td><?= "Rp. " . number_format($shup, 2, ',', '.'); ?></td>
+                                        <?php endif; ?>
+                                        <?php if ($totalshu == NULL) : ?>
+                                            <td>-</td>
+                                        <?php else : ?>
+                                            <td><?= "Rp. " . number_format($totalshu, 2, ',', '.'); ?></td>
+                                        <?php endif; ?>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
