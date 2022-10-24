@@ -104,49 +104,77 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="modal fade" id="basicModal">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Tambah Simpanan</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal">
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="<?= base_url('simpanan/tambah_user') ?>" method="POST">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Tanggal</label>
-                                                    <input type="date" class="form-control" value="<?= $tanggal->format('Y-m-d') ?>" readonly name="tgl_simpanan">
-                                                </div>
-                                                <input type="text" class="form-control" value="<?= $user['username'] ?>" readonly name="username" hidden>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Simpanan</label>
-                                                    <input type="number" class="form-control" placeholder="Rp" name="simpanan" required oninvalid="this.setCustomValidity('Simpanan harus di isi!')" oninput="this.setCustomValidity('')">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Jenis Simpanan</label>
-                                                    <select class="default-select form-control wide mb-3" name="jenis_simpanan" required>
-                                                        <option selected disabled value="">Pilih Simpanan</option>
-                                                        <?php if ($validasiSimpanan > 0) : ?>
+                            <?php if ($validasiSimpanan > 0) : ?>
+                                <div class="modal fade" id="basicModal">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Tambah Simpanan</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="<?= base_url('simpanan/tambah_user') ?>" method="POST">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Tanggal</label>
+                                                        <input type="date" class="form-control" value="<?= $tanggal->format('Y-m-d') ?>" readonly name="tgl_simpanan">
+                                                    </div>
+                                                    <input type="text" class="form-control" value="<?= $user['username'] ?>" readonly name="username" hidden>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Simpanan</label>
+                                                        <input type="number" class="form-control" placeholder="Rp" readonly name="simpanan" required oninvalid="this.setCustomValidity('Simpanan harus di isi!')" oninput="this.setCustomValidity('')">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Jenis Simpanan</label>
+                                                        <select class="default-select form-control wide mb-3" name="jenis_simpanan" required>
+                                                            <option selected disabled value="">Pilih Simpanan</option>
                                                             <option>Simpanan Wajib</option>
                                                             <option>Simpanan Sukarela</option>
-                                                        <?php else : ?>
-                                                            <option>Simpanan Pokok</option>
-                                                            <option>Simpanan Wajib</option>
-                                                            <option>Simpanan Sukarela</option>
-                                                        <?php endif; ?>
-                                                    </select>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Tutup</button>
-                                                    <button type="submit" class="btn btn-primary">Tambah
-                                                        Simpanan</button>
-                                            </form>
+                                                        </select>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Tutup</button>
+                                                        <button type="submit" class="btn btn-primary">Tambah Simpanan</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
+                            <?php else : ?>
+                                <div class="modal fade" id="basicModal">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Tambah Simpanan Pokok</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="<?= base_url('simpanan/tambah_user') ?>" method="POST">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Tanggal</label>
+                                                        <input type="date" class="form-control" value="<?= $tanggal->format('Y-m-d') ?>" readonly name="tgl_simpanan">
+                                                    </div>
+                                                    <input type="text" class="form-control" value="<?= $user['username'] ?>" readonly name="username" hidden>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Simpanan</label>
+                                                        <input type="number" class="form-control" placeholder="Rp" readonly name="simpanan" value="2000000">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Jenis Simpanan</label>
+                                                        <select class="default-select form-control wide mb-3" name="jenis_simpanan" required>
+                                                            <option selected>Simpanan Pokok</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Tutup</button>
+                                                        <button type="submit" class="btn btn-primary">Tambah Simpanan</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
