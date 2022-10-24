@@ -38,6 +38,7 @@
                                     </select>
                                 </div>
                             </div>
+                            <button type="submit" class="btn btn-primary" name="cetakPDF" formaction="<?= base_url('laporan/cek_laporan/cekLaporan'); ?>">Cek Laporan</button>
                             <button type="submit" class="btn btn-primary" name="cetakPDF" formaction="<?= base_url('laporan/print/pdf'); ?>">Cetak Laporan PDF</button>
                             <button type="submit" class="btn btn-primary" name="cetakExcel" formaction="<?= base_url('laporan/print/excel'); ?>">Cetak Laporan Excel</button>
                         </form>
