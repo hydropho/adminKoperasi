@@ -5,6 +5,7 @@ class Simpanan extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->library('form_validation');
         if ($this->session->userdata('login') != 1) {
             $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Maaf! </strong>Anda belum login.</div>');
             redirect('auth');
@@ -33,6 +34,7 @@ class Simpanan extends CI_Controller
 
         $data['user'] = $this->app_models->getUserTable('user');
         $data['userdata'] = $this->app_models->getUserTable('userdata');
+        $data['validasiSimpanan'] = $this->app_models->validasiSimpanan();
         $data['tanggal'] = new DateTime();
 
         $this->load->view('templates/header', $data);
@@ -57,6 +59,7 @@ class Simpanan extends CI_Controller
         $username = $this->session->userdata('username');
         $data['tanggal'] = new DateTime();
 
+        $data['validasiSimpanan'] = $this->app_models->validasiSimpanan();
         $data['simpanan_pokok'] = $this->app_models->getSimpananPokok($username);
         $data['simpanan_wajib'] = $this->app_models->getSimpananWajib($username);
         $data['simpanan_sukarela'] = $this->app_models->getSimpananSukarela($username);

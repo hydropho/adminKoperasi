@@ -10,7 +10,7 @@
                     <div class="d-flex mb-5 justify-content-center">
                         <div class="d-flex align-items-center flex-column col-xl-3 col-lg-3 col-md-6 col-sm-12">
                             <div>
-                                <h6>LAPORAN SIMPANAN AKTIF</h6>
+                                <h6>LAPORAN SIMPANAN <?= $jenis ?></h6>
                             </div>
                             <div>
                                 Kotree
@@ -25,18 +25,26 @@
                                     <th>Username</th>
                                     <th class="center">Simpanan</th>
                                     <th class="center">Tanggal Simpanan</th>
-                                    <th class="center">Jenis Simpanan</th>
+                                    <th class="center">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($simpanan as $sm) : ?>
-                                <tr>
-                                    <td>SM-<?= $sm['no_simpanan'] ?></td>
-                                    <td><?= $sm['username'] ?></td>
-                                    <td><?= 'Rp. ' . number_format($sm['simpanan'], 2, ',', '.') ?></td>
-                                    <td><?= $sm['tgl_simpanan'] ?></td>
-                                    <td><?= $sm['jenis_simpanan'] ?></td>
-                                </tr>
+                                    <tr>
+                                        <td>SM-<?= $sm['no_simpanan'] ?></td>
+                                        <td><?= $sm['username'] ?></td>
+                                        <td><?= 'Rp. ' . number_format($sm['simpanan'], 2, ',', '.') ?></td>
+                                        <td><?= $sm['tgl_simpanan'] ?></td>
+                                        <td><?php if ($sm['status'] == 2) {
+                                                echo 'Aktif';
+                                            } elseif ($sm['status'] == 1) {
+                                                echo 'Pending';
+                                            } else {
+                                                echo 'Ditolak';
+                                            }
+                                            ?>
+                                        </td>
+                                    </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
@@ -76,14 +84,11 @@
 <script src="<?= base_url(); ?>assets/js/demo.js"></script>
 
 <script>
-var delayInMilliseconds = 1000; //1 second
+    var delayInMilliseconds = 1000; //1 second
 
-setTimeout(function() {
-    <?php
-        header("Content-type: application/vnd-ms-excel");
-        header("Content-Disposition: attachment; filename=Simpanan Aktif.xls");
-        ?>
-}, delayInMilliseconds);
+    setTimeout(function() {
+        window.print();
+    }, delayInMilliseconds);
 </script>
 
 </body>

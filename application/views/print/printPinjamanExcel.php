@@ -9,7 +9,7 @@
                     <div class="d-flex mb-5 justify-content-center">
                         <div class="d-flex align-items-center flex-column col-xl-3 col-lg-3 col-md-6 col-sm-12">
                             <div>
-                                <h6>LAPORAN PINJAMAN AKTIF</h6>
+                                <h6>LAPORAN PINJAMAN</h6>
                             </div>
                             <div>
                                 Kotree
@@ -26,18 +26,28 @@
                                     <th class="center">Tanggal Pinjaman</th>
                                     <th class="center">Jangka Waktu</th>
                                     <th class="center">Angsuran</th>
+                                    <th class="center">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($pinjaman as $pj) : ?>
-                                <tr>
-                                    <td>PJ-<?= $pj['no_pinjaman'] ?></td>
-                                    <td><?= $pj['username'] ?></td>
-                                    <td><?= 'Rp. ' . number_format($pj['pinjaman_pokok'], 2, ',', '.') ?></td>
-                                    <td><?= $pj['tgl_pinjaman'] ?></td>
-                                    <td><?= $pj['jangka_waktu'] . ' Bulan' ?></td>
-                                    <td><?= 'Rp. ' . number_format($pj['angsuran'], 2, ',', '.') ?></td>
-                                </tr>
+                                    <tr>
+                                        <td>PJ-<?= $pj['no_pinjaman'] ?></td>
+                                        <td><?= $pj['username'] ?></td>
+                                        <td><?= 'Rp. ' . number_format($pj['pinjaman_pokok'], 2, ',', '.') ?></td>
+                                        <td><?= $pj['tgl_pinjaman'] ?></td>
+                                        <td><?= $pj['jangka_waktu'] . ' Bulan' ?></td>
+                                        <td><?= 'Rp. ' . number_format($pj['angsuran'], 2, ',', '.') ?></td>
+                                        <td><?php if ($pj['keterangan'] == 2) {
+                                                echo 'Aktif';
+                                            } elseif ($pj['keterangan'] == 1) {
+                                                echo 'Pending';
+                                            } else {
+                                                echo 'Ditolak';
+                                            }
+                                            ?>
+                                        </td>
+                                    </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
@@ -82,13 +92,15 @@
 <script src="<?= base_url(); ?>assets/js/custom.min.js"></script>
 <script src="<?= base_url(); ?>assets/js/dlabnav-init.js"></script>
 <script src="<?= base_url(); ?>assets/js/demo.js"></script>
-
 <script>
-var delayInMilliseconds = 1000; //1 second
+    var delayInMilliseconds = 1000; //1 second
 
-setTimeout(function() {
-    window.print();
-}, delayInMilliseconds);
+    setTimeout(function() {
+        <?php
+        header("Content-type: application/vnd-ms-excel");
+        header("Content-Disposition: attachment; filename=Pinjaman.xls");
+        ?>
+    }, delayInMilliseconds);
 </script>
 </body>
 

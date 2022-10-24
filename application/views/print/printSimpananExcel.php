@@ -10,7 +10,7 @@
                     <div class="d-flex mb-5 justify-content-center">
                         <div class="d-flex align-items-center flex-column col-xl-3 col-lg-3 col-md-6 col-sm-12">
                             <div>
-                                <h6>LAPORAN PINJAMAN AKTIF</h6>
+                                <h6>LAPORAN SIMPANAN <?= $jenis ?></h6>
                             </div>
                             <div>
                                 Kotree
@@ -21,24 +21,30 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th class="center">No Pinjaman</th>
+                                    <th class="center">No Simpanan</th>
                                     <th>Username</th>
-                                    <th class="center">Pinjaman Pokok</th>
-                                    <th class="center">Tanggal Pinjaman</th>
-                                    <th class="center">Jangka Waktu</th>
-                                    <th class="center">Angsuran</th>
+                                    <th class="center">Simpanan</th>
+                                    <th class="center">Tanggal Simpanan</th>
+                                    <th class="center">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($pinjaman as $pj) : ?>
-                                <tr>
-                                    <td>PJ-<?= $pj['no_pinjaman'] ?></td>
-                                    <td><?= $pj['username'] ?></td>
-                                    <td><?= 'Rp. ' . number_format($pj['pinjaman_pokok'], 2, ',', '.') ?></td>
-                                    <td><?= $pj['tgl_pinjaman'] ?></td>
-                                    <td><?= $pj['jangka_waktu'] ?></td>
-                                    <td><?= 'Rp. ' . number_format($pj['angsuran'], 2, ',', '.') ?></td>
-                                </tr>
+                                <?php foreach ($simpanan as $sm) : ?>
+                                    <tr>
+                                        <td>SM-<?= $sm['no_simpanan'] ?></td>
+                                        <td><?= $sm['username'] ?></td>
+                                        <td><?= 'Rp. ' . number_format($sm['simpanan'], 2, ',', '.') ?></td>
+                                        <td><?= $sm['tgl_simpanan'] ?></td>
+                                        <td><?php if ($sm['status'] == 2) {
+                                                echo 'Aktif';
+                                            } elseif ($sm['status'] == 1) {
+                                                echo 'Pending';
+                                            } else {
+                                                echo 'Ditolak';
+                                            }
+                                            ?>
+                                        </td>
+                                    </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
@@ -49,15 +55,9 @@
                             <table class="table table-clear">
                                 <tbody>
                                     <tr>
-                                        <td class="left fs-18"><strong>Total Pinjaman</strong></td>
+                                        <td class="left fs-18"><strong>Total Simpanan</strong></td>
                                         <td class="right fs-18">
-                                            <strong><?= 'Rp. ' . number_format($totalPinjaman, 2, ',', '.') ?></strong>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="left fs-18"><strong>Total Pinjaman + Bunga</strong></td>
-                                        <td class="right fs-18">
-                                            <strong><?= 'Rp. ' . number_format($totalBunga, 2, ',', '.') ?></strong>
+                                            <strong><?= 'Rp. ' . number_format($totalSimpanan, 2, ',', '.') ?></strong>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -84,11 +84,14 @@
 <script src="<?= base_url(); ?>assets/js/demo.js"></script>
 
 <script>
-var delayInMilliseconds = 1000; //1 second
+    var delayInMilliseconds = 1000; //1 second
 
-setTimeout(function() {
-    window.print();
-}, delayInMilliseconds);
+    setTimeout(function() {
+        <?php
+        header("Content-type: application/vnd-ms-excel");
+        header("Content-Disposition: attachment; filename=$jenis_laporan.xls");
+        ?>
+    }, delayInMilliseconds);
 </script>
 
 </body>

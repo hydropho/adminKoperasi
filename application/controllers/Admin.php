@@ -10,8 +10,8 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Maaf! </strong>Anda belum login.</div>');
             redirect('auth');
         } else {
-            if ($this->session->userdata('aktif') < 2) {
-                if ($this->session->userdata('level') < 2) {
+            if ($this->session->userdata('aktif') <= 2) {
+                if ($this->session->userdata('level') == 1) {
                     redirect('user');
                 }
             }

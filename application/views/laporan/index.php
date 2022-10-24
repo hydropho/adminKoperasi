@@ -14,31 +14,32 @@
                         <h4 class="card-title"><?= $sub_title ?></h4>
                     </div>
                     <div class="card-body">
-                        <form action="<?= base_url('laporan'); ?>" method="POST">
-
+                        <?= $this->session->flashdata('alert_message') ?>
+                        <form action="" method="POST" id="formPrint">
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Dari Tanggal</label>
-                                    <input type="date" class="form-control">
+                                    <input type="date" class="form-control" name="tgl_awal">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Sampai Tanggal</label>
-                                    <input type="date" class="form-control">
+                                    <input type="date" class="form-control" name="tgl_akhir">
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="mb-3 col-md-4">
+                                <div class="mb-5 col-md-4">
                                     <label class="form-label">Jenis Laporan</label>
-                                    <select id="inputState" class="default-select form-control wide">
-                                        <option selected="">Pilih Jenis Laporan</option>
-                                        <option value="laporan_pinjaman">Laporan Pinjaman</option>
-                                        <option value="laporan_simpanan_pokok">Laporan Simpanan Pokok</option>
-                                        <option value="laporan_simpanan_wajib">Laporan Simpanan Wajib</option>
-                                        <option value="laporan_simpanan_sukarela">Laporan Simpanan Sukarela</option>
+                                    <select id="inputState" name="jenis_laporan" class="default-select form-control wide" required>
+                                        <option selected value="" disabled>Pilih Jenis Laporan</option>
+                                        <option value="pinjaman">Laporan Pinjaman</option>
+                                        <option value="simpananPokok">Laporan Simpanan Pokok</option>
+                                        <option value="simpananWajib">Laporan Simpanan Wajib</option>
+                                        <option value="simpananSukarela">Laporan Simpanan Sukarela</option>
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Cek Laporan</button>
+                            <button type="submit" class="btn btn-primary" name="cetakPDF" formaction="<?= base_url('laporan/print/pdf'); ?>">Cetak Laporan PDF</button>
+                            <button type="submit" class="btn btn-primary" name="cetakExcel" formaction="<?= base_url('laporan/print/excel'); ?>">Cetak Laporan Excel</button>
                         </form>
                     </div>
                 </div>

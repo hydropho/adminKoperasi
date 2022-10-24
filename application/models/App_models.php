@@ -104,7 +104,7 @@ class App_Models extends CI_Model
 		$this->db->query($query);
 	}
 
-	public function setBayar($tgl_bayar, $id)
+	public function setBayar($tgl_bayar, $id, $no_pinjaman)
 	{
 		$query = "UPDATE `angsuran` 
                 SET `tgl_bayar` = $tgl_bayar,
@@ -125,7 +125,7 @@ class App_Models extends CI_Model
 		$this->db->query($query);
 	}
 
-	public function setKonfirmasi($id)
+	public function setKonfirmasi($id, $no_pinjaman)
 	{
 		$query = "UPDATE `angsuran` 
                 SET `status`    = 2
@@ -133,6 +133,24 @@ class App_Models extends CI_Model
                 ";
 
 		$this->db->query($query);
+
+		$query = "SELECT a.status 
+				  FROM angsuran AS a 
+				  JOIN pinjaman AS b
+				  ON b.no_pinjaman = a.no_pinjaman
+				  WHERE b.no_pinjaman = $no_pinjaman
+				  ORDER BY a.angsuran DESC
+				  LIMIT 1";
+
+		$status = $this->db->query($query)->row_array();
+		if ($status['status'] == 2) {
+			$query = "UPDATE `pinjaman` 
+                SET `status`    = 1
+                WHERE `no_pinjaman` = $no_pinjaman
+                ";
+
+			$this->db->query($query);
+		}
 	}
 
 	public function angsuran($tanggal, $jangka_waktu)
@@ -283,117 +301,29 @@ class App_Models extends CI_Model
 		}
 	}
 
-	public function getPinjaman()
+	public function validasiSimpanan()
 	{
-		$query = "SELECT * FROM pinjaman";
-		$pinjaman = $this->db->query($query)->result_array();
+		$username = $this->session->userdata('username');
+		$query = "SELECT no_simpanan FROM simpanan WHERE username = '$username' AND jenis_simpanan = 'Simpanan Pokok'";
 
-		return $pinjaman;
+		return $this->db->query($query)->num_rows();
 	}
 
-	public function getPinjamanAktif()
+	public function getStatusPinjaman()
 	{
-		$query = "SELECT * FROM pinjaman WHERE keterangan = 2";
-		$pinjaman = $this->db->query($query)->result_array();
+		$username = $this->session->userdata('username');
+		$query = "SELECT status FROM pinjaman WHERE username = '$username' AND keterangan > 0 ORDER BY no_pinjaman DESC LIMIT 1";
+		$status = $this->db->query($query)->row_array();
 
-		return $pinjaman;
+		return $status['status'];
 	}
 
-	public function getBunga()
+	public function getJumlahStatusPinjaman()
 	{
-		$query = "SELECT (SUM(angsuran * jangka_waktu)) as total FROM pinjaman";
-		$total = $this->db->query($query)->row_array();
+		$username = $this->session->userdata('username');
+		$query = "SELECT no_pinjaman FROM pinjaman WHERE username = '$username' AND keterangan > 0 AND status = 0";
 
-		return $total['total'];
-	}
-
-
-	public function getBungaAktif()
-	{
-		$query = "SELECT (SUM(angsuran * jangka_waktu)) as total FROM pinjaman WHERE keterangan = 2";
-		$total = $this->db->query($query)->row_array();
-
-		return $total['total'];
-	}
-
-	public function getSimpanan()
-	{
-		$query = "SELECT * FROM simpanan";
-		$simpanan = $this->db->query($query)->result_array();
-
-		return $simpanan;
-	}
-
-	public function getSimpananAktif()
-	{
-		$query = "SELECT * FROM simpanan WHERE status = 2";
-		$simpanan = $this->db->query($query)->result_array();
-
-		return $simpanan;
-	}
-
-	public function getTotalSimpanan()
-	{
-		$query = "SELECT SUM(simpanan) as totalsimpanan FROM simpanan";
-		$totalsimpanan = $this->db->query($query)->row_array();
-
-		return $totalsimpanan['totalsimpanan'];
-	}
-
-	public function getTotalPinjaman()
-	{
-		$query = "SELECT SUM(pinjaman_pokok) as totalpinjaman FROM pinjaman";
-		$totalsimpanan = $this->db->query($query)->row_array();
-
-		return $totalsimpanan['totalpinjaman'];
-	}
-
-	public function getTotalSimpananAktif()
-	{
-		$query = "SELECT SUM(simpanan) as totalsimpanan FROM simpanan WHERE status = 2";
-		$totalsimpanan = $this->db->query($query)->row_array();
-
-		return $totalsimpanan['totalsimpanan'];
-	}
-
-	public function getTotalPinjamanAktif()
-	{
-		$query = "SELECT SUM(pinjaman_pokok) as totalPinjaman FROM pinjaman WHERE keterangan = 2";
-		$totalPinjaman = $this->db->query($query)->row_array();
-
-		return $totalPinjaman['totalPinjaman'];
-	}
-
-	public function getJumlahSimpanan()
-	{
-		$query = "SELECT no_simpanan FROM simpanan";
-		$jumlahSimpanan = $this->db->query($query)->num_rows();
-
-		return $jumlahSimpanan;
-	}
-
-	public function getJumlahPinjaman()
-	{
-		$query = "SELECT no_pinjaman FROM pinjaman";
-		$jumlahPinjaman = $this->db->query($query)->num_rows();
-
-		return $jumlahPinjaman;
-	}
-
-	public function getJumlahSimpananAktif()
-	{
-		$query = "SELECT no_simpanan FROM simpanan WHERE status = 2";
-		$jumlahSimpanan = $this->db->query($query)->num_rows();
-
-		return $jumlahSimpanan;
-	}
-
-	public function getJumlahPinjamanAktif()
-	{
-		$query = "SELECT no_pinjaman FROM pinjaman WHERE keterangan = 2";
-		$jumlahPinjaman = $this->db->query($query)->num_rows();
-
-		return $jumlahPinjaman;
+		return $this->db->query($query)->num_rows();
 	}
 }
 /* End of file app_model.php */

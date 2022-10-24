@@ -60,123 +60,123 @@
 
 
 <script>
-function terms_changed(termsCheckBox) {
-    if (termsCheckBox.checked) {
-        document.getElementById("button_daftar").disabled = false;
-    } else {
-        document.getElementById("button_daftar").disabled = true;
+    function terms_changed(termsCheckBox) {
+        if (termsCheckBox.checked) {
+            document.getElementById("button_daftar").disabled = false;
+        } else {
+            document.getElementById("button_daftar").disabled = true;
+        }
     }
-}
 </script>
 
 <script>
-document.getElementById('simulasi_form').addEventListener('submit', computeResult);
+    document.getElementById('simulasi_form').addEventListener('submit', computeResult);
 
 
-function computeResult(e) {
+    function computeResult(e) {
 
-    const formatIDR = new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR'
-    });
-    const pokokPinjaman = document.getElementById('pokokPinjaman').value;
-    const jangkaWaktu = document.getElementById('jangkaWaktu').value;
-    const bunga = document.getElementById('bunga').value;
+        const formatIDR = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR'
+        });
+        const pokokPinjaman = document.getElementById('pokokPinjaman').value;
+        const jangkaWaktu = document.getElementById('jangkaWaktu').value;
+        const bunga = document.getElementById('bunga').value;
 
-    document.getElementById('outPinjamanPokok').innerHTML = formatIDR.format(pokokPinjaman);
-    document.getElementById('outJangkaWaktu').innerHTML = jangkaWaktu + ' Bulan';
-    document.getElementById('outBunga').innerHTML = bunga + '%';
+        document.getElementById('outPinjamanPokok').innerHTML = formatIDR.format(pokokPinjaman);
+        document.getElementById('outJangkaWaktu').innerHTML = jangkaWaktu + ' Bulan';
+        document.getElementById('outBunga').innerHTML = bunga + '%';
 
-    const angsuranPokok = pokokPinjaman / jangkaWaktu;
-    const angsuranBunga = (pokokPinjaman / jangkaWaktu) * ((bunga * jangkaWaktu) / 100);
-    const totalAngsuran = angsuranPokok + angsuranBunga;
+        const angsuranPokok = pokokPinjaman / jangkaWaktu;
+        const angsuranBunga = (pokokPinjaman / jangkaWaktu) * ((bunga * jangkaWaktu) / 100);
+        const totalAngsuran = angsuranPokok + angsuranBunga;
 
-    document.getElementById('outAngsuranPokok').innerHTML = formatIDR.format(angsuranPokok);
-    document.getElementById('outAngsuranBunga').innerHTML = formatIDR.format(angsuranBunga);
-    document.getElementById('outTotalAngsuran').innerHTML = formatIDR.format(totalAngsuran);
+        document.getElementById('outAngsuranPokok').innerHTML = formatIDR.format(angsuranPokok);
+        document.getElementById('outAngsuranBunga').innerHTML = formatIDR.format(angsuranBunga);
+        document.getElementById('outTotalAngsuran').innerHTML = formatIDR.format(totalAngsuran);
 
-    e.preventDefault();
-}
+        e.preventDefault();
+    }
 </script>
 
 <script>
-function cardsCenter() {
+    function cardsCenter() {
 
-    /*  testimonial one function by = owl.carousel.js */
+        /*  testimonial one function by = owl.carousel.js */
 
 
 
-    jQuery('.card-slider').owlCarousel({
-        loop: true,
-        margin: 0,
-        nav: true,
-        center: true,
-        animateOut: 'fadeOut',
-        animateIn: 'fadeIn',
-        slideSpeed: 3000,
-        paginationSpeed: 3000,
-        dots: false,
-        navText: ['', ''],
-        responsive: {
-            0: {
-                items: 1
-            },
-            576: {
-                items: 1
-            },
-            800: {
-                items: 2
-            },
-            991: {
-                items: 2
-            },
-            1200: {
-                items: 2
-            },
-            1600: {
-                items: 3
-            }
-        }
-    })
-}
-
-jQuery(window).on('load', function() {
-    setTimeout(function() {
-        cardsCenter();
-    }, 1000);
-});
-</script>
-<script>
-var polarChart = function() {
-    var ctx = document.getElementById("chartData").getContext('2d');
-    Chart.defaults.global.legend.display = false;
-    var myChart = new Chart(ctx, {
-        type: 'polarArea',
-        data: {
-            labels: ["Simpanan", "Pinjaman"],
-            datasets: [{
-                backgroundColor: [
-                    "#496ecc",
-                    "#68e365"
-                ],
-                data: [<?= $simpanan . ',' . $pinjaman ?>]
-            }]
-        },
-        options: {
-            maintainAspectRatio: false,
-            scale: {
-                scaleShowLine: false,
-                display: false,
-                pointLabels: {
-                    fontSize: 0
+        jQuery('.card-slider').owlCarousel({
+            loop: true,
+            margin: 0,
+            nav: true,
+            center: true,
+            animateOut: 'fadeOut',
+            animateIn: 'fadeIn',
+            slideSpeed: 3000,
+            paginationSpeed: 3000,
+            dots: false,
+            navText: ['', ''],
+            responsive: {
+                0: {
+                    items: 1
                 },
-            },
-            tooltips: {
-                enabled: false,
+                576: {
+                    items: 1
+                },
+                800: {
+                    items: 2
+                },
+                991: {
+                    items: 2
+                },
+                1200: {
+                    items: 2
+                },
+                1600: {
+                    items: 3
+                }
             }
-        }
+        })
+    }
+
+    jQuery(window).on('load', function() {
+        setTimeout(function() {
+            cardsCenter();
+        }, 1000);
     });
-}
+</script>
+<script>
+    var polarChart = function() {
+        var ctx = document.getElementById("chartData").getContext('2d');
+        Chart.defaults.global.legend.display = false;
+        var myChart = new Chart(ctx, {
+            type: 'polarArea',
+            data: {
+                labels: ["Simpanan", "Pinjaman"],
+                datasets: [{
+                    backgroundColor: [
+                        "#496ecc",
+                        "#68e365"
+                    ],
+                    data: [<?= $simpanan . ',' . $pinjaman ?>]
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scale: {
+                    scaleShowLine: false,
+                    display: false,
+                    pointLabels: {
+                        fontSize: 0
+                    },
+                },
+                tooltips: {
+                    enabled: false,
+                }
+            }
+        });
+    }
 </script>
 </body>
 

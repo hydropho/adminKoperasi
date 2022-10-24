@@ -55,6 +55,15 @@ class Pinjaman extends CI_Controller
 
     public function tambah()
     {
+        $statusPinjaman = $this->app_models->getStatusPinjaman();
+        $jumlahPinjaman = $this->app_models->getJumlahStatusPinjaman();
+
+        if ($jumlahPinjaman > 0) {
+            if ($statusPinjaman == 0) {
+                $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Gagal meminjam! </strong>Silahkan selesaikan pinjaman sebelumnya.</div>');
+                redirect('pinjaman');
+            }
+        }
         $tanggal = $this->input->post('tgl_pinjaman');
         $jangka_waktu = '+' . $this->input->post('jangka_waktu') . ' months';
         $tgl_selesai = date('Y-m-d', strtotime($tanggal . $jangka_waktu));
@@ -93,9 +102,10 @@ class Pinjaman extends CI_Controller
     public function bayar()
     {
         $id = $this->input->post('id');
+        $no_pinjaman = $this->input->post('no_pinjaman');
         $tgl_bayar = $this->input->post('tgl_bayar');
 
-        $this->app_models->setBayar($tgl_bayar, $id);
+        $this->app_models->setBayar($tgl_bayar, $id, $no_pinjaman);
         $this->session->set_flashdata('alert_message', '<div class="alert alert-success alert-dismissible fade show"><strong>Berhasil Membayar! </strong>Akan dicek kembali oleh admin.</div>');
         redirect('pinjaman/tagihan');
     }
@@ -107,9 +117,9 @@ class Pinjaman extends CI_Controller
         redirect('pinjaman/tagihan');
     }
 
-    public function konfirmasi($id)
+    public function konfirmasi($id, $no_pinjaman)
     {
-        $this->app_models->setKonfirmasi($id);
+        $this->app_models->setKonfirmasi($id, $no_pinjaman);
         $this->session->set_flashdata('alert_message', '<div class="alert alert-success alert-dismissible fade show"><strong>Berhasil! </strong>Mengonfirmasi pembayaran user.</div>');
         redirect('pinjaman/tagihan');
     }

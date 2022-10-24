@@ -12,6 +12,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title"><?= $sub_title ?></h4>
+                        <?php if ($this->session->userdata('level') == 2) : ?>
+                            <a class="btn btn-primary btn-rounded btn-md mx-3" href="<?= base_url('laporan/printSHU') ?>">Cetak Laporan</a>
+                        <?php endif; ?>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -31,36 +34,65 @@
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    $users = $this->db->get('user')->result_array();
-                                    foreach ($users as $user) :
-                                        $username = $user['username'];
+                                    if ($this->session->userdata('level') == 2) :
+                                        $users = $this->db->get('user')->result_array();
+
+                                        foreach ($users as $user) :
+                                            $username = $user['username'];
+                                            $query = " SELECT `username`, (SELECT SUM(`pinjaman_pokok`) FROM `pinjaman` WHERE `username` = '$username' AND keterangan = '2') AS pinjaman,
+                                                    (SELECT SUM(`simpanan`) FROM `simpanan`  WHERE `username` = '$username' AND status = '2') AS simpanan
+                                                    FROM `user` WHERE `username` = '$username'";
+                                            $total = $this->db->query($query)->row_array()
+                                    ?>
+                                            <tr>
+                                                <td><?= $no++ ?></td>
+                                                <td class="text-center"><?= $user['username'] ?></td>
+                                                <?php if ($total['simpanan'] == NULL) : ?>
+                                                    <td>-</td>
+                                                <?php else : ?>
+                                                    <td><?= "Rp. " . number_format($total['simpanan'], 2, ',', '.'); ?></td>
+                                                <?php endif; ?>
+
+                                                <?php if ($total['pinjaman'] == NULL) : ?>
+                                                    <td>-</td>
+                                                <?php else : ?>
+                                                    <td><?= "Rp. " . number_format($total['pinjaman'], 2, ',', '.'); ?></td>
+                                                <?php endif; ?>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                    <?php endforeach;
+                                    endif; ?>
+                                    <?php
+                                    $no = 1;
+                                    if ($this->session->userdata('level') == 1) :
+
+                                        $username = $this->session->userdata('username');
                                         $query = " SELECT `username`, (SELECT SUM(`pinjaman_pokok`) FROM `pinjaman` WHERE `username` = '$username' AND keterangan = '2') AS pinjaman,
                                                     (SELECT SUM(`simpanan`) FROM `simpanan`  WHERE `username` = '$username' AND status = '2') AS simpanan
-                                                    FROM `user` WHERE `username` = '$username'
-                                        ";
-                                        $total = $this->db->query($query)->row_array();
+                                                    FROM `user` WHERE `username` = '$username'";
+                                        $total = $this->db->query($query)->row_array()
                                     ?>
-                                    <tr>
-                                        <td><?= $no++ ?></td>
-                                        <td class="text-center"><?= $user['username'] ?></td>
-                                        <?php if ($total['simpanan'] == NULL) : ?>
-                                        <td>-</td>
-                                        <?php else : ?>
-                                        <td><?= "Rp. " . number_format($total['simpanan'], 2, ',', '.'); ?></td>
-                                        <?php endif; ?>
+                                        <tr>
+                                            <td><?= $no++ ?></td>
+                                            <td class="text-center"><?= $user['username'] ?></td>
+                                            <?php if ($total['simpanan'] == NULL) : ?>
+                                                <td>-</td>
+                                            <?php else : ?>
+                                                <td><?= "Rp. " . number_format($total['simpanan'], 2, ',', '.'); ?></td>
+                                            <?php endif; ?>
 
-                                        <?php if ($total['pinjaman'] == NULL) : ?>
-                                        <td>-</td>
-                                        <?php else : ?>
-                                        <td><?= "Rp. " . number_format($total['pinjaman'], 2, ',', '.'); ?></td>
-                                        <?php endif; ?>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>-</td>
-
-
-                                    </tr>
-                                    <?php endforeach; ?>
+                                            <?php if ($total['pinjaman'] == NULL) : ?>
+                                                <td>-</td>
+                                            <?php else : ?>
+                                                <td><?= "Rp. " . number_format($total['pinjaman'], 2, ',', '.'); ?></td>
+                                            <?php endif; ?>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                        </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
