@@ -29,7 +29,7 @@
                             <div class="row">
                                 <div class="mb-5 col-md-4">
                                     <label class="form-label">Jenis Laporan</label>
-                                    <select id="inputState" name="jenis_laporan" class="default-select form-control wide" required>
+                                    <select id="inputState" name="jenis_laporan" class="default-select form-control wide">
                                         <option selected value="" disabled>Pilih Jenis Laporan</option>
                                         <option value="pinjaman">Laporan Pinjaman</option>
                                         <option value="simpananPokok">Laporan Simpanan Pokok</option>
@@ -38,9 +38,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary" name="cetakPDF" formaction="<?= base_url('laporan/cek_laporan/cekLaporan'); ?>">Cek Laporan</button>
-                            <button type="submit" class="btn btn-primary" name="cetakPDF" formaction="<?= base_url('laporan/print/pdf'); ?>">Cetak Laporan PDF</button>
-                            <button type="submit" class="btn btn-primary" name="cetakExcel" formaction="<?= base_url('laporan/print/excel'); ?>">Cetak Laporan Excel</button>
+                            <button type="submit" class="btn btn-primary" name="cekLaporan" formaction="<?= base_url('laporan/cekLaporan'); ?>">Cek Laporan</button>
                         </form>
                     </div>
                 </div>

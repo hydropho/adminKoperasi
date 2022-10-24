@@ -33,70 +33,6 @@ class Laporan extends CI_Controller
         $this->load->view('laporan/index', $data);
         $this->load->view('templates/footer');
     }
-    public function laporan_pinjaman()
-    {
-        $data['title'] = 'Laporan';
-        $data['sub_title'] = 'Laporan Pinjaman';
-        $data['status'] = 'User';
-        $data['corp_name'] = 'Kotree';
-        $data['kelompok'] = 'Kelompok 3';
-        $data['user'] = $this->app_models->getUserTable('user');
-        $data['userdata'] = $this->app_models->getUserTable('userdata');
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/navbar', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('laporan/laporan_pinjaman', $data);
-        $this->load->view('templates/footer');
-    }
-    public function laporan_simpanan_pokok()
-    {
-        $data['title'] = 'Laporan';
-        $data['sub_title'] = 'Laporan Simpanan Pokok';
-        $data['status'] = 'User';
-        $data['corp_name'] = 'Kotree';
-        $data['kelompok'] = 'Kelompok 3';
-        $data['user'] = $this->app_models->getUserTable('user');
-        $data['userdata'] = $this->app_models->getUserTable('userdata');
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/navbar', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('laporan/laporan_simpanan_pokok', $data);
-        $this->load->view('templates/footer');
-    }
-    public function laporan_simpanan_wajib()
-    {
-        $data['title'] = 'Laporan';
-        $data['sub_title'] = 'Laporan Simpanan Wajib';
-        $data['status'] = 'User';
-        $data['corp_name'] = 'Kotree';
-        $data['kelompok'] = 'Kelompok 3';
-        $data['user'] = $this->app_models->getUserTable('user');
-        $data['userdata'] = $this->app_models->getUserTable('userdata');
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/navbar', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('laporan/laporan_simpanan_wajib', $data);
-        $this->load->view('templates/footer');
-    }
-    public function laporan_simpanan_sukarela()
-    {
-        $data['title'] = 'Laporan';
-        $data['sub_title'] = 'Laporan Simpanan Sukarela';
-        $data['status'] = 'User';
-        $data['corp_name'] = 'Kotree';
-        $data['kelompok'] = 'Kelompok 3';
-        $data['user'] = $this->app_models->getUserTable('user');
-        $data['userdata'] = $this->app_models->getUserTable('userdata');
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/navbar', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('laporan/laporan_simpanan_sukarela', $data);
-        $this->load->view('templates/footer');
-    }
 
     public function bukti()
     {
@@ -116,11 +52,20 @@ class Laporan extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function print($jenis)
+    public function proses($jenis, $tgl_awal, $tgl_akhir, $jenis_laporan)
     {
-        $jenis_laporan = $this->input->post('jenis_laporan');
-        $tgl_awal = $this->input->post('tgl_awal');
-        $tgl_akhir = $this->input->post('tgl_akhir');
+        $full = [$jenis, $tgl_awal, $tgl_akhir, $jenis_laporan];
+        $this->session->set_flashdata('full', $full);
+        redirect('laporan/print');
+    }
+
+    public function print()
+    {
+        $full = $this->session->flashdata('full');
+        $jenis = $full[0];
+        $tgl_awal = $full[1];
+        $tgl_akhir = $full[2];
+        $jenis_laporan = $full[3];
 
         $filter = [
             $tgl_awal, $tgl_akhir, $jenis_laporan, $jenis
@@ -172,36 +117,125 @@ class Laporan extends CI_Controller
             }
         }
     }
-    public function cek_laporan($jenis)
+
+    public function cekLaporan()
     {
         $jenis_laporan = $this->input->post('jenis_laporan');
         $tgl_awal = $this->input->post('tgl_awal');
         $tgl_akhir = $this->input->post('tgl_akhir');
+        $data['tgl_awal'] = $tgl_awal;
+        $data['tgl_akhir'] = $tgl_akhir;
+        $data['jenis_laporan'] = $jenis_laporan;
 
-        $filter = [
-            $tgl_awal, $tgl_akhir, $jenis_laporan, $jenis
-        ];
-
-        if ($jenis == 'cekLaporan') {
-            if ($jenis_laporan == '') {
-                $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Gagal! </strong>Jenis Laporan wajib diisi!</div>');
+        if ($jenis_laporan == '') {
+            $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Gagal! </strong>Jenis Laporan wajib diisi!</div>');
+            redirect('laporan');
+        } else {
+            if ($tgl_awal != '' && $tgl_akhir == '') {
+                $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Gagal! </strong>Silahkan isi tanggal akhir.</div>');
                 redirect('laporan');
-            } else {
-                if ($tgl_awal != '' && $tgl_akhir == '') {
-                    $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Gagal! </strong>Silahkan isi tanggal akhir.</div>');
-                    redirect('laporan');
-                } elseif ($tgl_awal == '' && $tgl_akhir != '') {
-                    $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Gagal! </strong>Silahkan isi tanggal awal.</div>');
-                    redirect('laporan');
-                } elseif ($tgl_awal == '' && $tgl_akhir == '') {
-                    if ($jenis_laporan == 'pinjaman') {
-                        redirect('laporan/laporan_pinjaman');
-                    } elseif ($jenis_laporan == 'simpananPokok') {
-                        redirect('laporan/laporan_simpanan_pokok');
+            } elseif ($tgl_awal == '' && $tgl_akhir != '') {
+                $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Gagal! </strong>Silahkan isi tanggal awal.</div>');
+                redirect('laporan');
+            } elseif ($tgl_awal == '' && $tgl_akhir == '') {
+                if ($jenis_laporan == 'pinjaman') {
+                    $data['title'] = 'Laporan';
+                    $data['sub_title'] = 'Laporan Pinjaman';
+                    $data['status'] = 'User';
+                    $data['corp_name'] = 'Kotree';
+                    $data['kelompok'] = 'Kelompok 3';
+                    $data['user'] = $this->app_models->getUserTable('user');
+                    $data['userdata'] = $this->app_models->getUserTable('userdata');
+                    $data['tanggal'] = new DateTime();
+
+                    $data['pinjaman'] = $this->print_models->getPinjaman();
+                    $data['totalPinjaman'] = $this->print_models->getTotalPinjaman();
+                    $data['totalBunga'] = $this->print_models->getBunga();
+
+                    $this->load->view('templates/header', $data);
+                    $this->load->view('templates/navbar', $data);
+                    $this->load->view('templates/sidebar', $data);
+                    $this->load->view('laporan/cekLaporanPinjaman', $data);
+                    $this->load->view('templates/footer');
+                } else {
+                    if ($jenis_laporan == 'simpananPokok') {
+                        $jenis_laporan = 'Simpanan Pokok';
                     } elseif ($jenis_laporan == 'simpananWajib') {
-                        redirect('laporan/laporan_simpanan_wajib');
+                        $jenis_laporan = 'Simpanan Wajib';
                     } elseif ($jenis_laporan == 'simpananSukarela') {
-                        redirect('laporan/laporan_simpanan_sukarela');
+                        $jenis_laporan = 'Simpanan Sukarela';
+                    }
+                    $data['title'] = 'Laporan';
+                    $data['sub_title'] = 'Laporan ' . $jenis_laporan;
+                    $data['status'] = 'User';
+                    $data['corp_name'] = 'Kotree';
+                    $data['kelompok'] = 'Kelompok 3';
+                    $data['user'] = $this->app_models->getUserTable('user');
+                    $data['userdata'] = $this->app_models->getUserTable('userdata');
+                    $data['tanggal'] = new DateTime();
+
+
+                    $data['simpanan'] = $this->print_models->getSimpanan($jenis_laporan);
+                    $data['totalSimpanan'] = $this->print_models->getTotalSimpanan($jenis_laporan);
+
+                    $this->load->view('templates/header', $data);
+                    $this->load->view('templates/navbar', $data);
+                    $this->load->view('templates/sidebar', $data);
+                    $this->load->view('laporan/cekLaporanSimpanan', $data);
+                    $this->load->view('templates/footer');
+                }
+            } else {
+                $data['title'] = 'Laporan';
+                $data['status'] = 'User';
+                $data['corp_name'] = 'Kotree';
+                $data['kelompok'] = 'Kelompok 3';
+                $data['user'] = $this->app_models->getUserTable('user');
+                $data['userdata'] = $this->app_models->getUserTable('userdata');
+                $data['tanggal'] = new DateTime();
+
+                if ($jenis_laporan == 'pinjaman') {
+                    $data['sub_title'] = 'Laporan Pinjaman';
+                    $data['pinjaman'] = $this->print_models->getPinjamanByTanggal($tgl_awal, $tgl_akhir);
+                    $data['totalPinjaman'] = $this->print_models->getTotalPinjamanByTanggal($tgl_awal, $tgl_akhir);
+                    $data['totalBunga'] = $this->print_models->getBungaByTanggal($tgl_awal, $tgl_akhir);
+
+                    if ($data['pinjaman'] == NULL) {
+                        $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Gagal mencetak! </strong>Tidak ada data.</div>');
+                        redirect('laporan');
+                    } else {
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('templates/navbar', $data);
+                        $this->load->view('templates/sidebar', $data);
+                        $this->load->view('laporan/cekLaporanPinjaman', $data);
+                        $this->load->view('templates/footer');
+                    }
+                } else {
+                    if ($jenis_laporan == 'simpananPokok') {
+                        $jenis_laporan = 'Simpanan Pokok';
+                    } elseif ($jenis_laporan == 'simpananWajib') {
+                        $jenis_laporan = 'Simpanan Wajib';
+                    } elseif ($jenis_laporan == 'simpananSukarela') {
+                        $jenis_laporan = 'Simpanan Sukarela';
+                    }
+
+                    $data['simpanan'] = $this->print_models->getSimpananByTanggalAndJenis($tgl_awal, $tgl_akhir, $jenis_laporan);
+                    $data['totalSimpanan'] = $this->print_models->getTotalSimpananByTanggalAndJenis($tgl_awal, $tgl_akhir, $jenis_laporan);
+
+                    if ($data['simpanan'] == NULL) {
+                        $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Gagal mencetak! </strong>Tidak ada data.</div>');
+                        redirect('laporan');
+                    } else {
+                        $data['title'] = 'Laporan';
+                        $data['sub_title'] = 'Laporan ' . $jenis_laporan;
+                        $data['status'] = 'User';
+                        $data['corp_name'] = 'Kotree';
+                        $data['kelompok'] = 'Kelompok 3';
+
+                        $this->load->view('templates/header', $data);
+                        $this->load->view('templates/navbar', $data);
+                        $this->load->view('templates/sidebar', $data);
+                        $this->load->view('laporan/cekLaporanSimpanan', $data);
+                        $this->load->view('templates/footer');
                     }
                 }
             }
