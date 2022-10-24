@@ -120,8 +120,15 @@
                                                 </div>
                                                 <input type="text" class="form-control" value="<?= $user['username'] ?>" readonly name="username" hidden>
                                                 <div class="mb-3">
+                                                    
                                                     <label class="form-label">Simpanan</label>
-                                                    <input type="number" class="form-control" placeholder="Rp" name="simpanan" required oninvalid="this.setCustomValidity('Simpanan harus di isi!')" oninput="this.setCustomValidity('')">
+                                                    <?php if ($validasiSimpanan > 0) { ?>
+                                                            <input type="number" class="form-control" placeholder="Rp" name="simpanan" required oninvalid="this.setCustomValidity('Simpanan harus di isi!')" oninput="this.setCustomValidity('')">
+                                                    <?php }else { ?>
+                                                            <input type="number" class="form-control" placeholder="Rp" readonly name="simpanan" value="2000000" required oninvalid="this.setCustomValidity('Simpanan harus di isi!')" oninput="this.setCustomValidity('')">
+                                                    <?php } ?>
+
+
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Jenis Simpanan</label>
@@ -132,8 +139,6 @@
                                                             <option>Simpanan Sukarela</option>
                                                         <?php else : ?>
                                                             <option>Simpanan Pokok</option>
-                                                            <option>Simpanan Wajib</option>
-                                                            <option>Simpanan Sukarela</option>
                                                         <?php endif; ?>
                                                     </select>
                                                 </div>

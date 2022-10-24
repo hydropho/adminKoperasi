@@ -131,3 +131,4 @@ class Simpanan extends CI_Controller
         redirect('simpanan');
     }
 }
+
