@@ -55,8 +55,17 @@ class Pinjaman extends CI_Controller
 
     public function tambah()
     {
+        $simpanan = $this->db->get_where('simpanan', ['username' => $this->session->userdata('username')])->row_array();
         $statusPinjaman = $this->app_models->getStatusPinjaman();
         $jumlahPinjaman = $this->app_models->getJumlahStatusPinjaman();
+
+        if ($simpanan['simpanan'] < $this->input->post('pinjaman_pokok')) {
+            echo "Tidak bisa pinjam";
+            $this->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible fade show"><strong>Gagal Pinjam! </strong>Maaf simpananmu kurang dari pinjamanmu.</div>');
+            redirect('pinjaman');
+        } else {
+            $simpanan = "Boleh pinjam";
+        }
 
         if ($jumlahPinjaman > 0) {
             if ($statusPinjaman == 0) {
@@ -64,6 +73,8 @@ class Pinjaman extends CI_Controller
                 redirect('pinjaman');
             }
         }
+
+
         $tanggal = $this->input->post('tgl_pinjaman');
         $jangka_waktu = '+' . $this->input->post('jangka_waktu') . ' months';
         $tgl_selesai = date('Y-m-d', strtotime($tanggal . $jangka_waktu));
